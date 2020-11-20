@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "714698843331",
+    "firebase_url": "https://bookintroapp.firebaseio.com",
+    "project_id": "bookintroapp",
+    "storage_bucket": "bookintroapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714698843331:android:d939234763302243f4ae76",
+        "android_client_info": {
+          "package_name": "com.example.bookintroapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714698843331-elkndcekkq8q65v9udfhr7744h5jjm5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYprMIoBLd-cdLdjnvaCBW72_gH4a37sY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714698843331-elkndcekkq8q65v9udfhr7744h5jjm5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,108 @@
+<resources>
+    <string name="app_name">BookIntroApp</string>
+
+    <!-- 定義情報 -->
+    <string name="signup_username_len">10</string>
+    <string name="signup_passwd_len">10</string>
+
+
+
+    <!-- レイアウト -->
+
+    <!-- サインイン画面 -->
+    <string name="signin_title">サインイン</string>
+    <string name="signin_contents">各項目を入力してサインインしてください</string>
+    <string name="signin_mail">メールアドレス</string>
+    <string name="signin_passwd">パスワード</string>
+    <string name="signin_error">ノーエラー</string>
+    <string name="signin_forgot_contents">パスワードを忘れた方は\nパスワード変更を押してください。</string>
+    <string name="signin_button_changepasswd">パスワード変更</string>
+    <string name="signin_button_signup">サインアップ</string>
+    <string name="signin_button_signin">サインイン</string>
+
+    <!-- サインアップ画面 -->
+    <string name="signup_title">サインアップ</string>
+    <string name="signup_contents">各項目を入力して、サインアップしてください。</string>
+    <string name="signup_user">ユーザ名</string>
+    <string name="signup_mail">メールアドレス</string>
+    <string name="signup_passwd">パスワード</string>
+    <string name="signup_passwd_one">パスワード(確認用)</string>
+    <string name="signup_passwd_forgot">パスワード(忘れた場合)</string>
+    <string name="signup_error">ノーエラー</string>
+    <string name="signup_button">サインアップ</string>
+
+    <string name="signup_success_title">サインアップ実行</string>
+    <string name="signup_success_contents">サインアップしました。</string>
+
+    <!-- パスワード変更 -->
+    <string name="passwd_title">パスワード変更</string>
+    <string name="passwd_contents">各項目を入力して、パスワード変更してください。</string>
+    <string name="passwd_mail">メールアドレス</string>
+    <string name="passwd_forgot">忘れた時のパスワード</string>
+    <string name="passwd_new_passwd">新しいパスワード</string>
+    <string name="passwd_one_passwd">新しいパスワード(確認用)</string>
+    <string name="passwd_error">ノーエラー</string>
+    <string name="passwd_button">パスワード変更</string>
+
+    <string name="passwd_success_title">パスワード変更実行</string>
+    <string name="passwd_success_contents">パスワードを変更しました</string>
+
+    <!-- 書籍リスト一覧 -->
+    <string name="book_main_title">書籍リスト</string>
+    <string name="book_main_user_title">〇〇さんの投稿</string>
+
+    <!-- 書籍詳細 -->
+    <string name="book_view_title">書籍紹介</string>
+    <string name="book_view_username">〇〇さんの投稿</string>
+    <string name="book_view_bookname">書籍名</string>
+    <string name="book_view_bookcontents">説明</string>
+    <string name="book_view_satis">満足度</string>
+    <string name="book_view_button_good">いいね</string>
+    <string name="book_view_button_bookmark">ブックマーク</string>
+    <string name="book_view_button_reply">返信</string>
+
+    <!-- 書籍投稿 -->
+    <string name="book_add_title">書籍投稿</string>
+    <string name="book_add_contents">〇〇さんの投稿を追加します。</string>
+    <string name="book_add_bookname">書籍名</string>
+    <string name="book_add_booktitle">タイトル</string>
+    <string name="book_add_bookcontents">説明</string>
+    <string name="book_add_satis">満足度</string>
+    <string name="book_add_error">ノーエラー</string>
+    <string name="book_add_button">投稿</string>
+
+    <!-- 書籍投稿変更 -->
+    <string name="book_reply_title">投稿に返信</string>
+    <string name="book_reply_username">〇〇さんの投稿</string>
+    <string name="book_reply_bookname">書籍名</string>
+    <string name="book_reply_booktitle">タイトル</string>
+    <string name="book_reply_replytitle">タイトル</string>
+    <string name="book_reply_replycontents">説明</string>
+    <string name="book_reply_satis">満足度</string>
+    <string name="book_reply_error">ノーエラー</string>
+    <string name="book_reply_button">返信</string>
+
+    <!-- ブックマークリスト -->
+    <string name="book_mark_title">ブックマークリスト</string>
+    <string name="book_mark_username">〇〇さんのブックマーク</string>
+
+    <!-- ダイアログ -->
+    <string name="error_title">ERROR</string>
+    <string name="error_form_empty">全て入力してください。</string>
+    <string name="error_form_name_max">文字超えています。</string>
+    <string name="error_form_email">正しいメールアドレス形式で入力してください</string>
+    <string name="error_form_passwd_len">文字超えています。</string>
+    <string name="error_form_passwd_same">パスワードが一致しません。</string>
+    <string name="error_form_forgot_len">文字超えています。</string>
+
+    <!-- 満足度セレクトボックス -->
+    <string-array name="satis_list">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,96 @@
+package com.example.bookintroapp.form
+
+import android.widget.EditText
+import com.example.bookintroapp.helper.DomainHelper
+
+class SignupForm() {
+
+    init{
+
+    }
+
+    constructor(userNameEditText: EditText, emailEditText: EditText,
+                passwdNewEditText: EditText, passwdOneEditText: EditText,
+                passwdForgotEditText: EditText) :
+                this(){
+        // TODO コンストラクタ
+        UserNameEdit = userNameEditText
+        EmailEdit = emailEditText
+        PasswdNewEdit = passwdNewEditText
+        PasswdOneEdit = passwdOneEditText
+        PasswdForgotEdit = passwdForgotEditText
+    }
+
+    // getter
+    private var UserNameEdit : EditText? = null
+        get(){
+            return field
+        }
+    private var EmailEdit : EditText? = null
+        get(){
+            return field
+        }
+    private var PasswdNewEdit : EditText? = null
+        get(){
+            return field
+        }
+    private var PasswdOneEdit : EditText? = null
+        get(){
+            return field
+        }
+    private var PasswdForgotEdit :  EditText? = null
+        get(){
+            return field
+        }
+
+    fun isEmpty(): Boolean {
+        // TODO 空チェック
+        return ( UserNameEdit?.text.toString().isEmpty() || EmailEdit?.text.toString().isEmpty() ||
+                PasswdNewEdit?.text.toString().isEmpty() || PasswdForgotEdit?.text.toString().isEmpty() );
+    }
+
+    fun checkUserName(max : Int) : Boolean{
+        // TODO ユーザチェック
+        if(UserNameEdit != null){
+            var len : Int = UserNameEdit!!.text.toString().length
+            return ( DomainHelper.IsRange(len, max) )
+        }
+        return false
+    }
+
+    fun checkEmail() : Boolean{
+        // TODO メール形式チェック
+        if(EmailEdit != null){
+            return DomainHelper.IsEmailMatch(EmailEdit!!.text.toString())
+        }
+        return false
+    }
+
+    fun checkNewPasswd_len(max : Int) : Boolean{
+        // TODO パスワードの長さ確認
+        if(PasswdNewEdit != null && PasswdOneEdit != null){
+            var len1 : Int = PasswdNewEdit!!.text.toString().length
+            var len2 : Int = PasswdOneEdit!!.text.toString().length
+            return ( DomainHelper.IsRange(len1, max) && DomainHelper.IsRange(len2, max))
+        }
+        return false
+    }
+
+    fun checkNewPasswd_same() : Boolean{
+        // TODO パスワードの一致確認
+        if(PasswdNewEdit != null && PasswdOneEdit != null){
+            return (DomainHelper.IsSame(PasswdNewEdit!!.text.toString(), PasswdOneEdit!!.text.toString()))
+        }
+        return false
+    }
+
+    fun checkForgotPasswd_len(max : Int) : Boolean{
+        // TODO パスワードの長さ確認
+        if(PasswdForgotEdit != null){
+            var len : Int = PasswdForgotEdit!!.text.toString().length
+            return (DomainHelper.IsRange(len, max))
+        }
+        return false
+    }
+
+}

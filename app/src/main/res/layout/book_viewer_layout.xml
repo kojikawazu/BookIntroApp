@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9AE0FFBB"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/bookview_title_textView"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:text="@string/book_view_title"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="373dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/bookview_contents_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/book_view_username"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/bookview_book_textView"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:text="@string/book_view_bookname"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/bookview_book_edit"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="#FFFFFF"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/bookview_bookcontents_textView"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="@string/book_view_bookcontents"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/bookview_bookcontents_edit"
+                android:layout_width="match_parent"
+                android:layout_height="119dp"
+                android:background="#FFFFFF"
+                android:text="TextView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/bookview_satis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="@string/book_view_satis"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/bookview_satis_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/bookview_iine_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_weight="1"
+                android:text="TextView" />
+
+            <Button
+                android:id="@+id/bookview_iine_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/book_view_button_good" />
+
+            <Button
+                android:id="@+id/bookview_bookmark_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/book_view_button_bookmark" />
+
+            <Button
+                android:id="@+id/bookview_reply_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/book_view_button_reply" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
