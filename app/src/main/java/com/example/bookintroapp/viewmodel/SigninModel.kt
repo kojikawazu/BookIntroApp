@@ -7,10 +7,20 @@ import com.example.bookintroapp.form.SigninForm
 import com.example.bookintroapp.form.SignupForm
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.helper.ControllerLoader
+import com.example.bookintroapp.helper.FirebaseHelpler
+import com.example.bookintroapp.repository.IUserRepository
+import com.example.bookintroapp.repository.UserRepository
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.AuthResult
 
 class SigninModel : ViewModelBase() {
 
+    // フォーム
     private var signinForm: SigninForm? = null
+
+    // リポジトリ
+    private val _userRepository: IUserRepository = UserRepository()
 
     init{
         // TODO 初期化
@@ -61,6 +71,7 @@ class SigninModel : ViewModelBase() {
         // TODO サインインボタンリスナー
 
         // バリデーションチェック
+        // ----------------------------------------------------------------------------------------
         var errorString = isValidate(activity)
 
         // エラーチェック
@@ -70,9 +81,19 @@ class SigninModel : ViewModelBase() {
             return ;
         }
 
-        // サインイン成功
-        ControllerLoader.GetActivity(activity, ControllerLoader.ACTIVITY_BOOK_MAIN)
+        // Firebaseのサインイン処理
+        // ----------------------------------------------------------------------------------------
+        var tsk: Task<AuthResult> = FirebaseHelpler.authSignin(signinForm!!.EmailString, signinForm!!.PasswdString)
+        while(!(tsk.isComplete)){}
+        if(!tsk.isSuccessful){
+            // サインイン失敗
+            ActivityHelper.show_error_dialog(activity, ActivityHelper.getStringDefine(activity, R.string.signin_error_dialog))
+            return
+        }
 
+        // サインイン成功
+        // ----------------------------------------------------------------------------------------
+        ControllerLoader.GetActivity(activity, ControllerLoader.ACTIVITY_BOOK_MAIN)
     }
 
     fun isValidate(activity: AppCompatActivity) : String{

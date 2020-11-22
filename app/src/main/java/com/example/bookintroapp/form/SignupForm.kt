@@ -42,6 +42,31 @@ class SignupForm() {
         get(){
             return field
         }
+    val UserNameString : String
+        get(){
+            if(UserNameEdit != null){   return UserNameEdit!!.text.toString()  }
+            else{                       return ""                       }
+        }
+    val EmailString : String
+        get(){
+            if(EmailEdit != null){   return EmailEdit!!.text.toString()  }
+            else{                       return ""                       }
+        }
+    val PasswdNewString : String
+        get(){
+            if(PasswdNewEdit != null){   return PasswdNewEdit!!.text.toString()  }
+            else{                       return ""                       }
+        }
+    val PasswdOneString : String
+        get(){
+            if(PasswdOneEdit != null){   return PasswdOneEdit!!.text.toString()  }
+            else{                       return ""                       }
+        }
+    val PasswdForgotString : String
+        get(){
+            if(PasswdForgotEdit != null){   return PasswdForgotEdit!!.text.toString()  }
+            else{                       return ""                       }
+        }
 
     fun isEmpty(): Boolean {
         // TODO 空チェック

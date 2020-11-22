@@ -23,6 +23,16 @@ class SigninForm() {
         get(){
             return field
         }
+    val EmailString: String
+        get(){
+            if( EmailEdit != null ){    return EmailEdit!!.text.toString() }
+            else{                       return ""                   }
+        }
+    val PasswdString: String
+        get(){
+            if( PasswdEdit != null ){    return PasswdEdit!!.text.toString() }
+            else{                       return ""                   }
+        }
 
     fun isEmpty(): Boolean {
         // TODO 空チェック
