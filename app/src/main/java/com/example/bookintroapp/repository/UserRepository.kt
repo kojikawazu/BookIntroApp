@@ -2,15 +2,12 @@ package com.example.bookintroapp.repository
 
 import android.util.Log
 import androidx.constraintlayout.widget.Constraints.TAG
-import com.example.bookintroapp.entity.UserEntity
-import com.example.bookintroapp.helper.ActivityHelper
-import com.example.bookintroapp.helper.ControllerLoader
+import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 import java.util.Date
 import java.sql.Timestamp
-import java.text.SimpleDateFormat
 
 class UserRepository : IUserRepository {
 
@@ -34,12 +31,22 @@ class UserRepository : IUserRepository {
         return list
     }
 
-    override fun select_byNameEmail(name: String, email: String): Task<QuerySnapshot> {
+    override fun select_byEmail(email: String): Task<QuerySnapshot> {
         // TODO 名前とメールアドレスの一致確認
         val collection = FirebaseHelpler.getCollection()
-        var tsk: Task<QuerySnapshot> =  collection.whereEqualTo(FirebaseHelpler.USER_TABLE_NAME, name)
+        var tsk: Task<QuerySnapshot> =  collection
                 .whereEqualTo(FirebaseHelpler.USER_TABLE_EMAIL, email)
                 .get()
+        return tsk
+    }
+
+    override fun select_byEmailForgotPasswd(email: String, forgotPasswd: String): Task<QuerySnapshot> {
+        // TODO 名前とメールアドレスと忘れた用のパスワードの一致確認
+        val collection = FirebaseHelpler.getCollection()
+        var tsk: Task<QuerySnapshot> =  collection
+            .whereEqualTo(FirebaseHelpler.USER_TABLE_EMAIL, email)
+            .whereEqualTo(FirebaseHelpler.USER_TABLE_FORGOTMAIL, forgotPasswd)
+            .get()
         return tsk
     }
 

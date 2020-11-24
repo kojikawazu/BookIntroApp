@@ -1,20 +1,21 @@
-package com.example.bookintroapp.viewmodel
+package com.example.bookintroapp.model
 
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.bookintroapp.R
-import com.example.bookintroapp.form.SigninForm
-import com.example.bookintroapp.form.SignupForm
+import com.example.bookintroapp.valueobject.form.SigninForm
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.helper.ControllerLoader
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.repository.UserRepository
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.AuthResult
 
-class SigninModel : ViewModelBase() {
+class SigninModel : ModelBase() {
 
     // フォーム
     private var signinForm: SigninForm? = null
@@ -27,44 +28,47 @@ class SigninModel : ViewModelBase() {
 
     }
 
-    override fun setLayout(activity: AppCompatActivity) {
+    override fun setLayout(view: View) {
         // TODO ビューの設定
         signinForm = SigninForm(
-                activity.findViewById(R.id.signin_mail_edit),
-                activity.findViewById(R.id.signin_passwd_edit)
+                view.findViewById(R.id.signin_mail_edit),
+                view.findViewById(R.id.signin_passwd_edit)
         )
     }
 
-    override fun setListener(activity: AppCompatActivity) {
+    override fun setLayout(activity: AppCompatActivity) {
+        TODO("Not yet implemented")
+    }
+
+    override fun setListener(view: View, flag: Fragment) {
         // TODO イベントリスナー追加
 
         // クリックリスナーの設定
-        var buttonChangePS = activity.findViewById<Button>(R.id.signin_chpasswd_button)
+        var buttonChangePS = view.findViewById<Button>(R.id.signin_chpasswd_button)
         buttonChangePS.setOnClickListener{
             // TODO パスワード変更タップ
-            onClickListener_changePasswd(activity)
+            //onClickListener_changePasswd(view)
         }
-        var buttonSignup =activity.findViewById<Button>(R.id.signin_signup_button)
+        var buttonSignup = view.findViewById<Button>(R.id.signin_signup_button)
         buttonSignup.setOnClickListener {
-            // TODO サインアップタップ
-            onClickListener_signup(activity)
+            // TODO サインアップボタンリスナー
+            flag.findNavController().navigate(R.id.action_signin_to_signup_fragment)
         }
 
-        var buttonSignin =activity.findViewById<Button>(R.id.signin_button)
+        var buttonSignin =view.findViewById<Button>(R.id.signin_button)
         buttonSignin.setOnClickListener {
-            // TODO サインアップタップ
-            onClickListener_signin(activity)
+            // TODO サインインタップ
+            //onClickListener_signin(view)
         }
+    }
+
+    override fun setListener(activity: AppCompatActivity) {
+        TODO("Not yet implemented")
     }
 
     fun onClickListener_changePasswd(activity: AppCompatActivity){
         // TODO パスワード変更ボタンリスナー
         ControllerLoader.GetActivity(activity, ControllerLoader.ACTIVITY_CHANGEPASSWD)
-    }
-
-    fun onClickListener_signup(activity: AppCompatActivity){
-        // TODO サインアップボタンリスナー
-        ControllerLoader.GetActivity(activity, ControllerLoader.ACTIVITY_SIGNUP)
     }
 
     fun onClickListener_signin(activity: AppCompatActivity){

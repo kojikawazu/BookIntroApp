@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bookintroapp.R
-import com.example.bookintroapp.helper.ActivityHelper
-import com.example.bookintroapp.viewmodel.ChangePasswdModel
+import com.example.bookintroapp.model.ChangePasswdModel
 
 // class パスワード変更
 class ChangePasswdActivity : AppCompatActivity() {

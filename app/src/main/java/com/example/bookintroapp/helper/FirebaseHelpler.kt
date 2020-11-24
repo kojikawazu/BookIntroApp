@@ -41,5 +41,11 @@ class FirebaseHelpler {
             return auth.createUserWithEmailAndPassword(email, passwd)
         }
 
+        fun authChangePasswd(email: String) : Task<Void>{
+            // TODO パスワード変更メールを送信
+            var auth: FirebaseAuth = FirebaseAuth.getInstance()
+            return auth.sendPasswordResetEmail(email)
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.bookintroapp.form
+package com.example.bookintroapp.valueobject.form
 
 class SignupFormString() {
 

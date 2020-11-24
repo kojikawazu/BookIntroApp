@@ -1,4 +1,4 @@
-package com.example.bookintroapp.entity
+package com.example.bookintroapp.valueobject.entity
 
 import java.util.*
 

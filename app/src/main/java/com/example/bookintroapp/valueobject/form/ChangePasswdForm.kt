@@ -1,4 +1,4 @@
-package com.example.bookintroapp.form
+package com.example.bookintroapp.valueobject.form
 
 import android.widget.EditText
 import com.example.bookintroapp.helper.DomainHelper
@@ -34,6 +34,26 @@ class ChangePasswdForm() {
     private var OnePasswdEdit : EditText? = null
         get(){
             return field
+        }
+    val EmailString : String
+        get(){
+            if(EmailEdit != null){   return EmailEdit!!.text.toString()  }
+            else{                       return ""                       }
+        }
+    val ForgotString : String
+        get(){
+            if(ForgotEdit != null){   return ForgotEdit!!.text.toString()  }
+            else{                       return ""                       }
+        }
+    val NewPasswdString : String
+        get(){
+            if(NewPasswdEdit != null){   return NewPasswdEdit!!.text.toString()  }
+            else{                       return ""                       }
+        }
+    val OnePasswdString : String
+        get(){
+            if(OnePasswdEdit != null){   return OnePasswdEdit!!.text.toString()  }
+            else{                       return ""                       }
         }
 
     fun isEmpty(): Boolean {

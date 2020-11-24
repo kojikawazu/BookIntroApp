@@ -1,5 +1,6 @@
 package com.example.bookintroapp.helper
 
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bookintroapp.R
@@ -14,6 +15,10 @@ class ActivityHelper {
     companion object{
         fun setLayout_gobackButton(activity : AppCompatActivity){
             activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+
+        fun setLayout_gobackButton(view: View){
+            //view.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
         fun getStringDefine(activity: AppCompatActivity, id : Int) : String{

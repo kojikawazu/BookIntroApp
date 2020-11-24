@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bookintroapp.R
-import com.example.bookintroapp.helper.ActivityHelper
-import com.example.bookintroapp.viewmodel.SignupModel
+import com.example.bookintroapp.model.SignupModel
 
 // class サインアップ
 class SignupActivity : AppCompatActivity() {

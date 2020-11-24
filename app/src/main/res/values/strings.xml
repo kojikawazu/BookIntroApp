@@ -50,7 +50,10 @@
     <string name="passwd_button">パスワード変更</string>
 
     <string name="passwd_success_title">パスワード変更実行</string>
-    <string name="passwd_success_contents">パスワードを変更しました</string>
+    <string name="passwd_success_contents">パスワード変更のメールを送信しました</string>
+
+    <string name="passwd_error_dialog_nosame">メールアドレスが登録されてないか、パスワードが違います。</string>
+    <string name="passwd_error_dialog_nosend">メール送信に失敗しました。</string>
 
     <!-- 書籍リスト一覧 -->
     <string name="book_main_title">書籍リスト</string>

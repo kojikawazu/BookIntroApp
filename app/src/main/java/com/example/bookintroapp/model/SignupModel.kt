@@ -1,10 +1,12 @@
-package com.example.bookintroapp.viewmodel
+package com.example.bookintroapp.model
 
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
-import com.example.bookintroapp.entity.UserEntity
-import com.example.bookintroapp.form.SignupForm
+import com.example.bookintroapp.valueobject.entity.UserEntity
+import com.example.bookintroapp.valueobject.form.SignupForm
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.IUserRepository
@@ -15,7 +17,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
 import java.util.*
 
-class SignupModel : ViewModelBase() {
+class SignupModel : ModelBase() {
 
     private var signupForm : SignupForm? = null
     private val _userRepository: IUserRepository = UserRepository()
@@ -24,30 +26,38 @@ class SignupModel : ViewModelBase() {
         // TODO 初期化
     }
 
-    override fun setLayout(activity: AppCompatActivity) {
+    override fun setLayout(view: View) {
         // TODO レイアウト設定
 
         // テキストのバインド
         signupForm = SignupForm(
-                activity.findViewById(R.id.signup_user_edit),
-                activity.findViewById(R.id.signup_mail_edit),
-                activity.findViewById(R.id.signup_passwd_edit),
-                activity.findViewById(R.id.signup_passwd2_edit),
-                activity.findViewById(R.id.signup_forgot_edit)
+                view.findViewById(R.id.signup_user_edit),
+                view.findViewById(R.id.signup_mail_edit),
+                view.findViewById(R.id.signup_passwd_edit),
+                view.findViewById(R.id.signup_passwd2_edit),
+                view.findViewById(R.id.signup_forgot_edit)
         )
 
         // 戻るボタン追加
-        ActivityHelper.setLayout_gobackButton(activity)
+        //ActivityHelper.setLayout_gobackButton(view)
+    }
+
+    override fun setLayout(activity: AppCompatActivity) {
+
+    }
+
+    override fun setListener(view: View, flag: Fragment) {
+        // TODO イベントリスナー追加
+        // サインアップボタン
+        var buttonSignup = view.findViewById<Button>(R.id.signup_button)
+        buttonSignup.setOnClickListener{
+            // TODO パスワード変更タップ
+            //onClickListener_signup(view)
+        }
     }
 
     override fun setListener(activity: AppCompatActivity) {
-        // TODO イベントリスナー追加
-        // サインアップボタン
-        var buttonSignup = activity.findViewById<Button>(R.id.signup_button)
-        buttonSignup.setOnClickListener{
-            // TODO パスワード変更タップ
-            onClickListener_signup(activity)
-        }
+
     }
 
     fun onClickListener_signup(activity: AppCompatActivity){
@@ -68,7 +78,7 @@ class SignupModel : ViewModelBase() {
         // ----------------------------------------------------------------------------------------
         // セレクトタスク設定
         var entityCheck: UserEntity? = null
-        var tskSelect: Task<QuerySnapshot> = _userRepository.select_byNameEmail(signupForm!!.UserNameString, signupForm!!.EmailString)
+        var tskSelect: Task<QuerySnapshot> = _userRepository.select_byEmail(signupForm!!.EmailString)
         // 終わるまでループ
         while(!tskSelect.isComplete){ }
         // 終了したら処理
@@ -87,7 +97,7 @@ class SignupModel : ViewModelBase() {
         if( !tskAuthSignup.isSuccessful ){
             // 追加に失敗
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(activity, ActivityHelper.getStringDefine(activity,R.string.signup_error_dialog))
+            ActivityHelper.show_error_dialog(activity, ActivityHelper.getStringDefine(activity,R.string.signup_error_dialog) + tskAuthSignup.exception)
             return ;
         }
 
@@ -103,7 +113,7 @@ class SignupModel : ViewModelBase() {
         if( !tskAdd.isSuccessful ){
             // 追加に失敗
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(activity, ActivityHelper.getStringDefine(activity,R.string.signup_error_dialog))
+            ActivityHelper.show_error_dialog(activity, ActivityHelper.getStringDefine(activity,R.string.signup_error_dialog) + "2")
             return ;
         }
 
