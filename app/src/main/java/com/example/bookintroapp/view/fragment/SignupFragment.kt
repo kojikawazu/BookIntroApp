@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.bookintroapp.R
 import com.example.bookintroapp.model.SignupModel
 import com.example.bookintroapp.view.viewmodel.SigninViewModel
@@ -30,6 +32,7 @@ class SignupFragment : Fragment() {
 
         // フラグメント設定
         val root = inflater.inflate(R.layout.fragment_signup_layout, container, false)
+
         return root
     }
 
@@ -37,4 +40,6 @@ class SignupFragment : Fragment() {
         // TODO 初期化後の処理
         signupViewModel.setView(view, this)
     }
+
+
 }

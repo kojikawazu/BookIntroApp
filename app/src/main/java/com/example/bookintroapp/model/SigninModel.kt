@@ -49,16 +49,19 @@ class SigninModel : ModelBase() {
             // TODO パスワード変更タップ
             //onClickListener_changePasswd(view)
         }
-        var buttonSignup = view.findViewById<Button>(R.id.signin_signup_button)
-        buttonSignup.setOnClickListener {
-            // TODO サインアップボタンリスナー
-            flag.findNavController().navigate(R.id.action_signin_to_signup_fragment)
+
+        view.findViewById<Button>(R.id.signin_signup_button).apply{
+            setOnClickListener {
+                // TODO サインアップボタンリスナー
+                flag.findNavController().navigate(R.id.action_signin_to_signup_fragment)
+            }
         }
 
-        var buttonSignin =view.findViewById<Button>(R.id.signin_button)
-        buttonSignin.setOnClickListener {
-            // TODO サインインタップ
-            //onClickListener_signin(view)
+        view.findViewById<Button>(R.id.signin_button).apply {
+            setOnClickListener {
+                // TODO サインインタップ
+                //onClickListener_signin(view)
+            }
         }
     }
 

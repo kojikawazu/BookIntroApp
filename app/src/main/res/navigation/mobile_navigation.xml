@@ -22,7 +22,9 @@
         tools:layout="@layout/fragment_signup_layout" >
         <action
             android:id="@+id/action_signup_to_signin_pop"
-            app:popUpTo="@id/nav_signin" />
+            app:destination="@id/nav_signin"
+            app:popUpTo="@id/nav_signin"
+            app:popUpToInclusive="true" />
 
     </fragment>
 
