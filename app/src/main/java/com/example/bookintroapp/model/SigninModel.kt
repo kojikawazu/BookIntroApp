@@ -53,7 +53,7 @@ class SigninModel : ModelBase() {
         view.findViewById<Button>(R.id.signin_signup_button).apply{
             setOnClickListener {
                 // TODO サインアップボタンリスナー
-                flag.findNavController().navigate(R.id.action_signin_to_signup_fragment)
+                ActivityHelper.nextFragment(flag, R.id.action_signin_to_signup_fragment)
             }
         }
 
@@ -64,6 +64,8 @@ class SigninModel : ModelBase() {
             }
         }
     }
+
+
 
     override fun setListener(activity: AppCompatActivity) {
         TODO("Not yet implemented")

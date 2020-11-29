@@ -2,6 +2,7 @@ package com.example.bookintroapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings.Global.putString
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
@@ -12,6 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.bookintroapp.R
 import com.example.bookintroapp.model.SigninModel
+import com.example.bookintroapp.view.dialog.SimpleAlertDiralog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -55,6 +57,7 @@ class MainActivity : AppCompatActivity(){
 
     override fun onSupportNavigateUp(): Boolean {
         if (onBackPressedDispatcher.hasEnabledCallbacks()) {
+            // 戻るボタン押された場合の処理
             onBackPressedDispatcher.onBackPressed()
         }
         return true

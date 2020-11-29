@@ -5,8 +5,6 @@
     <string name="signup_username_len">10</string>
     <string name="signup_passwd_len">10</string>
 
-
-
     <!-- レイアウト -->
 
     <!-- サインイン画面 -->
@@ -102,6 +100,10 @@
     <string name="error_form_passwd_len">文字超えています。</string>
     <string name="error_form_passwd_same">パスワードが一致しません。</string>
     <string name="error_form_forgot_len">文字超えています。</string>
+
+    <string name="dialog_yes">はい</string>
+    <string name="dialog_no">いいえ</string>
+    <string name="dialog_action">実行確認</string>
 
     <!-- 満足度セレクトボックス -->
     <string-array name="satis_list">

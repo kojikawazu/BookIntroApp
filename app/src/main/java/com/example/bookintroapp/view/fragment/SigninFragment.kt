@@ -39,7 +39,6 @@ class SigninFragment : Fragment() {
 
         // フラグメント設定
         val root = inflater.inflate(R.layout.fragment_signin_layout, container, false)
-
         return root
     }
 
