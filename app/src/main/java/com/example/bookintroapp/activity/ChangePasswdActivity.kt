@@ -33,8 +33,6 @@ class ChangePasswdActivity : AppCompatActivity() {
 
     fun create_layout(){
         // TODO レイアウトの設定
-        _model.setLayout(this)
-        _model.setListener(this)
 
     }
 }

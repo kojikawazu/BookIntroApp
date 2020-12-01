@@ -43,10 +43,6 @@ class SignupModel : ModelBase() {
         )
     }
 
-    override fun setLayout(activity: AppCompatActivity) {
-
-    }
-
     override fun setListener(view: View, flag: Fragment) {
         // TODO イベントリスナー追加
 
@@ -57,10 +53,6 @@ class SignupModel : ModelBase() {
                 onClickListener_signup(view, flag)
             }
         }
-    }
-
-    override fun setListener(activity: AppCompatActivity) {
-
     }
 
     fun onClickListener_signup(view: View, flag: Fragment){
@@ -162,19 +154,6 @@ class SignupModel : ModelBase() {
         if( !signupForm!!.checkForgotPasswd_len(forgot_len)){
             return "忘れた時用のパスワードの文字数が" + forgot_len.toString() + ActivityHelper.getStringDefine(flag, R.string.error_form_forgot_len)
         }
-
-        // 成功時は空白返す
-        return ""
-    }
-
-    fun onClickListener_signup(activity: AppCompatActivity){
-        // TODO サインアップタップ
-
-
-    }
-
-    fun isValidate(activity: AppCompatActivity) : String{
-        // TODO バリデーションチェック
 
         // 成功時は空白返す
         return ""

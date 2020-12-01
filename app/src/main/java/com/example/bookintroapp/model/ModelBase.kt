@@ -13,7 +13,5 @@ abstract class ModelBase {
     // オーバーライド対象
     abstract fun setLayout(view: View)
     abstract fun setListener(view: View, frag: Fragment)
-    abstract fun setLayout(activity: AppCompatActivity)
-    abstract fun setListener(activity: AppCompatActivity)
 
 }

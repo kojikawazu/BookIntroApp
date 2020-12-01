@@ -24,9 +24,6 @@ class SignupActivity : AppCompatActivity() {
     private fun create_layout(){
         // TODO レイアウトの設定
 
-        _model.setLayout(this)
-        _model.setListener(this)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem?) : Boolean{

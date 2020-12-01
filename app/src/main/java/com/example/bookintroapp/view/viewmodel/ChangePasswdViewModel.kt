@@ -1,20 +1,20 @@
 package com.example.bookintroapp.view.viewmodel
 
-import android.view.FrameMetrics
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import com.example.bookintroapp.model.ChangePasswdModel
 import com.example.bookintroapp.model.SignupModel
 
-// サインアップビューモデル
-class SignupViewModel : ViewModel(){
+// パスワード変更ビューモデル
+class ChangePasswdViewModel: ViewModel() {
 
     // モデル
-    private lateinit var _model : SignupModel
+    private lateinit var _model : ChangePasswdModel
 
     fun initModel() {
         // TODO モデルの初期化
-        _model = SignupModel()
+        _model = ChangePasswdModel()
     }
 
     fun setView(view: View, frag: Fragment) {

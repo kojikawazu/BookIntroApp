@@ -36,10 +36,6 @@ class SigninModel : ModelBase() {
         )
     }
 
-    override fun setLayout(activity: AppCompatActivity) {
-        TODO("Not yet implemented")
-    }
-
     override fun setListener(view: View, flag: Fragment) {
         // TODO イベントリスナー追加
 
@@ -47,7 +43,7 @@ class SigninModel : ModelBase() {
         var buttonChangePS = view.findViewById<Button>(R.id.signin_chpasswd_button)
         buttonChangePS.setOnClickListener{
             // TODO パスワード変更タップ
-            //onClickListener_changePasswd(view)
+            ActivityHelper.nextFragment(flag, R.id.action_signin_to_chpasswd_fragment)
         }
 
         view.findViewById<Button>(R.id.signin_signup_button).apply{
@@ -60,33 +56,22 @@ class SigninModel : ModelBase() {
         view.findViewById<Button>(R.id.signin_button).apply {
             setOnClickListener {
                 // TODO サインインタップ
-                //onClickListener_signin(view)
+                onClickListener_signin(view, flag)
             }
         }
     }
 
-
-
-    override fun setListener(activity: AppCompatActivity) {
-        TODO("Not yet implemented")
-    }
-
-    fun onClickListener_changePasswd(activity: AppCompatActivity){
-        // TODO パスワード変更ボタンリスナー
-        ControllerLoader.GetActivity(activity, ControllerLoader.ACTIVITY_CHANGEPASSWD)
-    }
-
-    fun onClickListener_signin(activity: AppCompatActivity){
+    fun onClickListener_signin(view: View, flag: Fragment) {
         // TODO サインインボタンリスナー
 
         // バリデーションチェック
         // ----------------------------------------------------------------------------------------
-        var errorString = isValidate(activity)
+        var errorString = isValidate(flag)
 
         // エラーチェック
         if( !errorString.isEmpty() ){
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(activity, errorString)
+            ActivityHelper.show_error_dialog(flag, errorString)
             return ;
         }
 
@@ -96,26 +81,26 @@ class SigninModel : ModelBase() {
         while(!(tsk.isComplete)){}
         if(!tsk.isSuccessful){
             // サインイン失敗
-            ActivityHelper.show_error_dialog(activity, ActivityHelper.getStringDefine(activity, R.string.signin_error_dialog))
+            ActivityHelper.show_error_dialog(flag, ActivityHelper.getStringDefine(flag, R.string.signin_error_dialog))
             return
         }
 
         // サインイン成功
         // ----------------------------------------------------------------------------------------
-        ControllerLoader.GetActivity(activity, ControllerLoader.ACTIVITY_BOOK_MAIN)
+        ActivityHelper.nextFragment(flag, R.id.action_signin_to_bookmain_fragment)
     }
 
-    fun isValidate(activity: AppCompatActivity) : String{
+    fun isValidate(flag: Fragment) : String{
         // TODO バリデーションチェック
 
         // 空チェック
         if( signinForm!!.isEmpty() ){
-            return ActivityHelper.getStringDefine(activity, R.string.error_form_empty)
+            return ActivityHelper.getStringDefine(flag, R.string.error_form_empty)
         }
 
         // メールアドレスチェック
         if( !signinForm!!.checkEmail() ){
-            return ActivityHelper.getStringDefine(activity, R.string.error_form_email)
+            return ActivityHelper.getStringDefine(flag, R.string.error_form_email)
         }
 
         // 成功時は空白返す
