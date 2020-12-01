@@ -2,13 +2,10 @@ package com.example.bookintroapp.model
 
 import android.view.View
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.bookintroapp.R
 import com.example.bookintroapp.valueobject.form.SigninForm
 import com.example.bookintroapp.helper.ActivityHelper
-import com.example.bookintroapp.helper.ControllerLoader
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.repository.UserRepository

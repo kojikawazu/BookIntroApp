@@ -21,24 +21,8 @@ class ActivityHelper {
 
     // TODO static
     companion object{
-        fun setLayout_gobackButton(activity : AppCompatActivity){
-            activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
-
-        fun setLayout_gobackButton(view: View){
-            //view.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
-
-        fun getStringDefine(activity: AppCompatActivity, id : Int) : String{
-            return activity.resources.getString(id)
-        }
-
         fun getStringDefine(flag: Fragment, id : Int) : String{
             return  flag.requireActivity().resources.getString(id)
-        }
-
-        fun getIntDefine(activity: AppCompatActivity, id : Int) : Int{
-            return activity.resources.getString(id).toInt()
         }
 
         fun getIntDefine(flag: Fragment, id : Int) : Int{
