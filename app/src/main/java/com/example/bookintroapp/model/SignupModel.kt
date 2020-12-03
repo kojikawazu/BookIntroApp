@@ -5,6 +5,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
+import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.valueobject.form.SignupForm
 import com.example.bookintroapp.helper.ActivityHelper
@@ -43,29 +44,29 @@ class SignupModel : ModelBase() {
         )
     }
 
-    override fun setListener(view: View, flag: Fragment) {
+    override fun setListener(view: View, frag: Fragment) {
         // TODO イベントリスナー追加
 
         // サインアップボタン
         view.findViewById<Button>(R.id.signup_button).apply {
             setOnClickListener{
                 // TODO パスワード変更タップ
-                onClickListener_signup(view, flag)
+                onClickListener_signup(view, frag)
             }
         }
     }
 
-    fun onClickListener_signup(view: View, flag: Fragment){
+    fun onClickListener_signup(view: View, frag: Fragment){
         // TODO サインアップタップ
 
         // バリデーションチェック
         // ----------------------------------------------------------------------------------------
-        var errorString = isValidate(flag)
+        var errorString = isValidate(frag)
 
         // エラーチェック
         if( !errorString.isEmpty() ){
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(flag, errorString)
+            ActivityHelper.show_error_dialog(frag, errorString)
             return ;
         }
 
@@ -81,7 +82,7 @@ class SignupModel : ModelBase() {
         if( entityCheck != null ){
             // 既にユーザ登録済み
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(flag, ActivityHelper.getStringDefine(flag,R.string.signup_error_dialog_user))
+            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag,R.string.signup_error_dialog_user))
             return ;
         }
 
@@ -92,7 +93,7 @@ class SignupModel : ModelBase() {
         if( !tskAuthSignup.isSuccessful ){
             // 追加に失敗
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(flag, ActivityHelper.getStringDefine(flag,R.string.signup_error_dialog) + tskAuthSignup.exception)
+            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag,R.string.signup_error_dialog) + tskAuthSignup.exception)
             return ;
         }
 
@@ -108,17 +109,17 @@ class SignupModel : ModelBase() {
         if( !tskAdd.isSuccessful ){
             // 追加に失敗
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(flag, ActivityHelper.getStringDefine(flag, R.string.signup_error_dialog) + "2")
+            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag, R.string.signup_error_dialog) + "2")
             return ;
         }
 
         // 追加登録完了
         // ----------------------------------------------------------------------------------------
         // サインアップ成功ダイアログ
-        ActivityHelper.show_success_dialog(flag,
+        ActivityHelper.show_success_dialog(frag,
                 R.string.signup_success_title, R.string.signup_success_contents) {
             // OKの場合、サインアップ画面閉じる
-            ActivityHelper.backFragment(flag)
+            ActivityHelper.backFragment(frag)
         }
     }
 

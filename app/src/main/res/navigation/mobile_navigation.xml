@@ -62,6 +62,24 @@
         android:name="com.example.bookintroapp.view.fragment.BookMainFragment"
         android:label="fragment_bookmain"
         tools:layout="@layout/fragment_bookmain_layout" >
+        <action
+            android:id="@+id/action_bookmain_to_bookadd"
+            app:destination="@id/nav_bookadd" />
+        <!-- 書籍紹介メイン → サインイン -->
+        <action
+            android:id="@+id/action_bookmain_to_signin_pop"
+            app:destination="@id/nav_signin"
+            app:popUpTo="@id/nav_signin"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_bookadd"
+        android:name="com.example.bookintroapp.view.fragment.BookAddFragment"
+        android:label="fragment_bookadd"
+        tools:layout="@layout/fragment_bookadd_layout"
+        >
+
     </fragment>
 
 </navigation>

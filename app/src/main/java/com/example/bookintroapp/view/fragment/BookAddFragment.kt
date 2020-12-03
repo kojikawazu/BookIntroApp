@@ -4,20 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.bookintroapp.R
-import com.example.bookintroapp.model.SignupModel
-import com.example.bookintroapp.view.viewmodel.SigninViewModel
-import com.example.bookintroapp.view.viewmodel.SignupViewModel
+import com.example.bookintroapp.view.viewmodel.BookAddViewModel
+import com.example.bookintroapp.view.viewmodel.BookMainViewModel
 
-// サインアウトフラグメント
-class SignupFragment : Fragment() {
+// 書籍追加フラグメント
+class BookAddFragment : Fragment() {
 
     // ビューモデル
-    private lateinit var signupViewModel : SignupViewModel
+    private lateinit var bookAddViewModel: BookAddViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -27,21 +24,17 @@ class SignupFragment : Fragment() {
         // TODO 初回起動
 
         // ビューモデル設定
-        signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
-        signupViewModel.initModel()
-
-        
+        bookAddViewModel = ViewModelProvider(this).get(BookAddViewModel::class.java)
+        bookAddViewModel.initModel()
 
         // フラグメント設定
-        val root = inflater.inflate(R.layout.fragment_signup_layout, container, false)
+        val root = inflater.inflate(R.layout.fragment_bookadd_layout, container, false)
 
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         // TODO 初期化後の処理
-        signupViewModel.setView(view, this)
+        bookAddViewModel.setView(view, this)
     }
-
-
 }

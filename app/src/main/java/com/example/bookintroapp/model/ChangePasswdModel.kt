@@ -5,6 +5,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
+import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.valueobject.form.ChangePasswdForm
 import com.example.bookintroapp.helper.ActivityHelper
@@ -35,28 +36,28 @@ class ChangePasswdModel : ModelBase() {
         )
     }
 
-    override fun setListener(view: View, flag: Fragment) {
+    override fun setListener(view: View, frag: Fragment) {
         // TODO イベントリスナー追加
 
         // パスワード変更ボタン
         view.findViewById<Button>(R.id.passwd_button).apply {
             setOnClickListener{
                 // TODO パスワード変更タップ
-                onClickListener_changepasswd(view, flag)
+                onClickListener_changepasswd(view, frag)
             }
         }
     }
 
-    fun onClickListener_changepasswd(view: View, flag: Fragment){
+    fun onClickListener_changepasswd(view: View, frag: Fragment){
         // TODO パスワード変更タップ
 
         // バリデーションチェック
-        var errorString = isValidate(flag)
+        var errorString = isValidate(frag)
 
         // エラーチェック
         if( !errorString.isEmpty() ){
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(flag, errorString)
+            ActivityHelper.show_error_dialog(frag, errorString)
             return ;
         }
 
@@ -70,7 +71,7 @@ class ChangePasswdModel : ModelBase() {
         entityCheck = _userRepository.getResultEntity(tskSelect)
         if( entityCheck == null ){
             // メールアドレスと忘れた時用パスワードない
-            ActivityHelper.show_error_dialog(flag, ActivityHelper.getStringDefine(flag,R.string.passwd_error_dialog_nosame))
+            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag,R.string.passwd_error_dialog_nosame))
             return ;
         }
 
@@ -80,15 +81,15 @@ class ChangePasswdModel : ModelBase() {
         while(!(tskChpasswd.isComplete)){}
         if(!tskChpasswd.isSuccessful){
             // メール送信失敗
-            ActivityHelper.show_error_dialog(flag, ActivityHelper.getStringDefine(flag, R.string.passwd_error_dialog_nosend))
+            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag, R.string.passwd_error_dialog_nosend))
             return
         }
 
         // パスワード変更成功ダイアログ
-        ActivityHelper.show_success_dialog(flag,
+        ActivityHelper.show_success_dialog(frag,
                 R.string.passwd_success_title, R.string.passwd_success_contents) {
             // OKの場合、パスワード変更画面閉じる
-            ActivityHelper.backFragment(flag)
+            ActivityHelper.backFragment(frag)
         }
     }
 

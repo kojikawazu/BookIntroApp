@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.BookMainFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9AE0FFBB"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bookadd_title_textView"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:text="@string/book_add_title"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="492dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bookadd_contents_textView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/book_add_contents"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/bookadd_book_textView"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:text="@string/book_add_bookname"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/bookadd_book_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="名前を入力してください。" />
+
+        <TextView
+            android:id="@+id/bookadd_booktitle_textView"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:text="@string/book_add_booktitle"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/bookadd_booktitle_edit"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="タイトルを入力してください。" />
+
+        <TextView
+            android:id="@+id/bookadd_bookcontents_textView"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="@string/book_add_bookcontents"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/bookadd_bookcontents_edit"
+            android:layout_width="match_parent"
+            android:layout_height="93dp"
+            android:ems="10"
+            android:fallbackLineSpacing="false"
+            android:inputType="textPersonName"
+            android:text="説明文を入力してください。" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/bookadd_satis_textView"
+                android:layout_width="125dp"
+                android:layout_height="match_parent"
+                android:text="@string/book_add_satis"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/bookadd_satis_spin"
+                android:layout_width="370dp"
+                android:layout_height="match_parent"
+                android:entries="@array/satis_list" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/bookadd_error_textView"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="#FFE7E7"
+            android:text="@string/book_add_error"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bookadd_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/book_add_button" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

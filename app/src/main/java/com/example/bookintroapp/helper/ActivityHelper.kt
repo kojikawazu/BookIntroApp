@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import com.example.bookintroapp.R
+import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.view.dialog.SimpleAlertDiralog
 import com.example.bookintroapp.view.dialog.YesNoAlertDialog
 
@@ -21,12 +22,13 @@ class ActivityHelper {
 
     // TODO static
     companion object{
-        fun getStringDefine(flag: Fragment, id : Int) : String{
-            return  flag.requireActivity().resources.getString(id)
+        fun getStringDefine(frag: Fragment, id : Int) : String{
+            return  frag.requireActivity().resources.getString(id)
         }
 
-        fun getIntDefine(flag: Fragment, id : Int) : Int{
-            return flag.requireActivity().resources.getString(id).toInt()
+        fun getIntDefine(frag: Fragment, id : Int) : Int{
+            val ac: MainActivity = frag.activity as MainActivity
+            return ac.resources.getString(id).toInt()
         }
 
         fun show_error_dialog(activity : AppCompatActivity, contents: String){
@@ -62,9 +64,10 @@ class ActivityHelper {
                     .show()
         }
 
-        fun show_success_dialog(flag: Fragment, title: Int, contents: Int, func: () -> Unit){
-            val titleString: String = flag.requireActivity().resources.getString(title)
-            val contentsString: String = flag.requireActivity().resources.getString(contents)
+        fun show_success_dialog(frag: Fragment, title: Int, contents: Int, func: () -> Unit){
+            val ac: MainActivity = frag.activity as MainActivity
+            val titleString: String = ac.resources.getString(title)
+            val contentsString: String = ac.resources.getString(contents)
             SimpleAlertDiralog().apply {
                 arguments = Bundle().apply {
                     putString("title", titleString)
@@ -75,7 +78,7 @@ class ActivityHelper {
                     //OKボタンリスナー
                     func()
                 }
-            }.show(flag.parentFragmentManager, "success")
+            }.show(frag.parentFragmentManager, "success")
         }
 
         fun nextFragment(flag: Fragment, id: Int){

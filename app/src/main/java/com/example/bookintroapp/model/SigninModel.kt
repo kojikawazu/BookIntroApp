@@ -4,12 +4,14 @@ import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
+import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.valueobject.form.SigninForm
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.repository.UserRepository
 import com.google.android.gms.tasks.Task
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.AuthResult
 
 class SigninModel : ModelBase() {
@@ -33,42 +35,46 @@ class SigninModel : ModelBase() {
         )
     }
 
-    override fun setListener(view: View, flag: Fragment) {
+    override fun setListener(view: View, frag: Fragment) {
         // TODO イベントリスナー追加
 
         // クリックリスナーの設定
         var buttonChangePS = view.findViewById<Button>(R.id.signin_chpasswd_button)
         buttonChangePS.setOnClickListener{
             // TODO パスワード変更タップ
-            ActivityHelper.nextFragment(flag, R.id.action_signin_to_chpasswd_fragment)
+            ActivityHelper.nextFragment(frag, R.id.action_signin_to_chpasswd_fragment)
         }
 
         view.findViewById<Button>(R.id.signin_signup_button).apply{
             setOnClickListener {
                 // TODO サインアップボタンリスナー
-                ActivityHelper.nextFragment(flag, R.id.action_signin_to_signup_fragment)
+                ActivityHelper.nextFragment(frag, R.id.action_signin_to_signup_fragment)
             }
         }
 
         view.findViewById<Button>(R.id.signin_button).apply {
             setOnClickListener {
                 // TODO サインインタップ
-                onClickListener_signin(view, flag)
+                onClickListener_signin(view, frag)
             }
         }
+
+        // ユーザリスナー
+        val ac : MainActivity = frag.activity as MainActivity
+        ac.setUserListener(frag)
     }
 
-    fun onClickListener_signin(view: View, flag: Fragment) {
+    fun onClickListener_signin(view: View, frag: Fragment) {
         // TODO サインインボタンリスナー
 
         // バリデーションチェック
         // ----------------------------------------------------------------------------------------
-        var errorString = isValidate(flag)
+        var errorString = isValidate(frag)
 
         // エラーチェック
         if( !errorString.isEmpty() ){
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(flag, errorString)
+            ActivityHelper.show_error_dialog(frag, errorString)
             return ;
         }
 
@@ -78,13 +84,13 @@ class SigninModel : ModelBase() {
         while(!(tsk.isComplete)){}
         if(!tsk.isSuccessful){
             // サインイン失敗
-            ActivityHelper.show_error_dialog(flag, ActivityHelper.getStringDefine(flag, R.string.signin_error_dialog))
+            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag, R.string.signin_error_dialog))
             return
         }
 
         // サインイン成功
         // ----------------------------------------------------------------------------------------
-        ActivityHelper.nextFragment(flag, R.id.action_signin_to_bookmain_fragment)
+        ActivityHelper.nextFragment(frag, R.id.action_signin_to_bookmain_fragment)
     }
 
     fun isValidate(flag: Fragment) : String{
