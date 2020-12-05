@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
 
         // ツールバー
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
 
         // 右下ボタン
@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity(){
         }
 
         // レイアウト設定
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_main_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.nav_host_main_fragment)
 
         appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.nav_signin, R.id.nav_bookmain,
@@ -93,24 +93,31 @@ class MainActivity : AppCompatActivity(){
             onBackPressedDispatcher.onBackPressed()
             return true
         }*/
-        //val fragManager: FragmentManager = this.supportFragmentManager
-        //Log.d("MainActivity","[debug debug]" + fragManager.fragments)
-
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.nav_host_main_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun setSigninLayout(){
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        navView.visibility = View.GONE
-    }
-
-    fun setUserListener(frag: Fragment){
-        // 右下ボタン
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        /*
+        var fragment: Fragment? = null
+        when (item.itemId) {
+            nav_item_category_1 ->
+                fragment = CategoryOne()
+            nav_item_category_2 ->
+                fragment = CategoryTwo()
+            nav_sub_item_1 ->
+                fragment = SubCategoryOne()
         }
+        // Replace the fragment.
+        if (fragment != null) {
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.frame_contents, fragment)
+            ft.commit()
+        }
+        // Close the Navigation Drawer.
+        drawer_layout.closeDrawer(GravityCompat.START)
+        */
+        return true
     }
 
     fun setBookListener(frag: Fragment){
@@ -120,5 +127,7 @@ class MainActivity : AppCompatActivity(){
             ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookadd)
         }
     }
+
+
 
 }

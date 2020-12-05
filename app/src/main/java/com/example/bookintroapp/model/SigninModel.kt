@@ -1,17 +1,18 @@
 package com.example.bookintroapp.model
 
+import android.content.Intent
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
-import com.example.bookintroapp.valueobject.form.SigninForm
+import com.example.bookintroapp.activity.UserActivity
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.repository.UserRepository
+import com.example.bookintroapp.valueobject.form.SigninForm
 import com.google.android.gms.tasks.Task
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.AuthResult
 
 class SigninModel : ModelBase() {
@@ -58,10 +59,6 @@ class SigninModel : ModelBase() {
                 onClickListener_signin(view, frag)
             }
         }
-
-        // ユーザリスナー
-        val ac : MainActivity = frag.activity as MainActivity
-        ac.setUserListener(frag)
     }
 
     fun onClickListener_signin(view: View, frag: Fragment) {
@@ -90,7 +87,9 @@ class SigninModel : ModelBase() {
 
         // サインイン成功
         // ----------------------------------------------------------------------------------------
-        ActivityHelper.nextFragment(frag, R.id.action_signin_to_bookmain_fragment)
+        //ActivityHelper.nextFragment(frag, R.id.action_signin_to_bookmain_fragment)
+        val userActivity: UserActivity = frag.activity as UserActivity
+        userActivity.changeMainActivity()
     }
 
     fun isValidate(flag: Fragment) : String{
