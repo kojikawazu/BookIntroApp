@@ -8,15 +8,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bookintroapp.model.SigninModel
 
-class SigninViewModel : ViewModel(){
+class SigninViewModel : BaseViewModel(){
 
     private lateinit var _model: SigninModel
 
-    fun initModel(){
+    override fun initModel(){
         _model = SigninModel()
     }
 
-    fun setView(view: View, frag: Fragment){
+    override fun setView(view: View, frag: Fragment){
         _model.setLayout(view)
         _model.setListener(view, frag)
     }

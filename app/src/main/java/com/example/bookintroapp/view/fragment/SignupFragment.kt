@@ -14,7 +14,7 @@ import com.example.bookintroapp.view.viewmodel.SigninViewModel
 import com.example.bookintroapp.view.viewmodel.SignupViewModel
 
 // サインアウトフラグメント
-class SignupFragment : Fragment() {
+class SignupFragment : BaseFragment() {
 
     // ビューモデル
     private lateinit var signupViewModel : SignupViewModel
@@ -30,11 +30,8 @@ class SignupFragment : Fragment() {
         signupViewModel = ViewModelProvider(this).get(SignupViewModel::class.java)
         signupViewModel.initModel()
 
-        
-
         // フラグメント設定
-        val root = inflater.inflate(R.layout.fragment_signup_layout, container, false)
-
+        val root = setInflate(R.layout.fragment_signup_layout, inflater, container)
         return root
     }
 

@@ -8,17 +8,17 @@ import com.example.bookintroapp.model.SigninModel
 import com.example.bookintroapp.model.SignupModel
 
 // 書籍紹介メインビューモデル
-class BookMainViewModel  : ViewModel(){
+class BookMainViewModel  : BaseViewModel(){
 
     // モデル
     private lateinit var _model: BookMainModel
 
-    fun initModel() {
+    override fun initModel() {
         // TODO モデルの初期化
         _model = BookMainModel()
     }
 
-    fun setView(view: View, frag: Fragment) {
+    override fun setView(view: View, frag: Fragment) {
         // TODO ビューの設定
         _model.setLayout(view)
         _model.setListener(view, frag)

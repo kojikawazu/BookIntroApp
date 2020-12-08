@@ -57,6 +57,11 @@
     <string name="book_main_title">書籍リスト</string>
     <string name="book_main_user_title">〇〇さんの投稿</string>
 
+    <string name="book_slidebar_mainpage">メインページ</string>
+    <string name="book_slidebar_mypage">マイページ</string>
+    <string name="book_slidebar_bookmark">ブックマーク一覧</string>
+    <string name="book_menu_signout">サインアウト</string>
+
     <!-- 書籍詳細 -->
     <string name="book_view_title">書籍紹介</string>
     <string name="book_view_username">〇〇さんの投稿</string>
@@ -91,6 +96,10 @@
     <!-- ブックマークリスト -->
     <string name="book_mark_title">ブックマークリスト</string>
     <string name="book_mark_username">〇〇さんのブックマーク</string>
+
+    <!-- -->
+    <string name="book_mypage_title">マイリスト</string>
+    <string name="book_mypage_username">〇〇さんのリスト</string>
 
     <!-- ダイアログ -->
     <string name="error_title">ERROR</string>

@@ -11,7 +11,7 @@ import com.example.bookintroapp.view.viewmodel.BookAddViewModel
 import com.example.bookintroapp.view.viewmodel.BookMainViewModel
 
 // 書籍追加フラグメント
-class BookAddFragment : Fragment() {
+class BookAddFragment : BaseFragment() {
 
     // ビューモデル
     private lateinit var bookAddViewModel: BookAddViewModel
@@ -28,8 +28,7 @@ class BookAddFragment : Fragment() {
         bookAddViewModel.initModel()
 
         // フラグメント設定
-        val root = inflater.inflate(R.layout.fragment_bookadd_layout, container, false)
-
+        val root = setInflate(R.layout.fragment_bookadd_layout, inflater, container)
         return root
     }
 

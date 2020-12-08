@@ -7,17 +7,17 @@ import androidx.lifecycle.ViewModel
 import com.example.bookintroapp.model.SignupModel
 
 // サインアップビューモデル
-class SignupViewModel : ViewModel(){
+class SignupViewModel : BaseViewModel(){
 
     // モデル
     private lateinit var _model : SignupModel
 
-    fun initModel() {
+    override fun initModel() {
         // TODO モデルの初期化
         _model = SignupModel()
     }
 
-    fun setView(view: View, frag: Fragment) {
+    override fun setView(view: View, frag: Fragment) {
         // TODO ビューの設定
         _model.setLayout(view)
         _model.setListener(view, frag)

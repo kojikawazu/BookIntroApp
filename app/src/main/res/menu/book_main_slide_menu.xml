@@ -5,14 +5,14 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:title="テスト１" />
+            android:id="@+id/nav_bookmain"
+            android:title="@string/book_slidebar_mainpage" />
         <item
-            android:id="@+id/nav_gallery"
-            android:title="テスト２" />
+            android:id="@+id/nav_bookmy"
+            android:title="@string/book_slidebar_mypage" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:title="テスト３" />
+            android:id="@+id/nav_bookmark"
+            android:title="@string/book_slidebar_bookmark" />
     </group>
 
 </menu>

@@ -11,7 +11,7 @@ import com.example.bookintroapp.view.viewmodel.ChangePasswdViewModel
 import com.example.bookintroapp.view.viewmodel.SignupViewModel
 
 // パスワード変更フラグメント
-class ChangePasswdFragment : Fragment() {
+class ChangePasswdFragment : BaseFragment() {
 
     // ビューモデル
     private lateinit var passwdViewModel : ChangePasswdViewModel
@@ -28,8 +28,7 @@ class ChangePasswdFragment : Fragment() {
         passwdViewModel.initModel()
 
         // フラグメント設定
-        val root = inflater.inflate(R.layout.fragment_chpasswd_layout, container, false)
-
+        val root = setInflate(R.layout.fragment_chpasswd_layout, inflater, container)
         return root
     }
 
