@@ -3,10 +3,11 @@ package com.example.bookintroapp.valueobject.form
 import android.widget.EditText
 import com.example.bookintroapp.helper.DomainHelper
 
+// パスワード変更フォーム
 class ChangePasswdForm() {
 
     init{
-
+        // TODO 初期化
     }
 
     constructor(emailEdit : EditText, forgotEdit : EditText,

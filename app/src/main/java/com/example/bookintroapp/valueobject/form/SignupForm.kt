@@ -3,10 +3,11 @@ package com.example.bookintroapp.valueobject.form
 import android.widget.EditText
 import com.example.bookintroapp.helper.DomainHelper
 
+// サインアップフォーム
 class SignupForm() {
 
     init{
-
+        // TODO 初期化
     }
 
     constructor(userNameEditText: EditText, emailEditText: EditText,
@@ -71,7 +72,7 @@ class SignupForm() {
     fun isEmpty(): Boolean {
         // TODO 空チェック
         return ( UserNameEdit?.text.toString().isEmpty() || EmailEdit?.text.toString().isEmpty() ||
-                PasswdNewEdit?.text.toString().isEmpty() || PasswdForgotEdit?.text.toString().isEmpty() );
+                PasswdNewEdit?.text.toString().isEmpty() || PasswdForgotEdit?.text.toString().isEmpty() )
     }
 
     fun checkUserName(max : Int) : Boolean{

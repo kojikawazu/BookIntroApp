@@ -24,7 +24,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/bookmark_title_textView"
+                android:id="@+id/bookmypage_title_textView"
                 android:layout_width="match_parent"
                 android:layout_height="67dp"
                 android:text="@string/book_mypage_title"
@@ -38,14 +38,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/bookmark_contents_textView"
+                android:id="@+id/bookmypage_contents_textView"
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
                 android:text="@string/book_mypage_username"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/bookmark_paging_top"
+                android:id="@+id/bookmypage_paging_top"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:text="ページング上部"
@@ -59,6 +59,7 @@
             android:orientation="vertical">
 
             <ListView
+                android:id="@+id/bookmypage_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
@@ -69,7 +70,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/bookmark_paging_bottom"
+                android:id="@+id/bookmypage_paging_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_weight="1"

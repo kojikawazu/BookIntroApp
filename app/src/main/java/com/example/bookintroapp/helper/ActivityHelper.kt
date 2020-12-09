@@ -11,8 +11,12 @@ import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
+import com.example.bookintroapp.repository.IUserRepository
+import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.view.dialog.SimpleAlertDiralog
 import com.example.bookintroapp.view.dialog.YesNoAlertDialog
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.QuerySnapshot
 
 class ActivityHelper {
 
@@ -31,14 +35,6 @@ class ActivityHelper {
             return ac.resources.getString(id).toInt()
         }
 
-        fun show_error_dialog(activity : AppCompatActivity, contents: String){
-            AlertDialog.Builder(activity)
-                    .setTitle(activity.resources.getString(R.string.error_title))
-                    .setMessage(contents)
-                    .setPositiveButton("OK") { dialog, which ->  }
-                    .show()
-        }
-
         fun show_error_dialog(flag: Fragment, contents: String){
             val title: String = flag.requireActivity().resources.getString(R.string.error_title)
             val yesString: String = flag.requireActivity().resources.getString(R.string.dialog_yes)
@@ -52,16 +48,6 @@ class ActivityHelper {
                     //OKボタンリスナー
                 }
             }.show(flag.parentFragmentManager, "error")
-        }
-
-        fun show_success_dialog(activity: AppCompatActivity, title: Int, contents: Int, func: () -> Unit) {
-            AlertDialog.Builder(activity)
-                    .setTitle(activity.resources.getString(title))
-                    .setMessage(activity.resources.getString(contents))
-                    .setPositiveButton("OK", { dialog, which ->
-                        func()
-                    })
-                    .show()
         }
 
         fun show_success_dialog(frag: Fragment, title: Int, contents: Int, func: () -> Unit){
@@ -89,6 +75,22 @@ class ActivityHelper {
         fun backFragment(flag: Fragment){
             // TODO フラグメント戻る
             flag.findNavController().popBackStack()
+        }
+
+        fun selectUserEntity(frag: Fragment, _userRepository: IUserRepository): UserEntity?{
+            try {
+                // TODO アクティビティに保存してるメールアドレスからユーザデータ取得
+                val ac: MainActivity = frag.activity as MainActivity
+                val emailString = ac.getSigninMail()
+
+                // ユーザーエンティティ
+                var tsk: Task<QuerySnapshot> = _userRepository.select_byEmail(emailString)
+                while (!tsk.isComplete) {
+                }
+                return _userRepository.getResultEntity(tsk)
+            }catch(ex: ClassCastException){
+                return null
+            }
         }
     }
 }

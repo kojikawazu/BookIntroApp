@@ -5,6 +5,10 @@
     <string name="signup_username_len">10</string>
     <string name="signup_passwd_len">10</string>
 
+    <string name="bookadd_bookname_len">20</string>
+    <string name="bookadd_title_len">20</string>
+    <string name="bookadd_comment_len">150</string>
+
     <!-- レイアウト -->
 
     <!-- サインイン画面 -->
@@ -97,7 +101,7 @@
     <string name="book_mark_title">ブックマークリスト</string>
     <string name="book_mark_username">〇〇さんのブックマーク</string>
 
-    <!-- -->
+    <!-- マイリスト -->
     <string name="book_mypage_title">マイリスト</string>
     <string name="book_mypage_username">〇〇さんのリスト</string>
 

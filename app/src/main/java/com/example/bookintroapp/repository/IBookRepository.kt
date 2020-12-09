@@ -6,20 +6,18 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
 
-interface IUserRepository {
+interface IBookRepository {
 
     fun selectAll(): Task<QuerySnapshot>
 
-    fun select_byEmail(email: String): Task<QuerySnapshot>
+    fun select_byuserId(userId: String): Task<QuerySnapshot>
 
-    fun select_byEmailForgotPasswd(email: String, forgotPasswd: String): Task<QuerySnapshot>
+    //fun insert(entity: BookEntity) : Task<DocumentReference>
 
-    fun insert(entity: UserEntity) : Task<DocumentReference>
-
-    fun getResultEntity(tsk: Task<QuerySnapshot>): UserEntity?
-
-    fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<UserEntity>
+    fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<BookEntity>
 
     fun goError(tsk: Task<QuerySnapshot>)
+
+    fun changeBindingList(list: MutableList<BookEntity>): MutableList<Map<String, String>>
 
 }

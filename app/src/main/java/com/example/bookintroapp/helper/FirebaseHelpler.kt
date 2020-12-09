@@ -14,37 +14,39 @@ class FirebaseHelpler {
 
     // TODO static
     companion object{
-        val USER_TABLE : String           = "userTable"
-        val USER_TABLE_NAME: String       = "user"
-        val USER_TABLE_EMAIL: String      = "email"
-        val USER_TABLE_FORGOTMAIL: String = "forgotPasswd"
-        val USER_TABLE_CREATED: String    = "created"
 
-        fun getCollection(): CollectionReference {
+        fun getCollection(table: String): CollectionReference {
             val db = FirebaseFirestore.getInstance()
-            return db.collection(USER_TABLE)
+            return db.collection(table)
         }
 
-        fun getAuth(){
-            FirebaseAuth.getInstance()
+        fun getAuth(): FirebaseAuth{
+            // TODO 認証インスタンスの取得
+            return FirebaseAuth.getInstance()
         }
 
         fun authSignin(email: String, passwd: String) : Task<AuthResult>{
             // TODO サインイン処理
-            var auth: FirebaseAuth = FirebaseAuth.getInstance()
+            var auth: FirebaseAuth = getAuth()
             return auth.signInWithEmailAndPassword(email, passwd)
         }
 
         fun authSignup(email: String, passwd: String) : Task<AuthResult>{
             // TODO サインアップ処理
-            var auth: FirebaseAuth = FirebaseAuth.getInstance()
+            var auth: FirebaseAuth = getAuth()
             return auth.createUserWithEmailAndPassword(email, passwd)
         }
 
         fun authChangePasswd(email: String) : Task<Void>{
             // TODO パスワード変更メールを送信
-            var auth: FirebaseAuth = FirebaseAuth.getInstance()
+            var auth: FirebaseAuth = getAuth()
             return auth.sendPasswordResetEmail(email)
+        }
+
+        fun authSignout(){
+            // TODO サインアウト処理
+            var auth: FirebaseAuth = getAuth()
+            auth.signOut()
         }
 
     }

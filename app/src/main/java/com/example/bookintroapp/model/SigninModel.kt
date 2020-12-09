@@ -14,6 +14,7 @@ import com.example.bookintroapp.repository.UserRepository
 import com.example.bookintroapp.valueobject.form.SigninForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
 
 class SigninModel : ModelBase() {
 
@@ -79,7 +80,10 @@ class SigninModel : ModelBase() {
         // ----------------------------------------------------------------------------------------
         var tsk: Task<AuthResult> = FirebaseHelpler.authSignin(signinForm!!.EmailString, signinForm!!.PasswdString)
         while(!(tsk.isComplete)){}
-        if(!tsk.isSuccessful){
+        if(tsk.isSuccessful){
+            // サインイン成功
+        }
+        else{
             // サインイン失敗
             ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag, R.string.signin_error_dialog))
             return
@@ -87,7 +91,6 @@ class SigninModel : ModelBase() {
 
         // サインイン成功
         // ----------------------------------------------------------------------------------------
-        //ActivityHelper.nextFragment(frag, R.id.action_signin_to_bookmain_fragment)
         val userActivity: UserActivity = frag.activity as UserActivity
         userActivity.changeMainActivity()
     }

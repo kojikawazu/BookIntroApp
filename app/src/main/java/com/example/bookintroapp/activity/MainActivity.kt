@@ -19,11 +19,16 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.ActivityHelper
+import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.model.SigninModel
+import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.view.dialog.SimpleAlertDiralog
+import com.google.android.gms.tasks.Task
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.QuerySnapshot
 
 // class サインイン
 class MainActivity : AppCompatActivity(),
@@ -35,8 +40,12 @@ class MainActivity : AppCompatActivity(),
     // ナビゲーションコントローラー
     private lateinit var navController: NavController
 
+    // サインイン中のメールアドレス
+    private lateinit var signinEmail: String
+
     init{
         // TODO 初期化
+        signinEmail = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,15 +60,10 @@ class MainActivity : AppCompatActivity(),
         // 右下ボタン
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            /*
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-             */
         }
 
         // レイアウト設定
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_main_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_main_fragment)
 
         // ナビゲーション設定
@@ -67,7 +71,9 @@ class MainActivity : AppCompatActivity(),
                 R.id.nav_bookmain, R.id.nav_bookmy, R.id.nav_bookmark), drawerLayout)
         // アクションバーにナビゲーションバインド
         setupActionBarWithNavController(navController, appBarConfiguration)
+
         // サイドバーリスナー設定
+        val navView: NavigationView = findViewById(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
         navView.setupWithNavController(navController)
 
@@ -84,6 +90,9 @@ class MainActivity : AppCompatActivity(),
                 }
             }
         }
+
+        // サインイン中のメールアドレス保存
+        saveSigninMail()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -111,10 +120,11 @@ class MainActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // TODO メニューのイベントリスナー
         super.onOptionsItemSelected(item)
+        //Log.d("MainActivity debug", item.itemId.toString())
         when(item.itemId){
             R.id.header_signout -> {
                 // サインアウト
-                finish()
+                signout()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -125,8 +135,30 @@ class MainActivity : AppCompatActivity(),
         // TODO 右下ボタン押下
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
+            // 書籍追加へ移動
             ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookadd)
         }
+    }
+
+    fun getSigninMail(): String{
+        // TODO サインイン中のメールアドレス取得
+        return signinEmail
+    }
+
+    fun saveSigninMail(){
+        // TODO サインイン中のメールアドレス保存
+        val auth: FirebaseAuth =  FirebaseHelpler.getAuth()
+        val user = auth.currentUser
+        user?.let {
+            signinEmail = user?.email.toString()
+        }
+    }
+
+    fun signout(){
+        // TODO サインアウト処理
+        signinEmail = ""
+        FirebaseHelpler.authSignout()
+        finish()
     }
 
 

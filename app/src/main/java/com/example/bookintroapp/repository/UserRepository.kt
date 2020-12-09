@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.constraintlayout.widget.Constraints.TAG
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.helper.FirebaseHelpler
+import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 import java.util.Date
@@ -11,11 +12,21 @@ import java.sql.Timestamp
 
 class UserRepository : IUserRepository {
 
-    override fun selectAll():  MutableList<UserEntity> {
-        // TODO 全てユーザ選択
-        var list: MutableList<UserEntity> = mutableListOf()
-        val collection = FirebaseHelpler.getCollection()
+    companion object{
+        val USER_TABLE : String           = "userTable"
+        val USER_TABLE_NAME: String       = "user"
+        val USER_TABLE_EMAIL: String      = "email"
+        val USER_TABLE_FORGOTMAIL: String = "forgotPasswd"
+        val USER_TABLE_CREATED: String    = "created"
+    }
 
+    override fun selectAll(): Task<QuerySnapshot> {
+        // TODO 全てユーザ選択
+        val collection = FirebaseHelpler.getCollection(USER_TABLE)
+        return collection.get()
+
+        /*
+        var list: MutableList<UserEntity> = mutableListOf()
         collection.get()
                     .addOnSuccessListener { result ->
                         for(doc in result) {
@@ -29,23 +40,23 @@ class UserRepository : IUserRepository {
                         Log.d(TAG,"DB error is $exception")
                     }
         return list
+         */
     }
 
     override fun select_byEmail(email: String): Task<QuerySnapshot> {
         // TODO 名前とメールアドレスの一致確認
-        val collection = FirebaseHelpler.getCollection()
-        var tsk: Task<QuerySnapshot> =  collection
-                .whereEqualTo(FirebaseHelpler.USER_TABLE_EMAIL, email)
+        val collection = FirebaseHelpler.getCollection(USER_TABLE)
+        return collection
+                .whereEqualTo(UserRepository.USER_TABLE_EMAIL, email)
                 .get()
-        return tsk
     }
 
     override fun select_byEmailForgotPasswd(email: String, forgotPasswd: String): Task<QuerySnapshot> {
         // TODO 名前とメールアドレスと忘れた用のパスワードの一致確認
-        val collection = FirebaseHelpler.getCollection()
+        val collection = FirebaseHelpler.getCollection(USER_TABLE)
         var tsk: Task<QuerySnapshot> =  collection
-            .whereEqualTo(FirebaseHelpler.USER_TABLE_EMAIL, email)
-            .whereEqualTo(FirebaseHelpler.USER_TABLE_FORGOTMAIL, forgotPasswd)
+            .whereEqualTo(UserRepository.USER_TABLE_EMAIL, email)
+            .whereEqualTo(UserRepository.USER_TABLE_FORGOTMAIL, forgotPasswd)
             .get()
         return tsk
     }
@@ -53,12 +64,12 @@ class UserRepository : IUserRepository {
     override fun insert(entity: UserEntity): Task<DocumentReference> {
         // TODO データ追加処理
         val data = hashMapOf(
-            FirebaseHelpler.USER_TABLE_NAME to entity.UserName,
-            FirebaseHelpler.USER_TABLE_EMAIL to entity.Email,
-            FirebaseHelpler.USER_TABLE_FORGOTMAIL to entity.ForgotPasswd,
-            FirebaseHelpler.USER_TABLE_CREATED to Timestamp(entity.Created.time)
+                UserRepository.USER_TABLE_NAME to entity.UserName,
+                UserRepository.USER_TABLE_EMAIL to entity.Email,
+                UserRepository.USER_TABLE_FORGOTMAIL to entity.ForgotPasswd,
+                UserRepository.USER_TABLE_CREATED to Timestamp(entity.Created.time)
         )
-        val collection = FirebaseHelpler.getCollection()
+        val collection = FirebaseHelpler.getCollection(USER_TABLE)
         var tsk: Task<DocumentReference> = collection.add(data)
         return tsk
     }
@@ -86,6 +97,31 @@ class UserRepository : IUserRepository {
         return entity
     }
 
+    override fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<UserEntity> {
+        // TODO 選択の結果を取得
+        val list: MutableList<UserEntity> = mutableListOf()
+        if(tsk.isSuccessful){
+            // 成功
+            var result: QuerySnapshot? = tsk.result
+            if(result != null){
+                var len = result.size()
+                if( len == 1 ) {
+                    for (doc in result) {
+                        var entity: UserEntity? = createEntity(doc)
+                        if(entity != null){
+                            list.add(entity)
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            // 失敗
+            goError(tsk)
+        }
+        return list
+    }
+
     override fun goError(tsk: Task<QuerySnapshot>) {
         // TODO 失敗処理
         var exception = tsk.exception
@@ -98,13 +134,13 @@ class UserRepository : IUserRepository {
         if(doc != null){
             // エラー : com.google.firebase.Timestampをjava.sql.Timestampにキャストできません
             // 対処   : キャストの仕方変更
-            var stamp: com.google.firebase.Timestamp = doc.data?.get(FirebaseHelpler.USER_TABLE_CREATED) as com.google.firebase.Timestamp
+            var stamp: com.google.firebase.Timestamp = doc.data?.get(UserRepository.USER_TABLE_CREATED) as com.google.firebase.Timestamp
             var date: Date = stamp.toDate()
             entity = UserEntity(
                 doc.id,
-                doc.data?.get(FirebaseHelpler.USER_TABLE_NAME).toString(),
-                doc.data?.get(FirebaseHelpler.USER_TABLE_EMAIL).toString(),
-                doc.data?.get(FirebaseHelpler.USER_TABLE_FORGOTMAIL).toString(),
+                doc.data?.get(UserRepository.USER_TABLE_NAME).toString(),
+                doc.data?.get(UserRepository.USER_TABLE_EMAIL).toString(),
+                doc.data?.get(UserRepository.USER_TABLE_FORGOTMAIL).toString(),
                 date
             )
         }

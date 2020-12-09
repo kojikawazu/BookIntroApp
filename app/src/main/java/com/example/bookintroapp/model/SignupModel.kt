@@ -67,7 +67,7 @@ class SignupModel : ModelBase() {
         if( !errorString.isEmpty() ){
             // エラーダイアログ表示
             ActivityHelper.show_error_dialog(frag, errorString)
-            return ;
+            return
         }
 
         // 既に登録されてるかチェック
