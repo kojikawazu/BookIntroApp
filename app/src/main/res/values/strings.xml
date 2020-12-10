@@ -86,6 +86,11 @@
     <string name="book_add_error">ノーエラー</string>
     <string name="book_add_button">投稿</string>
 
+    <string name="book_add_error_dialog">書籍投稿追加に失敗しました。</string>
+
+    <string name="book_add_success_title">書籍追加実行</string>
+    <string name="book_add_success_contents">書籍追加しました。</string>
+
     <!-- 書籍投稿変更 -->
     <string name="book_reply_title">投稿に返信</string>
     <string name="book_reply_username">〇〇さんの投稿</string>

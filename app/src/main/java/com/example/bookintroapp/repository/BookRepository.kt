@@ -9,6 +9,7 @@ import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import java.sql.Timestamp
@@ -41,6 +42,12 @@ class BookRepository : IBookRepository {
         return collection.get()
     }
 
+    override fun select_byId(id: String): Task<DocumentSnapshot> {
+        // TODO IDによる選択
+        val document = FirebaseHelpler.getDocument(BOOK_TABLE, id)
+        return document.get()
+    }
+
     override fun select_byuserId(userId: String): Task<QuerySnapshot> {
         // TODO ユーザIDによる選択
         val collection = FirebaseHelpler.getCollection(BOOK_TABLE)
@@ -49,22 +56,27 @@ class BookRepository : IBookRepository {
                 .get()
     }
 
-    /*
     override fun insert(entity: BookEntity): Task<DocumentReference> {
         // TODO データ追加処理
-
         val data = hashMapOf(
-                UserRepository.USER_TABLE_NAME to entity.UserName,
-                UserRepository.USER_TABLE_EMAIL to entity.Email,
-                UserRepository.USER_TABLE_FORGOTMAIL to entity.ForgotPasswd,
-                UserRepository.USER_TABLE_CREATED to Timestamp(entity.Created.time)
+                BOOK_TABLE_NAME to entity.BookName,
+                BOOK_TABLE_TITLE to entity.BookTitle,
+                BOOK_TABLE_SATIS to entity.SatisCnt,
+                BOOK_TABLE_NICECNT to entity.NiceCnt,
+                BOOK_TABLE_COMMENT to entity.Comment,
+                BOOK_TABLE_USERID to entity.UserId,
+                BOOK_TABLE_CREATED to Timestamp(entity.Created.time)
         )
-        val collection = FirebaseHelpler.getCollection(UserRepository.USER_TABLE)
+        val collection = FirebaseHelpler.getCollection(BOOK_TABLE)
         var tsk: Task<DocumentReference> = collection.add(data)
         return tsk
-
     }
-     */
+
+    override fun update_niceCnt_byId(id: String, cnt: Int) : Task<Void> {
+        // TODO いいねカウンタの更新(更新対象:ID)
+        val document = FirebaseHelpler.getDocument(BOOK_TABLE, id)
+        return document.update(BOOK_TABLE_NICECNT, cnt)
+    }
 
     override fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<BookEntity> {
         // TODO 選択の結果を取得
@@ -95,6 +107,7 @@ class BookRepository : IBookRepository {
     }
 
     override fun changeBindingList(list: MutableList<BookEntity>): MutableList<Map<String, String>> {
+        // TODO エンティティリストの生成
         var mapList: MutableList<Map<String, String>> = mutableListOf()
         for(entity in list){
             var map = mapOf(

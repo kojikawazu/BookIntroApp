@@ -1,5 +1,6 @@
 package com.example.bookintroapp.activity
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings.Global.putString
@@ -32,7 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot
 
 // class サインイン
 class MainActivity : AppCompatActivity(),
-                        NavigationView.OnNavigationItemSelectedListener{
+                        NavigationView.OnNavigationItemSelectedListener {
 
     // メニュバー
     private lateinit var appBarConfiguration: AppBarConfiguration

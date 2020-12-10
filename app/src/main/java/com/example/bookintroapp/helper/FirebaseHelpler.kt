@@ -4,6 +4,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirebaseHelpler {
@@ -16,8 +17,15 @@ class FirebaseHelpler {
     companion object{
 
         fun getCollection(table: String): CollectionReference {
+            // TODO テーブル取得
             val db = FirebaseFirestore.getInstance()
             return db.collection(table)
+        }
+
+        fun getDocument(table: String, doc: String) : DocumentReference{
+            // TODO ドキュメント取得
+            val db = FirebaseFirestore.getInstance()
+            return db.collection(table).document(doc)
         }
 
         fun getAuth(): FirebaseAuth{

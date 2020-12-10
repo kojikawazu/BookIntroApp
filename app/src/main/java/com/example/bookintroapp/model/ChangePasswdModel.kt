@@ -52,18 +52,16 @@ class ChangePasswdModel : ModelBase() {
         // TODO パスワード変更タップ
 
         // バリデーションチェック
-        var errorString = isValidate(frag)
-
+        // ----------------------------------------------------------------------------------------
+        val isError : Boolean = ActivityHelper.checkValidate(frag) { isValidate(frag) }
         // エラーチェック
-        if( !errorString.isEmpty() ){
-            // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(frag, errorString)
-            return ;
+        if( !isError ){
+            return
         }
 
         //　メールアドレスチェック + 忘れた時用パスワードチェック
         // ----------------------------------------------------------------------------------------
-        var entityCheck: UserEntity? = null
+        var entityCheck: UserEntity?
         var tskSelect: Task<QuerySnapshot> = _userRepository.select_byEmailForgotPasswd(chpasswdForm!!.EmailString, chpasswdForm!!.ForgotString)
         // 終わるまでループ
         while(!tskSelect.isComplete){ }

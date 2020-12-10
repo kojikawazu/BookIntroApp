@@ -6,11 +6,15 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.ActivityHelper
+import com.example.bookintroapp.repository.BookRepository
+import com.example.bookintroapp.repository.IBookRepository
 import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.repository.UserRepository
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.valueobject.form.BookAddForm
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentReference
 import java.util.*
 
 // 書籍追加モデル
@@ -24,6 +28,7 @@ class BookAddModel : ModelBase() {
 
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
+    private val _bookRepository: IBookRepository = BookRepository()
 
     init{
         // TODO 初期化
@@ -58,12 +63,9 @@ class BookAddModel : ModelBase() {
 
         // バリデーションチェック
         // ----------------------------------------------------------------------------------------
-        var errorString = isValidate(frag)
-
+        val isError : Boolean = ActivityHelper.checkValidate(frag) { isValidate(frag) }
         // エラーチェック
-        if( !errorString.isEmpty() ){
-            // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(frag, errorString)
+        if( !isError ){
             return
         }
 
@@ -74,8 +76,23 @@ class BookAddModel : ModelBase() {
             bookAddForm!!.BookNameString, bookAddForm!!.TitleString,
             0, 0, bookAddForm!!.CommentString, dateNow)
 
+        var tskAdd: Task<DocumentReference> = _bookRepository.insert(entityNew)
+        while(!tskAdd.isComplete){}
+        if( !tskAdd.isSuccessful ){
+            // 追加に失敗
+            // エラーダイアログ表示
+            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag, R.string.book_add_error_dialog))
+            return
+        }
 
-
+        // 追加登録完了
+        // ----------------------------------------------------------------------------------------
+        // サインアップ成功ダイアログ
+        ActivityHelper.show_success_dialog(frag,
+                R.string.book_add_success_title, R.string.book_add_success_contents) {
+            // OKの場合、サインアップ画面閉じる
+            ActivityHelper.backFragment(frag)
+        }
     }
 
     fun isValidate(flag: Fragment) : String{

@@ -24,23 +24,6 @@ class UserRepository : IUserRepository {
         // TODO 全てユーザ選択
         val collection = FirebaseHelpler.getCollection(USER_TABLE)
         return collection.get()
-
-        /*
-        var list: MutableList<UserEntity> = mutableListOf()
-        collection.get()
-                    .addOnSuccessListener { result ->
-                        for(doc in result) {
-                            var entity: UserEntity? = this.createEntity(doc)
-                            if(entity != null){
-                                list.add(entity)
-                            }
-                        }
-                    }
-                    .addOnFailureListener{ exception ->
-                        Log.d(TAG,"DB error is $exception")
-                    }
-        return list
-         */
     }
 
     override fun select_byEmail(email: String): Task<QuerySnapshot> {
@@ -64,10 +47,10 @@ class UserRepository : IUserRepository {
     override fun insert(entity: UserEntity): Task<DocumentReference> {
         // TODO データ追加処理
         val data = hashMapOf(
-                UserRepository.USER_TABLE_NAME to entity.UserName,
-                UserRepository.USER_TABLE_EMAIL to entity.Email,
-                UserRepository.USER_TABLE_FORGOTMAIL to entity.ForgotPasswd,
-                UserRepository.USER_TABLE_CREATED to Timestamp(entity.Created.time)
+                USER_TABLE_NAME to entity.UserName,
+                USER_TABLE_EMAIL to entity.Email,
+                USER_TABLE_FORGOTMAIL to entity.ForgotPasswd,
+                USER_TABLE_CREATED to Timestamp(entity.Created.time)
         )
         val collection = FirebaseHelpler.getCollection(USER_TABLE)
         var tsk: Task<DocumentReference> = collection.add(data)

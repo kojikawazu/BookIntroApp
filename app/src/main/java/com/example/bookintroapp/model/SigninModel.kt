@@ -67,13 +67,10 @@ class SigninModel : ModelBase() {
 
         // バリデーションチェック
         // ----------------------------------------------------------------------------------------
-        var errorString = isValidate(frag)
-
+        val isError : Boolean = ActivityHelper.checkValidate(frag) { isValidate(frag) }
         // エラーチェック
-        if( !errorString.isEmpty() ){
-            // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(frag, errorString)
-            return ;
+        if( !isError ){
+            return
         }
 
         // Firebaseのサインイン処理
@@ -85,7 +82,7 @@ class SigninModel : ModelBase() {
         }
         else{
             // サインイン失敗
-            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag, R.string.signin_error_dialog))
+            ActivityHelper.show_error_dialog(frag, R.string.signin_error_dialog)
             return
         }
 

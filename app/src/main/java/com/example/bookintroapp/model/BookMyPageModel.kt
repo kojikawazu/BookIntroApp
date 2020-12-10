@@ -2,9 +2,7 @@ package com.example.bookintroapp.model
 
 import android.util.Log
 import android.view.View
-import android.widget.ListView
-import android.widget.SimpleAdapter
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
@@ -13,6 +11,7 @@ import com.example.bookintroapp.repository.BookRepository
 import com.example.bookintroapp.repository.IBookRepository
 import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.repository.UserRepository
+import com.example.bookintroapp.valueobject.adapter.BookListAdapter
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.google.android.gms.tasks.Task
@@ -58,10 +57,14 @@ class BookMyPageModel : ModelBase() {
 
         // バインド処理
         val list: MutableList<BookEntity> = _bookRepository.getResultEntityList(tsk)
-        val mapList: List<Map<String, String>> = _bookRepository.changeBindingList(list)
-
-        val adapter: SimpleAdapter = SimpleAdapter( frag.context, mapList,
-                R.layout.list_book_layout, BookRepository.BIND_FROM, BookRepository.BIND_TO)
+        val adapter: BookListAdapter = BookListAdapter(frag.requireContext(), R.layout.list_book_layout).apply {
+            // 書籍データ
+            for(entity in list){
+                add(entity)
+            }
+            // サインインユーザデータ
+            setUser(userEntity!!)
+        }
 
         // ビューに反映
         val listView: ListView = view.findViewById(R.id.bookmypage_listview)

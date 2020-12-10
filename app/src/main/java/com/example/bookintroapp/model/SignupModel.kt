@@ -61,12 +61,9 @@ class SignupModel : ModelBase() {
 
         // バリデーションチェック
         // ----------------------------------------------------------------------------------------
-        var errorString = isValidate(frag)
-
+        val isError : Boolean = ActivityHelper.checkValidate(frag) { isValidate(frag) }
         // エラーチェック
-        if( !errorString.isEmpty() ){
-            // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(frag, errorString)
+        if( !isError ){
             return
         }
 
@@ -82,7 +79,7 @@ class SignupModel : ModelBase() {
         if( entityCheck != null ){
             // 既にユーザ登録済み
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag,R.string.signup_error_dialog_user))
+            ActivityHelper.show_error_dialog(frag, R.string.signup_error_dialog_user)
             return ;
         }
 
@@ -109,7 +106,7 @@ class SignupModel : ModelBase() {
         if( !tskAdd.isSuccessful ){
             // 追加に失敗
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag, R.string.signup_error_dialog) + "2")
+            ActivityHelper.show_error_dialog(frag, R.string.signup_error_dialog)
             return ;
         }
 

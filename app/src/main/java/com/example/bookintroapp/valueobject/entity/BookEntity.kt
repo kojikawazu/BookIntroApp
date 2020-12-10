@@ -71,4 +71,9 @@ class BookEntity() {
             return field
         }
         private set
+
+    fun plus_niceCnt(){
+        NiceCnt += 1
+    }
+
 }

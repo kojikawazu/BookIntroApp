@@ -35,9 +35,9 @@ class ActivityHelper {
             return ac.resources.getString(id).toInt()
         }
 
-        fun show_error_dialog(flag: Fragment, contents: String){
-            val title: String = flag.requireActivity().resources.getString(R.string.error_title)
-            val yesString: String = flag.requireActivity().resources.getString(R.string.dialog_yes)
+        fun show_error_dialog(frag: Fragment, contents: String){
+            val title: String = getStringDefine(frag, R.string.error_title)
+            val yesString: String = getStringDefine(frag, R.string.dialog_yes)
             SimpleAlertDiralog().apply {
                 arguments = Bundle().apply {
                     putString("title", title)
@@ -47,13 +47,27 @@ class ActivityHelper {
                 onPositiveListener = DialogInterface.OnClickListener { dialog, which ->
                     //OKボタンリスナー
                 }
-            }.show(flag.parentFragmentManager, "error")
+            }.show(frag.parentFragmentManager, "error")
+        }
+
+        fun show_error_dialog(frag: Fragment, id: Int){
+            val title: String = getStringDefine(frag, R.string.error_title)
+            val yesString: String = getStringDefine(frag, R.string.dialog_yes)
+            SimpleAlertDiralog().apply {
+                arguments = Bundle().apply {
+                    putString("title", title)
+                    putString("message", getStringDefine(frag, id))
+                    putString("positiveButtonLabel", yesString)
+                }
+                onPositiveListener = DialogInterface.OnClickListener { dialog, which ->
+                    //OKボタンリスナー
+                }
+            }.show(frag.parentFragmentManager, "error")
         }
 
         fun show_success_dialog(frag: Fragment, title: Int, contents: Int, func: () -> Unit){
-            val ac: MainActivity = frag.activity as MainActivity
-            val titleString: String = ac.resources.getString(title)
-            val contentsString: String = ac.resources.getString(contents)
+            val titleString: String = getStringDefine(frag, title)
+            val contentsString: String = getStringDefine(frag, contents)
             SimpleAlertDiralog().apply {
                 arguments = Bundle().apply {
                     putString("title", titleString)
@@ -85,12 +99,23 @@ class ActivityHelper {
 
                 // ユーザーエンティティ
                 var tsk: Task<QuerySnapshot> = _userRepository.select_byEmail(emailString)
-                while (!tsk.isComplete) {
-                }
+                while (!tsk.isComplete) {}
                 return _userRepository.getResultEntity(tsk)
             }catch(ex: ClassCastException){
                 return null
             }
+        }
+
+        fun checkValidate(frag: Fragment, checkFunc: (frag: Fragment) -> String) : Boolean{
+            // TODO バリデーションチェック
+            var errorString = checkFunc(frag)
+            // エラーチェック
+            if( !errorString.isEmpty() ){
+                // エラーダイアログ表示
+                show_error_dialog(frag, errorString)
+                return false
+            }
+            return true
         }
     }
 }

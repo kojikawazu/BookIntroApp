@@ -38,7 +38,7 @@
             android:layout_height="36dp"
             android:layout_weight="0.5"
             android:text="満足度(仮)"
-            android:textAlignment="center" />
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/booklist_comment"
@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="コメント" />
+            android:text="コメント"/>
     </LinearLayout>
 
     <LinearLayout
@@ -76,12 +76,16 @@
             android:text="0"
             android:textAlignment="viewEnd" />
 
+
         <Button
             android:id="@+id/button_niceCnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="いいね" />
+            android:text="いいね"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
 
         <TextView
             android:id="@+id/booklist_markCnt"
@@ -92,19 +96,25 @@
             android:text="0"
             android:textAlignment="viewEnd" />
 
+
         <Button
             android:id="@+id/button_markCnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ブックマーク" />
+            android:text="ブックマーク"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <Button
             android:id="@+id/button_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="返信" />
+            android:text="返信"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
     </LinearLayout>
 
 </LinearLayout>
