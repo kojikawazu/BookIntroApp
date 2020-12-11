@@ -33,10 +33,6 @@ class SigninFragment : BaseFragment() {
         signinViewModel = ViewModelProvider(this).get(SigninViewModel::class.java)
         signinViewModel.initModel()
 
-        /*signinViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })*/
-
         // フラグメント設定
         val root = setInflate(R.layout.fragment_signin_layout, inflater, container)
         return root

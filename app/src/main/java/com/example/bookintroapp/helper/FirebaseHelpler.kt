@@ -1,5 +1,7 @@
 package com.example.bookintroapp.helper
 
+import com.example.bookintroapp.valueobject.form.SigninForm
+import com.example.bookintroapp.valueobject.form.SignupForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -33,16 +35,16 @@ class FirebaseHelpler {
             return FirebaseAuth.getInstance()
         }
 
-        fun authSignin(email: String, passwd: String) : Task<AuthResult>{
+        fun authSignin(signinForm: SigninForm) : Task<AuthResult>{
             // TODO サインイン処理
             var auth: FirebaseAuth = getAuth()
-            return auth.signInWithEmailAndPassword(email, passwd)
+            return auth.signInWithEmailAndPassword(signinForm.EmailString, signinForm.PasswdString)
         }
 
-        fun authSignup(email: String, passwd: String) : Task<AuthResult>{
+        fun authSignup(signupForm: SignupForm) : Task<AuthResult>{
             // TODO サインアップ処理
             var auth: FirebaseAuth = getAuth()
-            return auth.createUserWithEmailAndPassword(email, passwd)
+            return auth.createUserWithEmailAndPassword(signupForm!!.EmailString, signupForm!!.PasswdForgotString)
         }
 
         fun authChangePasswd(email: String) : Task<Void>{

@@ -71,17 +71,14 @@ class BookAddModel : ModelBase() {
 
         // Firebaseへデータ登録処理
         // ----------------------------------------------------------------------------------------
-        var dateNow: Date = Date()
-        var entityNew = BookEntity("0", userEntity!!.UserId,
-            bookAddForm!!.BookNameString, bookAddForm!!.TitleString,
-            0, 0, bookAddForm!!.CommentString, dateNow)
+        var entityNew = BookEntity(userEntity!!, bookAddForm!!, Date())
 
         var tskAdd: Task<DocumentReference> = _bookRepository.insert(entityNew)
         while(!tskAdd.isComplete){}
         if( !tskAdd.isSuccessful ){
             // 追加に失敗
             // エラーダイアログ表示
-            ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag, R.string.book_add_error_dialog))
+            ActivityHelper.show_error_dialog(frag, R.string.book_add_error_dialog)
             return
         }
 

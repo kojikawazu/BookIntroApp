@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 
+// ビューモデル基底
 abstract class BaseViewModel : ViewModel() {
 
     // TODO モデルの初期化

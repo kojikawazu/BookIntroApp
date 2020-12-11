@@ -28,7 +28,7 @@ class BookAddForm {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                // 選択してない状態
             }
         }
     }

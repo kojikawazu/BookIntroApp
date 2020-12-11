@@ -121,7 +121,6 @@ class MainActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // TODO メニューのイベントリスナー
         super.onOptionsItemSelected(item)
-        //Log.d("MainActivity debug", item.itemId.toString())
         when(item.itemId){
             R.id.header_signout -> {
                 // サインアウト

@@ -26,6 +26,7 @@ class BookMarkFragment : BaseFragment(){
         bookMarkViewModel = ViewModelProvider(this).get(BookMarkViewModel::class.java)
         bookMarkViewModel.initModel()
 
+        // フラグメント設定
         val root = setInflate(R.layout.fragment_bookmark_layout, inflater, container)
         return root
     }

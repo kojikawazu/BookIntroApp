@@ -15,13 +15,17 @@ class BookMypageFragment : BaseFragment() {
     // モデル
     private lateinit var bookMypageViewModel: BookMypageViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?): View? {
         // TODO 初回起動
 
         // ビューモデル設定
         bookMypageViewModel = ViewModelProvider(this).get(BookMypageViewModel::class.java)
         bookMypageViewModel.initModel()
 
+        // フラグメント設定
         val root = setInflate(R.layout.fragment_bookmypage_layout, inflater, container)
         return root
     }

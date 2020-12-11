@@ -18,6 +18,7 @@ import com.example.bookintroapp.helper.ActivityHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
+// ユーザアクティビティ
 class UserActivity : AppCompatActivity() {
 
     // メニュバー
@@ -51,6 +52,7 @@ class UserActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        // TODO ナビゲーションバーのイベント
         if (onBackPressedDispatcher.hasEnabledCallbacks()) {
             // 戻るボタン押された場合の処理
             onBackPressedDispatcher.onBackPressed()
@@ -60,6 +62,7 @@ class UserActivity : AppCompatActivity() {
     }
 
     fun changeMainActivity(){
+        // TODO メイン画面へ遷移
         val intent = Intent(application, MainActivity::class.java)
         startActivity(intent)
     }

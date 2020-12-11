@@ -75,7 +75,7 @@ class SigninModel : ModelBase() {
 
         // Firebaseのサインイン処理
         // ----------------------------------------------------------------------------------------
-        var tsk: Task<AuthResult> = FirebaseHelpler.authSignin(signinForm!!.EmailString, signinForm!!.PasswdString)
+        var tsk: Task<AuthResult> = FirebaseHelpler.authSignin(signinForm!!)
         while(!(tsk.isComplete)){}
         if(tsk.isSuccessful){
             // サインイン成功

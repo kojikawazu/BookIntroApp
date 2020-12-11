@@ -15,9 +15,13 @@ import com.example.bookintroapp.repository.UserRepository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
 
+// パスワード変更モデル
 class ChangePasswdModel : ModelBase() {
 
+    // フォーム
     private var chpasswdForm : ChangePasswdForm? = null
+
+    // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
 
     init{

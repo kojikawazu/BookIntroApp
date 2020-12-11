@@ -18,7 +18,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
 import java.util.*
 
-// サインインモデル
+// サインアップモデル
 class SignupModel : ModelBase() {
 
     // フォーム
@@ -70,7 +70,7 @@ class SignupModel : ModelBase() {
         // 既に登録されてるかチェック
         // ----------------------------------------------------------------------------------------
         // セレクトタスク設定
-        var entityCheck: UserEntity? = null
+        var entityCheck: UserEntity?
         var tskSelect: Task<QuerySnapshot> = _userRepository.select_byEmail(signupForm!!.EmailString)
         // 終わるまでループ
         while(!tskSelect.isComplete){ }
@@ -85,7 +85,7 @@ class SignupModel : ModelBase() {
 
         // Firebaseへユーザ登録処理
         // ----------------------------------------------------------------------------------------
-        var tskAuthSignup: Task<AuthResult> = FirebaseHelpler.authSignup(signupForm!!.EmailString, signupForm!!.PasswdNewString)
+        var tskAuthSignup: Task<AuthResult> = FirebaseHelpler.authSignup(signupForm!!)
         while(!tskAuthSignup.isComplete){}
         if( !tskAuthSignup.isSuccessful ){
             // 追加に失敗
@@ -96,10 +96,7 @@ class SignupModel : ModelBase() {
 
         // ユーザ登録DB処理
         // ----------------------------------------------------------------------------------------
-        var dateNow: Date = Date()
-        var entityNew: UserEntity = UserEntity("0",
-                signupForm!!.UserNameString, signupForm!!.EmailString,
-                signupForm!!.PasswdForgotString, dateNow)
+        var entityNew: UserEntity = UserEntity(signupForm!!, Date())
 
         var tskAdd: Task<DocumentReference> = _userRepository.insert(entityNew)
         while(!tskAdd.isComplete){}

@@ -16,6 +16,7 @@ import java.sql.Timestamp
 import java.util.*
 import kotlin.collections.ArrayList
 
+// 書籍リポジトリ
 class BookRepository : IBookRepository {
 
     companion object{
@@ -100,6 +101,16 @@ class BookRepository : IBookRepository {
         return list
     }
 
+    override fun getResultEntity(tsk: Task<DocumentSnapshot>): BookEntity?{
+        // TODO エンティティの生成
+        var entity: BookEntity? = null
+        if(tsk.isSuccessful){
+            val doc: DocumentSnapshot? = tsk.result
+            entity = createEntity(doc!!)
+        }
+        return entity
+    }
+
     override fun goError(tsk: Task<QuerySnapshot>) {
         // TODO 失敗処理
         var exception = tsk.exception
@@ -124,6 +135,28 @@ class BookRepository : IBookRepository {
     }
 
     private fun createEntity(doc: QueryDocumentSnapshot): BookEntity? {
+        // TODO エンティティの生成
+        var entity: BookEntity? = null
+        if(doc != null){
+            // エラー : com.google.firebase.Timestampをjava.sql.Timestampにキャストできません
+            // 対処   : キャストの仕方変更
+            var stamp: com.google.firebase.Timestamp = doc.data?.get(BookRepository.BOOK_TABLE_CREATED) as com.google.firebase.Timestamp
+            var date: Date = stamp.toDate()
+            entity = BookEntity(
+                    doc.id,
+                    doc.data?.get(BOOK_TABLE_USERID).toString(),
+                    doc.data?.get(BOOK_TABLE_NAME).toString(),
+                    doc.data?.get(BOOK_TABLE_TITLE).toString(),
+                    doc.data?.get(BOOK_TABLE_SATIS).toString().toInt(),
+                    doc.data?.get(BOOK_TABLE_NICECNT).toString().toInt(),
+                    doc.data?.get(BOOK_TABLE_COMMENT).toString(),
+                    date
+            )
+        }
+        return entity
+    }
+
+    private fun createEntity(doc: DocumentSnapshot): BookEntity? {
         // TODO エンティティの生成
         var entity: BookEntity? = null
         if(doc != null){

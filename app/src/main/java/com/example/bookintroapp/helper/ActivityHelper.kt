@@ -36,25 +36,29 @@ class ActivityHelper {
         }
 
         fun show_error_dialog(frag: Fragment, contents: String){
+            // TODO エラーダイアログ表示
             val title: String = getStringDefine(frag, R.string.error_title)
             val yesString: String = getStringDefine(frag, R.string.dialog_yes)
             SimpleAlertDiralog().apply {
                 arguments = Bundle().apply {
+                    // 部品反映
                     putString("title", title)
                     putString("message", contents)
                     putString("positiveButtonLabel", yesString)
                 }
                 onPositiveListener = DialogInterface.OnClickListener { dialog, which ->
-                    //OKボタンリスナー
+                    // OKボタンリスナー
                 }
             }.show(frag.parentFragmentManager, "error")
         }
 
         fun show_error_dialog(frag: Fragment, id: Int){
+            // TODO エラーダイアログ表示
             val title: String = getStringDefine(frag, R.string.error_title)
             val yesString: String = getStringDefine(frag, R.string.dialog_yes)
             SimpleAlertDiralog().apply {
                 arguments = Bundle().apply {
+                    // 部品反映
                     putString("title", title)
                     putString("message", getStringDefine(frag, id))
                     putString("positiveButtonLabel", yesString)
@@ -66,10 +70,12 @@ class ActivityHelper {
         }
 
         fun show_success_dialog(frag: Fragment, title: Int, contents: Int, func: () -> Unit){
+            // TODO 成功ダイアログ表示
             val titleString: String = getStringDefine(frag, title)
             val contentsString: String = getStringDefine(frag, contents)
             SimpleAlertDiralog().apply {
                 arguments = Bundle().apply {
+                    // 部品反映
                     putString("title", titleString)
                     putString("message", contentsString)
                     putString("positiveButtonLabel", "OK")

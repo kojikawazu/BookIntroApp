@@ -1,11 +1,13 @@
 package com.example.bookintroapp.valueobject.entity
 
+import com.example.bookintroapp.valueobject.form.SignupForm
 import java.util.*
 
+// ユーザエンティティ
 class UserEntity() {
 
     init{
-
+        // TODO 初期化
     }
 
     constructor(userId: String, userName: String, email: String, forgotPasswd: String, created: Date) : this(){
@@ -15,6 +17,15 @@ class UserEntity() {
         Email = email
         ForgotPasswd = forgotPasswd
         Created = created
+    }
+
+    constructor(signupForm: SignupForm, date: Date) : this(){
+        // TODO コンストラクタ
+        UserId = "0"
+        UserName = signupForm!!.UserNameString
+        Email = signupForm!!.EmailString
+        ForgotPasswd = signupForm!!.PasswdForgotString
+        Created = date
     }
 
     var UserId : String = ""

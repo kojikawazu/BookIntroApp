@@ -1,8 +1,10 @@
 package com.example.bookintroapp.valueobject.entity
 
+import com.example.bookintroapp.valueobject.form.BookAddForm
 import java.sql.Timestamp
 import java.util.*
 
+// 書籍エンティティ
 class BookEntity() {
 
     init{
@@ -19,6 +21,17 @@ class BookEntity() {
         NiceCnt = niceCnt
         Comment = comment
         Created = created
+    }
+
+    constructor(userEntity: UserEntity, bookAddForm: BookAddForm,date: Date) : this() {
+        BookId = "0"
+        UserId = userEntity!!.UserId
+        BookName =  bookAddForm!!.BookNameString
+        BookTitle = bookAddForm!!.TitleString
+        SatisCnt = 0
+        NiceCnt = 0
+        Comment = bookAddForm!!.CommentString
+        Created = date
     }
 
     var BookId : String = ""
