@@ -71,10 +71,10 @@ class BookAddModel : ModelBase() {
 
         // Firebaseへデータ登録処理
         // ----------------------------------------------------------------------------------------
-        var entityNew = BookEntity(userEntity!!, bookAddForm!!, Date())
+        val entityNew = BookEntity(userEntity!!, bookAddForm!!, Date())
 
-        var tskAdd: Task<DocumentReference> = _bookRepository.insert(entityNew)
-        while(!tskAdd.isComplete){}
+        val tskAdd: Task<DocumentReference> = _bookRepository.insert(entityNew)
+        _bookRepository.execing(tskAdd)
         if( !tskAdd.isSuccessful ){
             // 追加に失敗
             // エラーダイアログ表示

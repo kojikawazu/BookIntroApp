@@ -7,14 +7,14 @@ import android.widget.Spinner
 import com.example.bookintroapp.helper.DomainHelper
 
 // 書籍追加フォーム
-class BookAddForm {
+class BookAddForm() {
 
     init{
         // TODO 初期化
     }
 
     constructor(bookNameEdit: EditText, titleEdit: EditText,
-                commentEdit: EditText, satisEdit: Spinner){
+                commentEdit: EditText, satisEdit: Spinner) : this(){
         // TODO コンストラクタ
         BookNameEdit = bookNameEdit
         TitleEdit = titleEdit
@@ -65,7 +65,6 @@ class BookAddForm {
             if(CommentEdit != null){   return CommentEdit!!.text.toString()  }
             else{                       return ""                       }
         }
-
     var SatisString : String = "1"
         get(){          return field    }
         set(value){     field = value   }

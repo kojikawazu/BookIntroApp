@@ -16,6 +16,8 @@ interface IUserRepository {
 
     fun insert(entity: UserEntity) : Task<DocumentReference>
 
+    fun execing(tsk: Task<*>)
+
     fun getResultEntity(tsk: Task<QuerySnapshot>): UserEntity?
 
     fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<UserEntity>

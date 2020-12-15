@@ -57,6 +57,11 @@ class UserRepository : IUserRepository {
         return tsk
     }
 
+    override fun execing(tsk: Task<*>) {
+        // TODO セレクト終わるまでループ
+        while(!tsk.isComplete){ }
+    }
+
     override fun getResultEntity(tsk: Task<QuerySnapshot>): UserEntity?{
         // TODO 選択の結果を取得
         var entity: UserEntity? = null

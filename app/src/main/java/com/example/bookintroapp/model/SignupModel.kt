@@ -69,42 +69,43 @@ class SignupModel : ModelBase() {
 
         // 既に登録されてるかチェック
         // ----------------------------------------------------------------------------------------
-        // セレクトタスク設定
         var entityCheck: UserEntity?
-        var tskSelect: Task<QuerySnapshot> = _userRepository.select_byEmail(signupForm!!.EmailString)
-        // 終わるまでループ
-        while(!tskSelect.isComplete){ }
+        // セレクト
+        val tskSelect: Task<QuerySnapshot> = _userRepository.select_byEmail(signupForm!!.EmailString)
+        // セレクト中
+        _userRepository.execing(tskSelect)
         // 終了したら処理
         entityCheck = _userRepository.getResultEntity(tskSelect)
         if( entityCheck != null ){
             // 既にユーザ登録済み
             // エラーダイアログ表示
             ActivityHelper.show_error_dialog(frag, R.string.signup_error_dialog_user)
-            return ;
+            return
         }
 
         // Firebaseへユーザ登録処理
         // ----------------------------------------------------------------------------------------
-        var tskAuthSignup: Task<AuthResult> = FirebaseHelpler.authSignup(signupForm!!)
+        val tskAuthSignup: Task<AuthResult> = FirebaseHelpler.authSignup(signupForm!!)
         while(!tskAuthSignup.isComplete){}
         if( !tskAuthSignup.isSuccessful ){
             // 追加に失敗
             // エラーダイアログ表示
             ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag,R.string.signup_error_dialog) + tskAuthSignup.exception)
-            return ;
+            return
         }
 
         // ユーザ登録DB処理
         // ----------------------------------------------------------------------------------------
-        var entityNew: UserEntity = UserEntity(signupForm!!, Date())
-
-        var tskAdd: Task<DocumentReference> = _userRepository.insert(entityNew)
-        while(!tskAdd.isComplete){}
+        val entityNew = UserEntity(signupForm!!, Date())
+        // 追加
+        val tskAdd: Task<DocumentReference> = _userRepository.insert(entityNew)
+        // セレクト中
+        _userRepository.execing(tskAdd)
         if( !tskAdd.isSuccessful ){
             // 追加に失敗
             // エラーダイアログ表示
             ActivityHelper.show_error_dialog(frag, R.string.signup_error_dialog)
-            return ;
+            return
         }
 
         // 追加登録完了

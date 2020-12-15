@@ -67,14 +67,14 @@ class ChangePasswdModel : ModelBase() {
         // ----------------------------------------------------------------------------------------
         var entityCheck: UserEntity?
         var tskSelect: Task<QuerySnapshot> = _userRepository.select_byEmailForgotPasswd(chpasswdForm!!.EmailString, chpasswdForm!!.ForgotString)
-        // 終わるまでループ
-        while(!tskSelect.isComplete){ }
+        // セレクト中
+        _userRepository.execing(tskSelect)
         // 終了したら処理
         entityCheck = _userRepository.getResultEntity(tskSelect)
         if( entityCheck == null ){
             // メールアドレスと忘れた時用パスワードない
             ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag,R.string.passwd_error_dialog_nosame))
-            return ;
+            return
         }
 
         //　パスワード変更

@@ -79,6 +79,11 @@ class BookRepository : IBookRepository {
         return document.update(BOOK_TABLE_NICECNT, cnt)
     }
 
+    override fun execing(tsk: Task<*>) {
+        // TODO セレクト終わるまでループ
+        while(!tsk.isComplete){ }
+    }
+
     override fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<BookEntity> {
         // TODO 選択の結果を取得
         val list: MutableList<BookEntity> = mutableListOf()

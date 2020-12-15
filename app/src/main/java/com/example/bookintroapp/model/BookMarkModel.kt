@@ -54,7 +54,7 @@ class BookMarkModel  : ModelBase() {
 
         // ブックマークリストの取得
         val markTsk: Task<QuerySnapshot> = _markRepository.select_byuserId(userEntity!!.UserId)
-        while(!markTsk.isComplete){}
+        _markRepository.execing(markTsk)
         val markList: MutableList<MarkEntity> = _markRepository.getResultEntityList(markTsk)
 
         // ブックマークリストから書籍取得

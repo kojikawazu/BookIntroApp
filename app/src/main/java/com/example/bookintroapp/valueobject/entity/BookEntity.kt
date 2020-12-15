@@ -24,6 +24,7 @@ class BookEntity() {
     }
 
     constructor(userEntity: UserEntity, bookAddForm: BookAddForm,date: Date) : this() {
+        // TODO コンストラクタ
         BookId = "0"
         UserId = userEntity!!.UserId
         BookName =  bookAddForm!!.BookNameString

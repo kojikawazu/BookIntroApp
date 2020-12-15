@@ -37,7 +37,7 @@ class SigninForm() {
 
     fun isEmpty(): Boolean {
         // TODO 空チェック
-        return ( EmailEdit?.text.toString().isEmpty() || EmailEdit?.text.toString().isEmpty() );
+        return ( EmailEdit?.text.toString().isEmpty() || PasswdEdit?.text.toString().isEmpty() );
     }
 
     fun checkEmail() : Boolean{

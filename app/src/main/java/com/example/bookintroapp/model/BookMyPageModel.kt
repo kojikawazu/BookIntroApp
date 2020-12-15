@@ -54,7 +54,7 @@ class BookMyPageModel : ModelBase() {
 
         // リスト(ユーザ自身の書籍リストを選択)
         val tsk: Task<QuerySnapshot> = _bookRepository.select_byuserId(userEntity!!.UserId)
-        while(!tsk.isComplete){ }
+        _bookRepository.execing(tsk)
 
         // バインド処理
         val list: MutableList<BookEntity> = _bookRepository.getResultEntityList(tsk)
