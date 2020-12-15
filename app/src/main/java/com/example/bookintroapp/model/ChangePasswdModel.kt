@@ -65,12 +65,11 @@ class ChangePasswdModel : ModelBase() {
 
         //　メールアドレスチェック + 忘れた時用パスワードチェック
         // ----------------------------------------------------------------------------------------
-        var entityCheck: UserEntity?
-        var tskSelect: Task<QuerySnapshot> = _userRepository.select_byEmailForgotPasswd(chpasswdForm!!.EmailString, chpasswdForm!!.ForgotString)
+        val tskSelect: Task<QuerySnapshot> = _userRepository.select_byEmailForgotPasswd(chpasswdForm!!.EmailString, chpasswdForm!!.ForgotString)
         // セレクト中
         _userRepository.execing(tskSelect)
         // 終了したら処理
-        entityCheck = _userRepository.getResultEntity(tskSelect)
+        val entityCheck = _userRepository.getResultEntity(tskSelect)
         if( entityCheck == null ){
             // メールアドレスと忘れた時用パスワードない
             ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag,R.string.passwd_error_dialog_nosame))
@@ -79,7 +78,7 @@ class ChangePasswdModel : ModelBase() {
 
         //　パスワード変更
         // ----------------------------------------------------------------------------------------
-        var tskChpasswd: Task<Void> = FirebaseHelpler.authChangePasswd(chpasswdForm!!.EmailString)
+        val tskChpasswd: Task<Void> = FirebaseHelpler.authChangePasswd(chpasswdForm!!.EmailString)
         while(!(tskChpasswd.isComplete)){}
         if(!tskChpasswd.isSuccessful){
             // メール送信失敗

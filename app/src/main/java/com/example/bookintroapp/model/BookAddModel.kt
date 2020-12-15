@@ -72,7 +72,6 @@ class BookAddModel : ModelBase() {
         // Firebaseへデータ登録処理
         // ----------------------------------------------------------------------------------------
         val entityNew = BookEntity(userEntity!!, bookAddForm!!, Date())
-
         val tskAdd: Task<DocumentReference> = _bookRepository.insert(entityNew)
         _bookRepository.execing(tskAdd)
         if( !tskAdd.isSuccessful ){

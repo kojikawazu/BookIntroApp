@@ -13,7 +13,7 @@ import com.example.bookintroapp.view.viewmodel.BookMarkViewModel
 // ブックマークフラグメント
 class BookMarkFragment : BaseFragment(){
 
-    // モデル
+    // ビューモデル
     private lateinit var bookMarkViewModel: BookMarkViewModel
 
     override fun onCreateView(

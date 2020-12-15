@@ -87,11 +87,13 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
             holder = view.getTag() as ViewHolder
         }
 
+
         // 番号別に設定
         val listItem = getItem(position)
 
         // リストデータバインド
         bindListData(holder, listItem)
+
 
         // クリックリスナー
         holder.niceButton.setOnClickListener{ _ ->
@@ -116,6 +118,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         holder.createdView.text = listItem?.Created.toString()
 
         // 更新が必要な部品の設定
+        // 処理が重いので修正必要
         updateBookMarkUI(holder, listItem)
     }
 
@@ -125,7 +128,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         // ブックマーク数を更新
         holder.markView.text = getBookMarkCount(listItem)
 
-        // 自身の書籍の場合、ブックマークボタンを無効に
+        // 自身のユーザがブックマーク登録したかチェック
         holder.markButton.isEnabled = isBookMark_byUser(listItem)
     }
 
@@ -143,7 +146,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
     }
 
     private fun isBookMark_byUser(listItem: BookEntity?): Boolean{
-        // TODO 保留
+        // TODO 自身のユーザがブックマーク登録したかチェック
         val tsk: Task<QuerySnapshot> = _markRepository.select_byuserId_bookId(user!!.UserId, listItem!!.BookId)
         _markRepository.execing(tsk)
         if(tsk.isSuccessful){
@@ -161,7 +164,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
 
         // firebase更新
         val tsk: Task<Void> =  _bookRepository.update_niceCnt_byId(listItem?.BookId!!, listItem?.NiceCnt)
-        while(!tsk.isComplete){}
+        _bookRepository.execing(tsk)
     }
 
     private fun OnBookMarkEventListener(holder: ViewHolder, listItem: BookEntity?){
@@ -177,6 +180,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         }
 
         // ブックマーク追加に成功
+        // UI更新
         updateBookMarkUI(holder, listItem)
     }
 

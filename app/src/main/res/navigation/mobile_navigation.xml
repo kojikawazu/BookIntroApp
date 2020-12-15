@@ -15,6 +15,10 @@
         <action
             android:id="@+id/action_bookmain_to_bookadd"
             app:destination="@id/nav_bookadd" />
+        <!-- 書籍紹介メイン → 書籍詳細 -->
+        <action
+            android:id="@+id/action_bookmain_to_bookdetail"
+            app:destination="@id/nav_bookdetail" />
     </fragment>
 
     <!-- マイページフラグメント -->
@@ -27,6 +31,10 @@
         <action
             android:id="@+id/action_bookmain_to_bookadd"
             app:destination="@id/nav_bookadd" />
+        <!-- 書籍紹介メイン → 書籍詳細 -->
+        <action
+            android:id="@+id/action_bookmain_to_bookdetail"
+            app:destination="@id/nav_bookdetail" />
     </fragment>
 
     <!-- ブックマークフラグメント -->
@@ -39,6 +47,29 @@
         <action
             android:id="@+id/action_bookmain_to_bookadd"
             app:destination="@id/nav_bookadd" />
+        <!-- 書籍紹介メイン → 書籍詳細 -->
+        <action
+            android:id="@+id/action_bookmain_to_bookdetail"
+            app:destination="@id/nav_bookdetail" />
+    </fragment>
+
+    <!-- 書籍追加フラグメント -->
+    <fragment
+        android:id="@+id/nav_bookdetail"
+        android:name="com.example.bookintroapp.view.fragment.BookDetailFragment"
+        android:label="fragment_bookdetail"
+        tools:layout="@layout/fragment_bookdetail_layout">
+
+        <!-- 書籍紹介詳細 → 書籍追加 -->
+        <action
+            android:id="@+id/action_bookmain_to_bookadd"
+            app:destination="@id/nav_bookadd" />
+        <!-- 書籍追加フラグメント → 書籍紹介メイン -->
+        <action
+            android:id="@+id/action_bookdetail_to_bookmain_pop"
+            app:destination="@id/nav_bookmain"
+            app:popUpTo="@id/nav_bookmain"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <!-- 書籍追加フラグメント -->

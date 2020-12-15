@@ -69,13 +69,12 @@ class SignupModel : ModelBase() {
 
         // 既に登録されてるかチェック
         // ----------------------------------------------------------------------------------------
-        var entityCheck: UserEntity?
         // セレクト
         val tskSelect: Task<QuerySnapshot> = _userRepository.select_byEmail(signupForm!!.EmailString)
         // セレクト中
         _userRepository.execing(tskSelect)
         // 終了したら処理
-        entityCheck = _userRepository.getResultEntity(tskSelect)
+        val entityCheck = _userRepository.getResultEntity(tskSelect)
         if( entityCheck != null ){
             // 既にユーザ登録済み
             // エラーダイアログ表示

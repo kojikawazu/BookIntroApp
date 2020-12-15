@@ -44,9 +44,12 @@ class MainActivity : AppCompatActivity(),
     // サインイン中のメールアドレス
     private lateinit var signinEmail: String
 
+    private lateinit var targetBookId: String
+
     init{
         // TODO 初期化
         signinEmail = ""
+        targetBookId = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -152,6 +155,11 @@ class MainActivity : AppCompatActivity(),
         user?.let {
             signinEmail = user?.email.toString()
         }
+    }
+
+    fun saveTargetBookId(id: String){
+        // TODO 対象の書籍IDの保存
+        targetBookId = id
     }
 
     fun signout(){

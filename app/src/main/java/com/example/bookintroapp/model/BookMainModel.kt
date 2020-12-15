@@ -7,12 +7,11 @@ import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.helper.ActivityHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+// 書籍メインモデル
 class BookMainModel : ModelBase() {
 
-
-
     override fun setLayout(view: View) {
-
+        // TODO レイアウト設定
     }
 
     override fun setListener(view: View, frag: Fragment) {

@@ -69,14 +69,9 @@ class BookMarkModel  : ModelBase() {
         }
 
         // バインド処理
-        val adapter: BookListAdapter = BookListAdapter(frag.requireContext(), R.layout.list_book_layout).apply {
-            // 書籍データ
-            for(entity in bookList){
-                add(entity)
-            }
-            // サインインユーザデータ
-            setUser(userEntity!!)
-        }
+        val adapter: BookListAdapter = ActivityHelper.createBookListAdapter(
+                frag, bookList, userEntity!!
+        )
 
         // ビューに反映
         val listView: ListView = view.findViewById(R.id.bookmark_listview)

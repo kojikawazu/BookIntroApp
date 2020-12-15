@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.repository.IUserRepository
+import com.example.bookintroapp.valueobject.adapter.BookListAdapter
+import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.view.dialog.SimpleAlertDiralog
 import com.example.bookintroapp.view.dialog.YesNoAlertDialog
@@ -123,5 +125,18 @@ class ActivityHelper {
             }
             return true
         }
+
+        fun createBookListAdapter(frag: Fragment, list: MutableList<*>, user: UserEntity): BookListAdapter{
+            // TODO 書籍リストアダプター生成
+            return BookListAdapter(frag.requireContext(), R.layout.list_book_layout).apply {
+                // リストデータ設定
+                for(entity in list){
+                    add(entity as BookEntity?)
+                }
+                // サインインユーザデータ設定
+                setUser(user)
+            }
+        }
+
     }
 }

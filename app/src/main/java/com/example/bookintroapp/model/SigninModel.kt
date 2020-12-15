@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
+// サインインモデル
 class SigninModel : ModelBase() {
 
     // フォーム
@@ -40,11 +41,11 @@ class SigninModel : ModelBase() {
     override fun setListener(view: View, frag: Fragment) {
         // TODO イベントリスナー追加
 
-        // クリックリスナーの設定
-        var buttonChangePS = view.findViewById<Button>(R.id.signin_chpasswd_button)
-        buttonChangePS.setOnClickListener{
-            // TODO パスワード変更タップ
-            ActivityHelper.nextFragment(frag, R.id.action_signin_to_chpasswd_fragment)
+        view.findViewById<Button>(R.id.signin_chpasswd_button).apply {
+            setOnClickListener{
+                // TODO パスワード変更タップ
+                ActivityHelper.nextFragment(frag, R.id.action_signin_to_chpasswd_fragment)
+            }
         }
 
         view.findViewById<Button>(R.id.signin_signup_button).apply{
@@ -77,10 +78,7 @@ class SigninModel : ModelBase() {
         // ----------------------------------------------------------------------------------------
         var tsk: Task<AuthResult> = FirebaseHelpler.authSignin(signinForm!!)
         while(!(tsk.isComplete)){}
-        if(tsk.isSuccessful){
-            // サインイン成功
-        }
-        else{
+        if(!tsk.isSuccessful){
             // サインイン失敗
             ActivityHelper.show_error_dialog(frag, R.string.signin_error_dialog)
             return
