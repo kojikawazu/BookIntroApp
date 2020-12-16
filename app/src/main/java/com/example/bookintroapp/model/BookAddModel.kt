@@ -100,7 +100,7 @@ class BookAddModel : ModelBase() {
 
         // 書籍名チェック
         var max : Int = ActivityHelper.getIntDefine(flag, R.string.bookadd_bookname_len)
-        if( !bookAddForm!!.checkBookName(max) ){
+        if( !bookAddForm!!.checkBookName(max)){
             return "書籍名の文字数が" + max.toString() + ActivityHelper.getStringDefine(flag, R.string.error_form_name_max)
         }
 

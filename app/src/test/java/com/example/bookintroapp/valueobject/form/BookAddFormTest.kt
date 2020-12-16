@@ -22,25 +22,13 @@ class BookAddFormTest {
     }
 
     @Test
-    fun isEmpty() {
-        val nameMock =  mock<EditText>(name = "bookNameMock")
-        nameMock.setText("テスト書籍")
-        whenever(nameMock.text.toString()).thenReturn("テスト書籍")
-        val titleMock =  mock<EditText>(name = "bookTitleMock")
-        titleMock.setText("テストタイトル")
-        //whenever(titleMock.text.toString()).thenReturn("テストタイトル")
-        val commentMock =  mock<EditText>(name = "commentMock")
-        commentMock.setText("テストコメント")
-        //whenever(commentMock.text.toString()).thenReturn("テストコメント")
-        val sppinerMock =  mock<Spinner>(name = "commentMock")
+    fun NormaiTest1(){
 
-        // TODO コンストラクタテスト1
-        val bookAddForm = BookAddForm(nameMock, titleMock, commentMock, sppinerMock)
-        bookAddForm.SatisString = "2"
-        assertThat(bookAddForm.BookNameString).isEqualTo("テスト書籍")
-        assertThat(bookAddForm.CommentString).isEqualTo("テストタイトル")
-        assertThat(bookAddForm.TitleString).isEqualTo("テストコメント")
-        assertThat(bookAddForm.SatisString).isEqualTo("2")
+    }
+
+    @Test
+    fun isEmpty() {
+
     }
 
     @Test
@@ -55,3 +43,4 @@ class BookAddFormTest {
     fun checkComment() {
     }
 }
+

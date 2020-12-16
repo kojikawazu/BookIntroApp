@@ -3,59 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_bookmain">
+    app:startDestination="@+id/bookMainFragment">
 
     <!-- 書籍紹介メインフラグメント -->
     <fragment
-        android:id="@+id/nav_bookmain"
+        android:id="@+id/bookMainFragment"
         android:name="com.example.bookintroapp.view.fragment.BookMainFragment"
         android:label="fragment_bookmain"
         tools:layout="@layout/fragment_bookmain_layout" >
         <!-- 書籍紹介メイン → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"
-            app:destination="@id/nav_bookadd" />
+            app:destination="@id/bookAddFragment" />
         <!-- 書籍紹介メイン → 書籍詳細 -->
         <action
             android:id="@+id/action_bookmain_to_bookdetail"
-            app:destination="@id/nav_bookdetail" />
+            app:destination="@id/bookDetailFragment" />
     </fragment>
 
     <!-- マイページフラグメント -->
     <fragment
-        android:id="@+id/nav_bookmy"
+        android:id="@+id/bookMypageFragment"
         android:name="com.example.bookintroapp.view.fragment.BookMypageFragment"
         android:label="fragment_bookmy"
         tools:layout="@layout/fragment_bookmypage_layout" >
         <!-- 書籍紹介メイン → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"
-            app:destination="@id/nav_bookadd" />
+            app:destination="@id/bookAddFragment" />
         <!-- 書籍紹介メイン → 書籍詳細 -->
         <action
             android:id="@+id/action_bookmain_to_bookdetail"
-            app:destination="@id/nav_bookdetail" />
+            app:destination="@id/bookDetailFragment" />
     </fragment>
 
     <!-- ブックマークフラグメント -->
     <fragment
-        android:id="@+id/nav_bookmark"
+        android:id="@+id/bookMarkFragment"
         android:name="com.example.bookintroapp.view.fragment.BookMarkFragment"
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark_layout">
         <!-- 書籍紹介メイン → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"
-            app:destination="@id/nav_bookadd" />
+            app:destination="@id/bookAddFragment" />
         <!-- 書籍紹介メイン → 書籍詳細 -->
         <action
             android:id="@+id/action_bookmain_to_bookdetail"
-            app:destination="@id/nav_bookdetail" />
+            app:destination="@id/bookDetailFragment" />
     </fragment>
 
     <!-- 書籍追加フラグメント -->
     <fragment
-        android:id="@+id/nav_bookdetail"
+        android:id="@+id/bookDetailFragment"
         android:name="com.example.bookintroapp.view.fragment.BookDetailFragment"
         android:label="fragment_bookdetail"
         tools:layout="@layout/fragment_bookdetail_layout">
@@ -63,26 +63,27 @@
         <!-- 書籍紹介詳細 → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"
-            app:destination="@id/nav_bookadd" />
+            app:destination="@id/bookAddFragment" />
         <!-- 書籍追加フラグメント → 書籍紹介メイン -->
         <action
             android:id="@+id/action_bookdetail_to_bookmain_pop"
-            app:destination="@id/nav_bookmain"
-            app:popUpTo="@id/nav_bookmain"
+            app:destination="@id/bookMainFragment"
+            app:popUpTo="@id/bookMainFragment"
             app:popUpToInclusive="false" />
+
     </fragment>
 
     <!-- 書籍追加フラグメント -->
     <fragment
-        android:id="@+id/nav_bookadd"
+        android:id="@+id/bookAddFragment"
         android:name="com.example.bookintroapp.view.fragment.BookAddFragment"
         android:label="fragment_bookadd"
         tools:layout="@layout/fragment_bookadd_layout">
         <!-- 書籍追加フラグメント → 書籍紹介メイン -->
         <action
             android:id="@+id/action_bookadd_to_bookmain_pop"
-            app:destination="@id/nav_bookmain"
-            app:popUpTo="@id/nav_bookmain"
+            app:destination="@id/bookMainFragment"
+            app:popUpTo="@id/bookMainFragment"
             app:popUpToInclusive="false" />
     </fragment>
 

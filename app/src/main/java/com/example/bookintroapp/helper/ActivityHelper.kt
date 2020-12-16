@@ -11,6 +11,7 @@ import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
+import com.example.bookintroapp.repository.IBookRepository
 import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.valueobject.adapter.BookListAdapter
 import com.example.bookintroapp.valueobject.entity.BookEntity
@@ -18,6 +19,7 @@ import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.view.dialog.SimpleAlertDiralog
 import com.example.bookintroapp.view.dialog.YesNoAlertDialog
 import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 
 class ActivityHelper {
@@ -107,8 +109,21 @@ class ActivityHelper {
 
                 // ユーザーエンティティ
                 var tsk: Task<QuerySnapshot> = _userRepository.select_byEmail(emailString)
-                while (!tsk.isComplete) {}
+                _userRepository.execing(tsk)
                 return _userRepository.getResultEntity(tsk)
+            }catch(ex: ClassCastException){
+                return null
+            }
+        }
+
+        fun selectBookEntity(id: String, _bookRepository: IBookRepository) : BookEntity?{
+            try {
+                // TODO アクティビティに保存してるメールアドレスからユーザデータ取得
+
+                // ユーザーエンティティ
+                var tsk: Task<DocumentSnapshot> = _bookRepository.select_byId(id)
+                _bookRepository.execing(tsk)
+                return _bookRepository.getResultEntity(tsk)
             }catch(ex: ClassCastException){
                 return null
             }
@@ -124,18 +139,6 @@ class ActivityHelper {
                 return false
             }
             return true
-        }
-
-        fun createBookListAdapter(frag: Fragment, list: MutableList<*>, user: UserEntity): BookListAdapter{
-            // TODO 書籍リストアダプター生成
-            return BookListAdapter(frag.requireContext(), R.layout.list_book_layout).apply {
-                // リストデータ設定
-                for(entity in list){
-                    add(entity as BookEntity?)
-                }
-                // サインインユーザデータ設定
-                setUser(user)
-            }
         }
 
     }

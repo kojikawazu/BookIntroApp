@@ -35,5 +35,6 @@ class BookMypageFragment : BaseFragment() {
         bookMypageViewModel.setView(view, this)
 
 
+
     }
 }

@@ -14,6 +14,8 @@ import com.example.bookintroapp.repository.UserRepository
 import com.example.bookintroapp.valueobject.adapter.BookListAdapter
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
+import com.example.bookintroapp.valueobject.form.BookListForm
+import com.example.bookintroapp.valueobject.form.TitleForm
 import com.example.bookintroapp.view.fragment.BookMypageFragment
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
@@ -23,6 +25,10 @@ class BookMyPageModel : ModelBase() {
 
     // ユーザーエンティティ
     private var userEntity: UserEntity? = null
+
+    // フォーム
+    private var titleForm: TitleForm? = null
+    private var bookListForm: BookListForm? = null
 
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
@@ -34,6 +40,12 @@ class BookMyPageModel : ModelBase() {
 
     override fun setLayout(view: View) {
         // TODO ビューの設定
+        titleForm = TitleForm(
+            view.findViewById(R.id.bookmypage_contents_textView)
+        )
+        bookListForm = BookListForm(
+            view.findViewById(R.id.bookmypage_listview)
+        )
     }
 
     override fun setListener(view: View, frag: Fragment) {
@@ -43,8 +55,7 @@ class BookMyPageModel : ModelBase() {
         userEntity = ActivityHelper.selectUserEntity(frag,_userRepository)
 
         // タイトル
-        val titleView: TextView = view.findViewById(R.id.bookmypage_contents_textView)
-        titleView.text = userEntity?.UserName + "さんの書籍紹介"
+        titleForm?.setTitle_mypage(userEntity!!.UserName)
 
         // データリストの設定
         setListView(view, frag)
@@ -59,31 +70,11 @@ class BookMyPageModel : ModelBase() {
 
         // バインド処理
         val list: MutableList<BookEntity> = _bookRepository.getResultEntityList(tsk)
-        val adapter: BookListAdapter = ActivityHelper.createBookListAdapter(
-                frag, list, userEntity!!
-        )
+        bookListForm?.createAdapter(frag, list, userEntity!!)
 
-        // ビューに反映
-        val listView: ListView = view.findViewById(R.id.bookmypage_listview)
-        listView.adapter = adapter
-
-        listView.setOnItemClickListener { parent, view, position, id ->
-            // TODO 全体リスト画面をタップイベント
-
-            // ターゲット書籍IDをアクティビティに保存
-            saveBookId(frag, parent, position)
-
-            // 書籍詳細画面へ遷移
-            ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookdetail)
-        }
+        // リスナー設定
+        bookListForm?.setOnItemClick(frag, R.id.action_bookmain_to_bookdetail)
     }
 
-    private fun saveBookId(frag: Fragment, parent: AdapterView<*>, position: Int){
-        // TODO アクティビティに書籍IDを保存
-        val ac: MainActivity = frag.activity as MainActivity
-        val selectView: ListView = parent as ListView
-        val selectEntity: BookEntity = selectView.getItemAtPosition(position) as BookEntity
 
-        ac.saveTargetBookId(selectEntity.BookId)
-    }
 }

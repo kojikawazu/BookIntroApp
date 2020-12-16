@@ -5,13 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_bookmain"
+            android:id="@+id/bookMainFragment"
             android:title="@string/book_slidebar_mainpage" />
         <item
-            android:id="@+id/nav_bookmy"
+            android:id="@+id/bookMypageFragment"
             android:title="@string/book_slidebar_mypage" />
         <item
-            android:id="@+id/nav_bookmark"
+            android:id="@+id/bookMarkFragment"
             android:title="@string/book_slidebar_bookmark" />
     </group>
 

@@ -12,6 +12,8 @@ import com.example.bookintroapp.valueobject.adapter.BookListAdapter
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.MarkEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
+import com.example.bookintroapp.valueobject.form.BookListForm
+import com.example.bookintroapp.valueobject.form.TitleForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
@@ -21,6 +23,10 @@ class BookMarkModel  : ModelBase() {
 
     // ユーザーエンティティ
     private var userEntity: UserEntity? = null
+
+    // フォーム
+    private var titleForm: TitleForm? = null
+    private var bookListForm: BookListForm? = null
 
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
@@ -33,6 +39,12 @@ class BookMarkModel  : ModelBase() {
 
     override fun setLayout(view: View) {
         // TODO ビューの設定
+        titleForm = TitleForm(
+            view.findViewById(R.id.bookmark_contents_textView)
+        )
+        bookListForm = BookListForm(
+            view.findViewById(R.id.bookmark_listview)
+        )
     }
 
     override fun setListener(view: View, frag: Fragment) {
@@ -42,8 +54,7 @@ class BookMarkModel  : ModelBase() {
         userEntity = ActivityHelper.selectUserEntity(frag,_userRepository)
 
         // タイトル
-        val titleView: TextView = view.findViewById(R.id.bookmark_contents_textView)
-        titleView.text = userEntity?.UserName + "さんのブックマークリスト"
+        titleForm?.setTitle_bookmark(userEntity!!.UserName)
 
         // データリストの設定
         setListView(view, frag)
@@ -61,7 +72,7 @@ class BookMarkModel  : ModelBase() {
         val bookList: MutableList<BookEntity> = mutableListOf()
         for(markEntity: MarkEntity in markList){
             val bookTsk: Task<DocumentSnapshot> =  _bookRepository.select_byId(markEntity.BookId)
-            while(!bookTsk.isComplete){ }
+            _bookRepository.execing(bookTsk)
             val bookEntity: BookEntity? = _bookRepository.getResultEntity(bookTsk)
             if(bookEntity != null){
                 bookList.add(bookEntity)
@@ -69,13 +80,9 @@ class BookMarkModel  : ModelBase() {
         }
 
         // バインド処理
-        val adapter: BookListAdapter = ActivityHelper.createBookListAdapter(
-                frag, bookList, userEntity!!
-        )
+        bookListForm?.createAdapter(frag, bookList, userEntity!!)
 
-        // ビューに反映
-        val listView: ListView = view.findViewById(R.id.bookmark_listview)
-        listView.adapter = adapter
-
+        // リスナー設定
+        bookListForm?.setOnItemClick(frag, R.id.action_bookmain_to_bookdetail)
     }
 }

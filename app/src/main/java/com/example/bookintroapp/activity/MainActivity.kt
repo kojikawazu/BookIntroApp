@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(),
 
         // ナビゲーション設定
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_bookmain, R.id.nav_bookmy, R.id.nav_bookmark), drawerLayout)
+                R.id.bookMainFragment, R.id.bookMypageFragment, R.id.bookMarkFragment), drawerLayout)
         // アクションバーにナビゲーションバインド
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity(),
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // 画面遷移時の各部品の表示調整
             when(destination.id){
-                R.id.nav_bookadd ->{
+                R.id.bookAddFragment ->{
                     // 書籍追加画面の時は非表示
                     fab.hide()
                 }
@@ -146,6 +146,11 @@ class MainActivity : AppCompatActivity(),
     fun getSigninMail(): String{
         // TODO サインイン中のメールアドレス取得
         return signinEmail
+    }
+
+    fun getTargetBookId(): String{
+        // TODO サインイン中のメールアドレス取得
+        return targetBookId
     }
 
     fun saveSigninMail(){

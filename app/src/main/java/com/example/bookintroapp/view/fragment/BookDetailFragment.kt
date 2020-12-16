@@ -28,8 +28,6 @@ class BookDetailFragment : BaseFragment(){
         bookDetailViewModel = ViewModelProvider(this).get(BookDetailViewModel::class.java)
         bookDetailViewModel.initModel()
 
-
-
         // フラグメント設定
         val root = setInflate(R.layout.fragment_bookdetail_layout, inflater, container)
         return root
