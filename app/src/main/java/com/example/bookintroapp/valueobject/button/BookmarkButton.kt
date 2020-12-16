@@ -1,5 +1,7 @@
 package com.example.bookintroapp.valueobject.button
 
+import com.example.bookintroapp.repository.BookRepository
+import com.example.bookintroapp.repository.IBookRepository
 import com.example.bookintroapp.repository.IMarkRepository
 import com.example.bookintroapp.repository.MarkRepository
 import com.example.bookintroapp.valueobject.adapter.ViewHolder
@@ -48,7 +50,6 @@ class BookmarkButton() {
         val entityNew = MarkEntity("0", userEntity.UserId, bookEntity.BookId, Date())
         val tskAdd: Task<DocumentReference> = _markRepository.insert(entityNew)
         _markRepository.execing(tskAdd)
-
         return tskAdd.isSuccessful
     }
 }

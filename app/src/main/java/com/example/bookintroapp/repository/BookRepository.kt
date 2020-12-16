@@ -26,15 +26,9 @@ class BookRepository : IBookRepository {
         val BOOK_TABLE_NAME: String         = "bookName"
         val BOOK_TABLE_SATIS: String        = "satis"
         val BOOK_TABLE_NICECNT: String      = "niceCnt"
+        val BOOK_TABLE_MARKCNT: String      = "markCnt"
         val BOOK_TABLE_COMMENT: String      = "comment"
         val BOOK_TABLE_CREATED: String      = "created"
-
-        val BIND_FROM = arrayOf(
-            BOOK_TABLE_TITLE, BOOK_TABLE_SATIS, BOOK_TABLE_NICECNT, BOOK_TABLE_COMMENT, BOOK_TABLE_CREATED
-        )
-        val BIND_TO = intArrayOf(
-            R.id.booklist_title, R.id.booklist_satis, R.id.booklist_niceCnt, R.id.booklist_comment, R.id.booklist_created
-        )
     }
 
     override fun selectAll(): Task<QuerySnapshot> {
@@ -64,6 +58,7 @@ class BookRepository : IBookRepository {
                 BOOK_TABLE_TITLE to entity.BookTitle,
                 BOOK_TABLE_SATIS to entity.SatisCnt,
                 BOOK_TABLE_NICECNT to entity.NiceCnt,
+                BOOK_TABLE_MARKCNT to entity.MarkCnt,
                 BOOK_TABLE_COMMENT to entity.Comment,
                 BOOK_TABLE_USERID to entity.UserId,
                 BOOK_TABLE_CREATED to Timestamp(entity.Created.time)
@@ -77,6 +72,12 @@ class BookRepository : IBookRepository {
         // TODO いいねカウンタの更新(更新対象:ID)
         val document = FirebaseHelpler.getDocument(BOOK_TABLE, id)
         return document.update(BOOK_TABLE_NICECNT, cnt)
+    }
+
+    override fun update_markCnt_byId(id: String, cnt: Int): Task<Void> {
+        // TODO ブックマークカウンタの更新(更新対象:ID)
+        val document = FirebaseHelpler.getDocument(BOOK_TABLE, id)
+        return document.update(BOOK_TABLE_MARKCNT, cnt)
     }
 
     override fun execing(tsk: Task<*>) {
@@ -130,6 +131,7 @@ class BookRepository : IBookRepository {
                     BOOK_TABLE_TITLE to entity.BookTitle,
                     BOOK_TABLE_SATIS to entity.SatisCntDisplay,
                     BOOK_TABLE_NICECNT to entity.NiceCntDisplay,
+                    BOOK_TABLE_MARKCNT to entity.MarkCntDisplay,
                     BOOK_TABLE_COMMENT to entity.Comment,
                     BOOK_TABLE_CREATED to entity.Created.toString()
             )
@@ -154,6 +156,7 @@ class BookRepository : IBookRepository {
                     doc.data?.get(BOOK_TABLE_TITLE).toString(),
                     doc.data?.get(BOOK_TABLE_SATIS).toString().toInt(),
                     doc.data?.get(BOOK_TABLE_NICECNT).toString().toInt(),
+                    doc.data?.get(BOOK_TABLE_MARKCNT).toString().toInt(),
                     doc.data?.get(BOOK_TABLE_COMMENT).toString(),
                     date
             )
@@ -176,6 +179,7 @@ class BookRepository : IBookRepository {
                     doc.data?.get(BOOK_TABLE_TITLE).toString(),
                     doc.data?.get(BOOK_TABLE_SATIS).toString().toInt(),
                     doc.data?.get(BOOK_TABLE_NICECNT).toString().toInt(),
+                    doc.data?.get(BOOK_TABLE_MARKCNT).toString().toInt(),
                     doc.data?.get(BOOK_TABLE_COMMENT).toString(),
                     date
             )

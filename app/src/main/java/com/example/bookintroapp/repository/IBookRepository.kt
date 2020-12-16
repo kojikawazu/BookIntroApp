@@ -19,6 +19,8 @@ interface IBookRepository {
 
     fun update_niceCnt_byId(id: String, cnt: Int) : Task<Void>
 
+    fun update_markCnt_byId(id: String, cnt: Int) : Task<Void>
+
     fun execing(tsk: Task<*>)
 
     fun getResultEntity(tsk: Task<DocumentSnapshot>): BookEntity?

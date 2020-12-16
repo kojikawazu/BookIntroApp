@@ -11,7 +11,7 @@ class BookEntity() {
         // TODO 初期化
     }
 
-    constructor(bookId: String, userId: String, bookName: String, bookTitle: String, satisCnt: Int, niceCnt: Int, comment: String, created: Date) : this(){
+    constructor(bookId: String, userId: String, bookName: String, bookTitle: String, satisCnt: Int, niceCnt: Int, markCnt: Int, comment: String, created: Date) : this(){
         // TODO コンストラクタ
         BookId = bookId
         UserId = userId
@@ -19,6 +19,7 @@ class BookEntity() {
         BookTitle = bookTitle
         SatisCnt = satisCnt
         NiceCnt = niceCnt
+        MarkCnt = markCnt
         Comment = comment
         Created = created
     }
@@ -31,6 +32,7 @@ class BookEntity() {
         BookTitle = bookAddForm!!.TitleString
         SatisCnt = 0
         NiceCnt = 0
+        MarkCnt = 0
         Comment = bookAddForm!!.CommentString
         Created = date
     }
@@ -65,6 +67,16 @@ class BookEntity() {
             return SatisCnt?.toString()
         }
         private set
+    var MarkCnt : Int = 0
+        get(){
+            return field
+        }
+        private set
+    var MarkCntDisplay: String = ""
+        get(){
+            return MarkCnt?.toString()
+        }
+        private set
     var NiceCnt : Int = 0
         get(){
             return field
@@ -86,8 +98,14 @@ class BookEntity() {
         }
         private set
 
-    fun plus_niceCnt(){
-        NiceCnt += 1
+    fun setNiceCnt(cnt: Int){
+        // TODO いいね数インクリメント
+        NiceCnt = cnt
+    }
+
+    fun setMarkCnt(cnt: Int){
+        // TODO ブックマークリストインクリメント
+        MarkCnt = cnt
     }
 
 }

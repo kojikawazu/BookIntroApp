@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.ActivityHelper
-import com.example.bookintroapp.repository.BookRepository
-import com.example.bookintroapp.repository.IBookRepository
-import com.example.bookintroapp.repository.IMarkRepository
-import com.example.bookintroapp.repository.MarkRepository
+import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.button.BookmarkButton
 import com.example.bookintroapp.valueobject.button.NiceCntButton
 import com.example.bookintroapp.valueobject.entity.BookEntity
@@ -42,6 +39,10 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
 
     // ユーザエンティティ
     private var user: UserEntity? = null
+
+    // リポジトリ
+    private var _bookRepository: IBookRepository = BookRepository()
+    private val _niceRepository: INiceRepository = NiceRepository()
 
     init{
         // TODO 初期化
@@ -89,13 +90,10 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
             holder = view.getTag() as ViewHolder
         }
 
-
         // 番号別に設定
         val listItem = getItem(position)
-
         // リストデータバインド
         bindListData(holder, listItem)
-
 
         // クリックリスナー
         holder.niceButton.setOnClickListener{ _ ->
@@ -117,6 +115,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         holder.booknameView.text = listItem?.BookName
         holder.titleView.text = listItem?.BookTitle
         holder.niceView.text = listItem?.NiceCntDisplay
+        holder.markView.text = listItem?.MarkCntDisplay
         holder.commentView.text = listItem?.Comment
         holder.createdView.text = listItem?.Created.toString()
 
@@ -128,8 +127,8 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
     private fun updateBookMarkUI(holder: ViewHolder, listItem: BookEntity?){
         // TODO アクション後の更新処理
 
-        // ブックマーク数を更新
-        holder.markView.text = bookmarkButton!!.getBookMarkCount(listItem!!)
+        // 自身のユーザがブックマーク登録したかチェック
+        holder.niceButton.isEnabled = niceCntButton!!.isNiceCnt_byUser(user!!, listItem!!)
 
         // 自身のユーザがブックマーク登録したかチェック
         holder.markButton.isEnabled = bookmarkButton!!.isBookMark_byUser(user!!, listItem!!)
@@ -137,19 +136,42 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
 
     private fun OnNiceCntEventlistener(holder: ViewHolder, listItem: BookEntity?){
         // TODO いいね押下時イベント
-        val ret = niceCntButton!!.OnNiceCntEventlistener(listItem!!)
+        val ret = niceCntButton!!.OnNiceCntEventlistener(user!!, listItem!!)
         if(ret){
-            holder.niceView.text = listItem?.NiceCntDisplay
+            // いいねリスト追加に成功
+
+            // いいね数を更新
+            listItem!!.setNiceCnt(niceCntButton!!.getNiceCntCount(listItem!!).toInt())
+            holder.niceView.text = listItem!!.NiceCntDisplay
+
+            // 書籍テーブルのいいねカウンタの更新
+            val tsk: Task<Void> = _bookRepository.update_niceCnt_byId(listItem!!.BookId, listItem!!.NiceCnt)
+            _bookRepository.execing(tsk)
+
+            // UI更新
+            holder.niceButton.isEnabled = niceCntButton!!.isNiceCnt_byUser(user!!, listItem!!)
         }
     }
 
     private fun OnBookMarkEventListener(holder: ViewHolder, listItem: BookEntity?){
         // TODO ブックマーク押下イベント
+
+        // ブックマークリストに追加
         val ret = bookmarkButton!!.OnBookMarkEventListener(user!!, listItem!!)
         if(ret) {
             // ブックマーク追加に成功
+
+            // ブックマークの合計を取得
+            listItem!!.setMarkCnt(bookmarkButton!!.getBookMarkCount(listItem!!).toInt())
+            // ビューに反映
+            holder.markView.text = listItem!!.MarkCntDisplay
+
+            // 書籍テーブルのブックマークカウンタの更新
+            val tsk: Task<Void> = _bookRepository.update_markCnt_byId(listItem!!.BookId, listItem!!.MarkCnt)
+            _bookRepository.execing(tsk)
+
             // UI更新
-            updateBookMarkUI(holder, listItem)
+            holder.markButton.isEnabled = bookmarkButton!!.isBookMark_byUser(user!!, listItem!!)
         }
     }
 }

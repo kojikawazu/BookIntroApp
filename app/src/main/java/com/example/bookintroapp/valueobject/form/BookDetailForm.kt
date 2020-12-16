@@ -8,12 +8,15 @@ import android.widget.TextView
 class BookDetailForm() {
 
     constructor(bookTitleText: TextView, bookNameText: TextView,
-                commentText: TextView, satisText: TextView, niceText: TextView) : this(){
+                commentText: TextView, satisText: TextView, niceText: TextView,
+                markText: TextView, created: TextView) : this(){
         BookTitleText = bookTitleText
         BookNameText = bookNameText
         CommentText = commentText
         SatisText = satisText
         NiceText = niceText
+        MarkText = markText
+        Created = created
     }
 
     // getter
@@ -34,6 +37,14 @@ class BookDetailForm() {
             return field
         }
     private var NiceText : TextView? = null
+        get(){
+            return field
+        }
+    private var MarkText : TextView? = null
+        get(){
+            return field
+        }
+    private var Created : TextView? = null
         get(){
             return field
         }
@@ -63,13 +74,25 @@ class BookDetailForm() {
             else{                       return ""                       }
         }
 
-    fun setData(title: String, bookName: String, comment: String, satisCnt: String, niceCnt: String){
+    fun setNiceText(niceCnt: String){
+        // TODO いいねリストの更新
+        NiceText?.text = niceCnt
+    }
+
+    fun setMarkText(markCnt: String){
+        // TODO ブックマークリストの更新
+        MarkText?.text = markCnt
+    }
+
+    fun setData(title: String, bookName: String, comment: String, satisCnt: String, niceCnt: String, markCnt: String, created: String){
         // TODO データ反映
         this.BookTitleText?.text = title
         this.BookNameText?.text = bookName
         this.CommentText?.text = comment
         this.SatisText?.text = satisCnt
         this.NiceText?.text = niceCnt
+        this.MarkText?.text = markCnt
+        this.Created?.text = created
     }
 
 
