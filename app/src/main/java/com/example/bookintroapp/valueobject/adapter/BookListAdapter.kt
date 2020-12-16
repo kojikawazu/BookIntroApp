@@ -12,6 +12,8 @@ import com.example.bookintroapp.repository.BookRepository
 import com.example.bookintroapp.repository.IBookRepository
 import com.example.bookintroapp.repository.IMarkRepository
 import com.example.bookintroapp.repository.MarkRepository
+import com.example.bookintroapp.valueobject.button.BookmarkButton
+import com.example.bookintroapp.valueobject.button.NiceCntButton
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.MarkEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
@@ -30,12 +32,10 @@ data class ViewHolder(val booknameView: TextView, val titleView: TextView, val s
 // ブックリスト用アダプター
 class BookListAdapter : ArrayAdapter<BookEntity> {
 
-    // リポジトリ
-    private val _bookRepository: IBookRepository = BookRepository()
-    private val _markRepository: IMarkRepository = MarkRepository()
-
     // レイアウト
     private var inflater: LayoutInflater
+    private var niceCntButton: NiceCntButton? = null
+    private var bookmarkButton: BookmarkButton? = null
 
     // レイアウト番号
     private var resourceId : Int = 0
@@ -51,6 +51,8 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         // TODO コンストラクタ
         inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         resourceId = id
+        bookmarkButton = BookmarkButton()
+        niceCntButton = NiceCntButton()
     }
 
     // TODO ユーザ設定
@@ -101,6 +103,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
             OnNiceCntEventlistener(holder, listItem)
         }
         holder.markButton.setOnClickListener{ _ ->
+            // TODO ブックマークボタン押下時
             OnBookMarkEventListener(holder, listItem)
         }
         holder.replyButton.setOnClickListener{ _ ->
@@ -126,65 +129,27 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         // TODO アクション後の更新処理
 
         // ブックマーク数を更新
-        holder.markView.text = getBookMarkCount(listItem)
+        holder.markView.text = bookmarkButton!!.getBookMarkCount(listItem!!)
 
         // 自身のユーザがブックマーク登録したかチェック
-        holder.markButton.isEnabled = isBookMark_byUser(listItem)
-    }
-
-    private fun getBookMarkCount(listItem: BookEntity?): String{
-        // TODO 各ブックマークの合計を取得
-        val tsk: Task<QuerySnapshot> = _markRepository.select_byBookId(listItem!!.BookId)
-        _markRepository.execing(tsk)
-        if(tsk.isSuccessful){
-            val count: Int = _markRepository.getResultEntiryCount(tsk)
-            return count.toString()
-        }
-        else {
-            return ""
-        }
-    }
-
-    private fun isBookMark_byUser(listItem: BookEntity?): Boolean{
-        // TODO 自身のユーザがブックマーク登録したかチェック
-        val tsk: Task<QuerySnapshot> = _markRepository.select_byuserId_bookId(user!!.UserId, listItem!!.BookId)
-        _markRepository.execing(tsk)
-        if(tsk.isSuccessful){
-            val count: Int = _markRepository.getResultEntiryCount(tsk)
-            return count == 0
-        }else{
-            return false
-        }
+        holder.markButton.isEnabled = bookmarkButton!!.isBookMark_byUser(user!!, listItem!!)
     }
 
     private fun OnNiceCntEventlistener(holder: ViewHolder, listItem: BookEntity?){
-        // TODO いいね押下時のイベント処理
-        listItem?.plus_niceCnt()
-        holder.niceView.text = listItem?.NiceCntDisplay
-
-        // firebase更新
-        val tsk: Task<Void> =  _bookRepository.update_niceCnt_byId(listItem?.BookId!!, listItem?.NiceCnt)
-        _bookRepository.execing(tsk)
+        // TODO いいね押下時イベント
+        val ret = niceCntButton!!.OnNiceCntEventlistener(listItem!!)
+        if(ret){
+            holder.niceView.text = listItem?.NiceCntDisplay
+        }
     }
 
     private fun OnBookMarkEventListener(holder: ViewHolder, listItem: BookEntity?){
-        // TODO ブックマークボタンのイベント処理
-
-        // ブックマーク登録
-        val entityNew = MarkEntity("0", user!!.UserId, listItem!!.BookId, Date())
-        val tskAdd: Task<DocumentReference> = _markRepository.insert(entityNew)
-        _markRepository.execing(tskAdd)
-        if( !tskAdd.isSuccessful ){
-            // 追加に失敗
-            return
+        // TODO ブックマーク押下イベント
+        val ret = bookmarkButton!!.OnBookMarkEventListener(user!!, listItem!!)
+        if(ret) {
+            // ブックマーク追加に成功
+            // UI更新
+            updateBookMarkUI(holder, listItem)
         }
-
-        // ブックマーク追加に成功
-        // UI更新
-        updateBookMarkUI(holder, listItem)
     }
-
-
-
-
 }
