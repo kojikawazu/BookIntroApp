@@ -11,7 +11,8 @@ class BookEntity() {
         // TODO 初期化
     }
 
-    constructor(bookId: String, userId: String, bookName: String, bookTitle: String, satisCnt: Int, niceCnt: Int, markCnt: Int, comment: String, created: Date) : this(){
+    constructor(bookId: String, userId: String, bookName: String, bookTitle: String,
+                satisCnt: Int, niceCnt: Int, markCnt: Int, comment: String, created: Date) : this(){
         // TODO コンストラクタ
         BookId = bookId
         UserId = userId
@@ -27,13 +28,13 @@ class BookEntity() {
     constructor(userEntity: UserEntity, bookAddForm: BookAddForm,date: Date) : this() {
         // TODO コンストラクタ
         BookId = "0"
-        UserId = userEntity!!.UserId
-        BookName =  bookAddForm!!.BookNameString
-        BookTitle = bookAddForm!!.TitleString
+        UserId = userEntity.UserId
+        BookName =  bookAddForm.BookNameString
+        BookTitle = bookAddForm.TitleString
         SatisCnt = 0
         NiceCnt = 0
         MarkCnt = 0
-        Comment = bookAddForm!!.CommentString
+        Comment = bookAddForm.CommentString
         Created = date
     }
 

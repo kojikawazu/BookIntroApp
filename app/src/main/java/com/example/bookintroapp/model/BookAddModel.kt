@@ -74,7 +74,7 @@ class BookAddModel : ModelBase() {
         val entityNew = BookEntity(userEntity!!, bookAddForm!!, Date())
         val tskAdd: Task<DocumentReference> = _bookRepository.insert(entityNew)
         _bookRepository.execing(tskAdd)
-        if( !tskAdd.isSuccessful ){
+        if( !_bookRepository.isSuccessed(tskAdd) ){
             // 追加に失敗
             // エラーダイアログ表示
             ActivityHelper.show_error_dialog(frag, R.string.book_add_error_dialog)

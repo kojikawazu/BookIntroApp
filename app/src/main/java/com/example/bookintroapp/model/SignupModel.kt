@@ -74,7 +74,7 @@ class SignupModel : ModelBase() {
         // セレクト中
         _userRepository.execing(tskSelect)
         // 終了したら処理
-        val entityCheck = _userRepository.getResultEntity(tskSelect)
+        val entityCheck = _userRepository.getResultEntityQ(tskSelect)
         if( entityCheck != null ){
             // 既にユーザ登録済み
             // エラーダイアログ表示

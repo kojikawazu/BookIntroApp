@@ -15,6 +15,7 @@ import com.example.bookintroapp.valueobject.entity.UserEntity
 class BookListForm() {
 
     constructor(bookListView: ListView) : this() {
+        // TODO コンストラクタ
         BookListView = bookListView
     }
 
@@ -23,10 +24,6 @@ class BookListForm() {
         get(){
             return field
         }
-
-    fun getView() : ListView?{
-        return BookListView
-    }
 
     fun createAdapter(frag: Fragment, list: MutableList<*>, user: UserEntity){
         // TODO 書籍リストアダプター生成

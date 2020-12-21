@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.repository.*
@@ -42,7 +43,6 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
 
     // リポジトリ
     private var _bookRepository: IBookRepository = BookRepository()
-    private val _niceRepository: INiceRepository = NiceRepository()
 
     init{
         // TODO 初期化
@@ -105,7 +105,8 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
             OnBookMarkEventListener(holder, listItem)
         }
         holder.replyButton.setOnClickListener{ _ ->
-            Log.d("BookListAdapter", "reply $position")
+            // TODO リプライボタン押下時
+            //OnReplyEventListener()
         }
         return view!!
     }
@@ -142,6 +143,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
 
             // いいね数を更新
             listItem!!.setNiceCnt(niceCntButton!!.getNiceCntCount(listItem!!).toInt())
+            // ビューに反映
             holder.niceView.text = listItem!!.NiceCntDisplay
 
             // 書籍テーブルのいいねカウンタの更新
@@ -162,7 +164,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
             // ブックマーク追加に成功
 
             // ブックマークの合計を取得
-            listItem!!.setMarkCnt(bookmarkButton!!.getBookMarkCount(listItem!!).toInt())
+            listItem?.setMarkCnt(bookmarkButton!!.getBookMarkCount(listItem!!).toInt())
             // ビューに反映
             holder.markView.text = listItem!!.MarkCntDisplay
 
@@ -174,4 +176,12 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
             holder.markButton.isEnabled = bookmarkButton!!.isBookMark_byUser(user!!, listItem!!)
         }
     }
+
+    private fun OnReplyEventListener(frag: Fragment){
+        // TODO リプライボタン押下時処理
+
+        // 書籍リプライ画面へ遷移
+        ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookreply)
+    }
+
 }

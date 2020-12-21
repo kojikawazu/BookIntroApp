@@ -85,6 +85,11 @@ class BookRepository : IBookRepository {
         while(!tsk.isComplete){ }
     }
 
+    override fun isSuccessed(tsk: Task<*>): Boolean {
+        // TODO 成功したかどうかをチェック
+       return (tsk.isSuccessful)
+    }
+
     override fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<BookEntity> {
         // TODO 選択の結果を取得
         val list: MutableList<BookEntity> = mutableListOf()
@@ -143,47 +148,45 @@ class BookRepository : IBookRepository {
 
     private fun createEntity(doc: QueryDocumentSnapshot): BookEntity? {
         // TODO エンティティの生成
-        var entity: BookEntity? = null
-        if(doc != null){
-            // エラー : com.google.firebase.Timestampをjava.sql.Timestampにキャストできません
-            // 対処   : キャストの仕方変更
-            var stamp: com.google.firebase.Timestamp = doc.data?.get(BookRepository.BOOK_TABLE_CREATED) as com.google.firebase.Timestamp
-            var date: Date = stamp.toDate()
-            entity = BookEntity(
-                    doc.id,
-                    doc.data?.get(BOOK_TABLE_USERID).toString(),
-                    doc.data?.get(BOOK_TABLE_NAME).toString(),
-                    doc.data?.get(BOOK_TABLE_TITLE).toString(),
-                    doc.data?.get(BOOK_TABLE_SATIS).toString().toInt(),
-                    doc.data?.get(BOOK_TABLE_NICECNT).toString().toInt(),
-                    doc.data?.get(BOOK_TABLE_MARKCNT).toString().toInt(),
-                    doc.data?.get(BOOK_TABLE_COMMENT).toString(),
-                    date
-            )
-        }
+        var entity: BookEntity?
+
+        // エラー : com.google.firebase.Timestampをjava.sql.Timestampにキャストできません
+        // 対処   : キャストの仕方変更
+        var stamp: com.google.firebase.Timestamp = doc.data?.get(BOOK_TABLE_CREATED) as com.google.firebase.Timestamp
+        var date: Date = stamp.toDate()
+        entity = BookEntity(
+                doc.id,
+                doc.data?.get(BOOK_TABLE_USERID).toString(),
+                doc.data?.get(BOOK_TABLE_NAME).toString(),
+                doc.data?.get(BOOK_TABLE_TITLE).toString(),
+                doc.data?.get(BOOK_TABLE_SATIS).toString().toInt(),
+                doc.data?.get(BOOK_TABLE_NICECNT).toString().toInt(),
+                doc.data?.get(BOOK_TABLE_MARKCNT).toString().toInt(),
+                doc.data?.get(BOOK_TABLE_COMMENT).toString(),
+                date
+        )
         return entity
     }
 
     private fun createEntity(doc: DocumentSnapshot): BookEntity? {
         // TODO エンティティの生成
-        var entity: BookEntity? = null
-        if(doc != null){
-            // エラー : com.google.firebase.Timestampをjava.sql.Timestampにキャストできません
-            // 対処   : キャストの仕方変更
-            var stamp: com.google.firebase.Timestamp = doc.data?.get(BookRepository.BOOK_TABLE_CREATED) as com.google.firebase.Timestamp
-            var date: Date = stamp.toDate()
-            entity = BookEntity(
-                    doc.id,
-                    doc.data?.get(BOOK_TABLE_USERID).toString(),
-                    doc.data?.get(BOOK_TABLE_NAME).toString(),
-                    doc.data?.get(BOOK_TABLE_TITLE).toString(),
-                    doc.data?.get(BOOK_TABLE_SATIS).toString().toInt(),
-                    doc.data?.get(BOOK_TABLE_NICECNT).toString().toInt(),
-                    doc.data?.get(BOOK_TABLE_MARKCNT).toString().toInt(),
-                    doc.data?.get(BOOK_TABLE_COMMENT).toString(),
-                    date
-            )
-        }
+        var entity: BookEntity?
+
+        // エラー : com.google.firebase.Timestampをjava.sql.Timestampにキャストできません
+        // 対処   : キャストの仕方変更
+        var stamp: com.google.firebase.Timestamp = doc.data?.get(BOOK_TABLE_CREATED) as com.google.firebase.Timestamp
+        var date: Date = stamp.toDate()
+        entity = BookEntity(
+                doc.id,
+                doc.data?.get(BOOK_TABLE_USERID).toString(),
+                doc.data?.get(BOOK_TABLE_NAME).toString(),
+                doc.data?.get(BOOK_TABLE_TITLE).toString(),
+                doc.data?.get(BOOK_TABLE_SATIS).toString().toInt(),
+                doc.data?.get(BOOK_TABLE_NICECNT).toString().toInt(),
+                doc.data?.get(BOOK_TABLE_MARKCNT).toString().toInt(),
+                doc.data?.get(BOOK_TABLE_COMMENT).toString(),
+                date
+        )
         return entity
     }
 }

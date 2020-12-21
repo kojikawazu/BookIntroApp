@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -86,25 +87,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="342dp"
+            android:layout_height="211dp"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/bookreply_replytitle_textView"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:text="タイトル"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/bookreply_replytitle_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#FBFBFB"
-                android:ems="10"
-                android:fallbackLineSpacing="false"
-                android:inputType="textPersonName"
-                android:text="タイトルを入力してください。" />
 
             <TextView
                 android:id="@+id/bookreply_replycontents_textView"
@@ -119,7 +103,7 @@
                 android:layout_height="107dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="コメントを入力してください。" />
+                android:text="" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,19 +124,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:entries="@array/satis_list" />
-
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/bookreply_error"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#FFE7E7"
-                android:text="@string/book_reply_error"
-                android:textAlignment="center"
-                android:textColor="#FF0000"
-                android:textSize="18sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -167,6 +139,6 @@
                 android:layout_weight="1"
                 android:text="@string/book_reply_button" />
         </LinearLayout>
-
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

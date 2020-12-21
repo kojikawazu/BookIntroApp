@@ -19,6 +19,10 @@
         <action
             android:id="@+id/action_bookmain_to_bookdetail"
             app:destination="@id/bookDetailFragment" />
+        <!-- 書籍紹介メイン → 書籍リプライ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookreply"
+            app:destination="@id/bookReplyFragment" />
     </fragment>
 
     <!-- マイページフラグメント -->
@@ -35,6 +39,10 @@
         <action
             android:id="@+id/action_bookmain_to_bookdetail"
             app:destination="@id/bookDetailFragment" />
+        <!-- 書籍紹介メイン → 書籍リプライ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookreply"
+            app:destination="@id/bookReplyFragment" />
     </fragment>
 
     <!-- ブックマークフラグメント -->
@@ -51,9 +59,13 @@
         <action
             android:id="@+id/action_bookmain_to_bookdetail"
             app:destination="@id/bookDetailFragment" />
+        <!-- 書籍紹介メイン → 書籍リプライ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookreply"
+            app:destination="@id/bookReplyFragment" />
     </fragment>
 
-    <!-- 書籍追加フラグメント -->
+    <!-- 書籍詳細フラグメント -->
     <fragment
         android:id="@+id/bookDetailFragment"
         android:name="com.example.bookintroapp.view.fragment.BookDetailFragment"
@@ -64,13 +76,16 @@
         <action
             android:id="@+id/action_bookmain_to_bookadd"
             app:destination="@id/bookAddFragment" />
+        <!-- 書籍紹介メイン → 書籍リプライ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookreply"
+            app:destination="@id/bookReplyFragment" />
         <!-- 書籍追加フラグメント → 書籍紹介メイン -->
         <action
             android:id="@+id/action_bookdetail_to_bookmain_pop"
             app:destination="@id/bookMainFragment"
             app:popUpTo="@id/bookMainFragment"
             app:popUpToInclusive="false" />
-
     </fragment>
 
     <!-- 書籍追加フラグメント -->
@@ -82,6 +97,20 @@
         <!-- 書籍追加フラグメント → 書籍紹介メイン -->
         <action
             android:id="@+id/action_bookadd_to_bookmain_pop"
+            app:destination="@id/bookMainFragment"
+            app:popUpTo="@id/bookMainFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- 書籍リプライフラグメント -->
+    <fragment
+        android:id="@+id/bookReplyFragment"
+        android:name="com.example.bookintroapp.view.fragment.BookReplyFragment"
+        android:label="fragment_bookreply"
+        tools:layout="@layout/fragment_bookreply_layout">
+        <!-- 書籍追加フラグメント → 書籍紹介メイン -->
+        <action
+            android:id="@+id/action_bookreply_to_bookmain_pop"
             app:destination="@id/bookMainFragment"
             app:popUpTo="@id/bookMainFragment"
             app:popUpToInclusive="false" />

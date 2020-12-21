@@ -20,6 +20,8 @@ interface INiceRepository {
 
     fun execing(tsk: Task<*>)
 
+    fun isSuccessed(tsk: Task<*>): Boolean
+
     fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<NiceEntity>
 
     fun getResultEntiryCount(tsk: Task<QuerySnapshot>): Int

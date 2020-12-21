@@ -74,6 +74,11 @@ class MarkRepository : IMarkRepository {
         while(!tsk.isComplete){ }
     }
 
+    override fun isSuccessed(tsk: Task<*>): Boolean {
+        // TODO 成功したかどうかをチェック
+        return (tsk.isSuccessful)
+    }
+
     override fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<MarkEntity> {
         // TODO 選択の結果を取得
         val list: MutableList<MarkEntity> = mutableListOf()

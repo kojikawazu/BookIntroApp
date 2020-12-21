@@ -70,6 +70,11 @@ class NiceRepository : INiceRepository {
         while(!tsk.isComplete){ }
     }
 
+    override fun isSuccessed(tsk: Task<*>): Boolean {
+        // TODO 成功したかどうかをチェック
+        return (tsk.isSuccessful)
+    }
+
     override fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<NiceEntity> {
         // TODO 選択の結果を取得
         val list: MutableList<NiceEntity> = mutableListOf()

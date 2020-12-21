@@ -22,7 +22,7 @@ class BookmarkButton() {
         // TODO 各ブックマークの合計を取得
         val tsk: Task<QuerySnapshot> = _markRepository.select_byBookId(bookEntity.BookId)
         _markRepository.execing(tsk)
-        if(tsk.isSuccessful){
+        if(_markRepository.isSuccessed(tsk)){
             val count: Int = _markRepository.getResultEntiryCount(tsk)
             return count.toString()
         }
@@ -35,7 +35,7 @@ class BookmarkButton() {
         // TODO 自身のユーザがブックマーク登録したかチェック
         val tsk: Task<QuerySnapshot> = _markRepository.select_byuserId_bookId(userEntity.UserId, bookEntity.BookId)
         _markRepository.execing(tsk)
-        if(tsk.isSuccessful){
+        if(_markRepository.isSuccessed(tsk)){
             val count: Int = _markRepository.getResultEntiryCount(tsk)
             return count == 0
         }else{
@@ -50,6 +50,6 @@ class BookmarkButton() {
         val entityNew = MarkEntity("0", userEntity.UserId, bookEntity.BookId, Date())
         val tskAdd: Task<DocumentReference> = _markRepository.insert(entityNew)
         _markRepository.execing(tskAdd)
-        return tskAdd.isSuccessful
+        return _markRepository.isSuccessed(tskAdd)
     }
 }

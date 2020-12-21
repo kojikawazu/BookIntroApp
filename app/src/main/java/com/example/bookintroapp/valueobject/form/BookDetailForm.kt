@@ -3,6 +3,7 @@ package com.example.bookintroapp.valueobject.form
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import com.example.bookintroapp.valueobject.entity.BookEntity
 
 // 書籍詳細フォーム
 class BookDetailForm() {
@@ -10,6 +11,7 @@ class BookDetailForm() {
     constructor(bookTitleText: TextView, bookNameText: TextView,
                 commentText: TextView, satisText: TextView, niceText: TextView,
                 markText: TextView, created: TextView) : this(){
+        // TODO コンストラクタ
         BookTitleText = bookTitleText
         BookNameText = bookNameText
         CommentText = commentText
@@ -84,15 +86,15 @@ class BookDetailForm() {
         MarkText?.text = markCnt
     }
 
-    fun setData(title: String, bookName: String, comment: String, satisCnt: String, niceCnt: String, markCnt: String, created: String){
+    fun setData(entity: BookEntity){
         // TODO データ反映
-        this.BookTitleText?.text = title
-        this.BookNameText?.text = bookName
-        this.CommentText?.text = comment
-        this.SatisText?.text = satisCnt
-        this.NiceText?.text = niceCnt
-        this.MarkText?.text = markCnt
-        this.Created?.text = created
+        this.BookTitleText?.text = entity.BookTitle
+        this.BookNameText?.text = entity.BookTitle
+        this.CommentText?.text = entity.Comment
+        this.SatisText?.text = entity.SatisCntDisplay
+        this.NiceText?.text = entity.NiceCntDisplay
+        this.MarkText?.text = entity.NiceCntDisplay
+        this.Created?.text = entity!!.Created.toString()
     }
 
 

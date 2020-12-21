@@ -10,6 +10,7 @@ import com.google.firebase.firestore.*
 import java.util.Date
 import java.sql.Timestamp
 
+// ユーザリポジトリ
 class UserRepository : IUserRepository {
 
     companion object{
@@ -24,6 +25,12 @@ class UserRepository : IUserRepository {
         // TODO 全てユーザ選択
         val collection = FirebaseHelpler.getCollection(USER_TABLE)
         return collection.get()
+    }
+
+    override fun select_byId(id: String): Task<DocumentSnapshot> {
+        // TODO IDによる選択
+        val document = FirebaseHelpler.getDocument(USER_TABLE, id)
+        return document.get()
     }
 
     override fun select_byEmail(email: String): Task<QuerySnapshot> {
@@ -62,7 +69,22 @@ class UserRepository : IUserRepository {
         while(!tsk.isComplete){ }
     }
 
-    override fun getResultEntity(tsk: Task<QuerySnapshot>): UserEntity?{
+    override fun isSuccessed(tsk: Task<*>): Boolean {
+        // TODO 成功したかどうかをチェック
+        return (tsk.isSuccessful)
+    }
+
+    override fun getResultEntityD(tsk: Task<DocumentSnapshot>): UserEntity? {
+        // TODO エンティティの生成
+        var entity: UserEntity? = null
+        if(tsk.isSuccessful){
+            val doc: DocumentSnapshot? = tsk.result
+            entity = createEntity(doc!!)
+        }
+        return entity
+    }
+
+    override fun getResultEntityQ(tsk: Task<QuerySnapshot>): UserEntity?{
         // TODO 選択の結果を取得
         var entity: UserEntity? = null
         if(tsk.isSuccessful){
@@ -132,6 +154,24 @@ class UserRepository : IUserRepository {
                 date
             )
         }
+        return entity
+    }
+
+    private fun createEntity(doc: DocumentSnapshot): UserEntity? {
+        // TODO エンティティの生成
+        var entity: UserEntity?
+
+        // エラー : com.google.firebase.Timestampをjava.sql.Timestampにキャストできません
+        // 対処   : キャストの仕方変更
+        var stamp: com.google.firebase.Timestamp = doc.data?.get(USER_TABLE_CREATED) as com.google.firebase.Timestamp
+        var date: Date = stamp.toDate()
+        entity = UserEntity(
+                doc.id,
+                doc.data?.get(USER_TABLE_NAME).toString(),
+                doc.data?.get(USER_TABLE_EMAIL).toString(),
+                doc.data?.get(USER_TABLE_FORGOTMAIL).toString(),
+                date
+        )
         return entity
     }
 

@@ -110,7 +110,7 @@ class ActivityHelper {
                 // ユーザーエンティティ
                 var tsk: Task<QuerySnapshot> = _userRepository.select_byEmail(emailString)
                 _userRepository.execing(tsk)
-                return _userRepository.getResultEntity(tsk)
+                return _userRepository.getResultEntityQ(tsk)
             }catch(ex: ClassCastException){
                 return null
             }

@@ -69,7 +69,7 @@ class ChangePasswdModel : ModelBase() {
         // セレクト中
         _userRepository.execing(tskSelect)
         // 終了したら処理
-        val entityCheck = _userRepository.getResultEntity(tskSelect)
+        val entityCheck = _userRepository.getResultEntityQ(tskSelect)
         if( entityCheck == null ){
             // メールアドレスと忘れた時用パスワードない
             ActivityHelper.show_error_dialog(frag, ActivityHelper.getStringDefine(frag,R.string.passwd_error_dialog_nosame))

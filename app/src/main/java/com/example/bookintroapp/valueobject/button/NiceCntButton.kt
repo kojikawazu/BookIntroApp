@@ -21,7 +21,7 @@ class NiceCntButton() {
         // TODO 各ブックマークの合計を取得
         val tsk: Task<QuerySnapshot> = _niceRepository.select_byBookId(bookEntity.BookId)
         _niceRepository.execing(tsk)
-        if(tsk.isSuccessful){
+        if(_niceRepository.isSuccessed(tsk)){
             val count: Int = _niceRepository.getResultEntiryCount(tsk)
             return count.toString()
         }
@@ -34,7 +34,7 @@ class NiceCntButton() {
         // TODO 自身のユーザがブックマーク登録したかチェック
         val tsk: Task<QuerySnapshot> = _niceRepository.select_byuserId_bookId(userEntity.UserId, bookEntity.BookId)
         _niceRepository.execing(tsk)
-        if(tsk.isSuccessful){
+        if(_niceRepository.isSuccessed(tsk)){
             val count: Int = _niceRepository.getResultEntiryCount(tsk)
             return count == 0
         }else{
@@ -49,20 +49,7 @@ class NiceCntButton() {
         val entityNew = NiceEntity("0", userEntity.UserId, bookEntity.BookId, Date())
         val tskAdd: Task<DocumentReference> = _niceRepository.insert(entityNew)
         _niceRepository.execing(tskAdd)
-        return tskAdd.isSuccessful
-
-
-        /*
-
-
-        bookEntity.plus_niceCnt()
-
-        // firebase更新
-        val tsk: Task<Void> =  _bookRepository.update_niceCnt_byId(bookEntity.BookId!!, bookEntity.NiceCnt)
-        _bookRepository.execing(tsk)
-        return tsk.isSuccessful
-
-         */
+        return _niceRepository.isSuccessed(tskAdd)
     }
 
 }

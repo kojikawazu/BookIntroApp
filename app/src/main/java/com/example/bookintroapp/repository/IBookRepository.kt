@@ -23,6 +23,8 @@ interface IBookRepository {
 
     fun execing(tsk: Task<*>)
 
+    fun isSuccessed(tsk: Task<*>): Boolean
+
     fun getResultEntity(tsk: Task<DocumentSnapshot>): BookEntity?
 
     fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<BookEntity>
