@@ -21,6 +21,8 @@ interface IBookRepository {
 
     fun update_markCnt_byId(id: String, cnt: Int) : Task<Void>
 
+    fun update_replyCnt_byId(id: String, cnt: Int) : Task<Void>
+
     fun execing(tsk: Task<*>)
 
     fun isSuccessed(tsk: Task<*>): Boolean

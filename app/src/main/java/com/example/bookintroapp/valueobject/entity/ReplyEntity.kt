@@ -53,10 +53,10 @@ class ReplyEntity() {
         }
         private set
     var NiceCnt : Int = 0
-    get(){
-        return field
-    }
-    private set
+        get(){
+            return field
+        }
+        private set
     var NiceCntDisplay : String = ""
         get(){
             return NiceCnt.toString()
@@ -77,6 +77,10 @@ class ReplyEntity() {
             return field
         }
         private set
+
+    fun setNiceCnt(cnt: Int){
+        NiceCnt = cnt
+    }
 
 
 }

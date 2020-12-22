@@ -26,7 +26,7 @@ import java.util.*
 data class ViewHolder(val booknameView: TextView, val titleView: TextView, val satis: TextView,
                       val commentView: TextView, val createdView: TextView, val niceView: TextView,
                       val niceButton: Button, val markView: TextView, val markButton: Button,
-                        val replyButton: Button)
+                        val replyView: TextView, val replyButton: Button)
 
 // ブックリスト用アダプター
 class BookListAdapter : ArrayAdapter<BookEntity> {
@@ -86,6 +86,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
                     view.findViewById(R.id.button_niceCnt),
                     view.findViewById(R.id.booklist_markCnt),
                     view.findViewById(R.id.button_markCnt),
+                    view.findViewById(R.id.booklist_replyCnt),
                     view.findViewById(R.id.button_reply)
             )
             view.tag = holder
@@ -122,6 +123,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         holder.titleView.text = listItem?.BookTitle
         holder.niceView.text = listItem?.NiceCntDisplay
         holder.markView.text = listItem?.MarkCntDisplay
+        holder.replyView.text = listItem?.ReplyCntDisplay
         holder.commentView.text = listItem?.Comment
         holder.createdView.text = listItem?.Created.toString()
 

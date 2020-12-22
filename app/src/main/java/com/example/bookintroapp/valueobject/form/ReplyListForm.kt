@@ -8,13 +8,20 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
+import com.example.bookintroapp.helper.FirebaseHelpler
+import com.example.bookintroapp.repository.INiceReplyRepository
 import com.example.bookintroapp.repository.IUserRepository
+import com.example.bookintroapp.repository.NiceReplyRepository
 import com.example.bookintroapp.repository.UserRepository
+import com.example.bookintroapp.valueobject.entity.NiceReplyEntity
 import com.example.bookintroapp.valueobject.entity.ReplyEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.auth.User
+import java.util.*
 
 // リプライリストフォーム
 class ReplyListForm() {
@@ -22,8 +29,12 @@ class ReplyListForm() {
     // リプライ追加するレイアウト群
     val layout: LinearLayout? = null
 
+    // エンティティ
+    private var userEntity: UserEntity? = null
+
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
+    private val _niceReplyRepository: INiceReplyRepository = NiceReplyRepository()
 
     constructor(layout: LinearLayout) : this() {
         // TODO コンストラクタ
@@ -39,6 +50,9 @@ class ReplyListForm() {
     fun createReplyLayout(frag: Fragment,list: MutableList<ReplyEntity>){
         // TODO 返信リストの追加生成
         val ac: MainActivity = frag.activity as MainActivity
+
+        // ユーザエンティティ取得
+        userEntity = FirebaseHelpler.selectUserEntity(frag, _userRepository)
 
         for(entity in list){
             // 子レイアウト生成
@@ -62,7 +76,7 @@ class ReplyListForm() {
 
             // イベントリスナー設定
             niceCntButton.setOnClickListener{ _ ->
-                Log.d("ReplyListCustom", "replyList click.")
+                OnClickListener(niceCntView, entity)
             }
 
             // 親レイアウトに追加
@@ -79,6 +93,25 @@ class ReplyListForm() {
            if(user != null){
                userView.text = user.UserName
            }
+        }
+    }
+
+    private fun OnClickListener(niceCntView: TextView, replyEntity: ReplyEntity){
+        // TODO いいねボタン押下処理
+
+        val entityNew = NiceReplyEntity(replyEntity, userEntity!!, Date())
+        val tskadd: Task<DocumentReference> =  _niceReplyRepository.insert(entityNew)
+        _niceReplyRepository.execing(tskadd)
+
+        if( _niceReplyRepository.isSuccessed(tskadd)){
+            // 追加成功してたら、合計取得
+            val tsk: Task<QuerySnapshot> = _niceReplyRepository.select_byReplyId(replyEntity.ReplyId)
+            _niceReplyRepository.execing(tsk)
+            val cnt = _niceReplyRepository.getResultEntiryCount(tsk)
+
+            // 値を反映
+            replyEntity.setNiceCnt(cnt)
+            niceCntView.text = replyEntity.NiceCntDisplay
         }
     }
 

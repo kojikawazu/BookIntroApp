@@ -81,6 +81,17 @@ class ReplyRepository : IReplyRepository {
         return (tsk.isSuccessful)
     }
 
+    override fun getResultEntiryCount(tsk: Task<QuerySnapshot>): Int {
+        // TODO エンティティの数を取得
+        if(tsk.isSuccessful){
+            val result: QuerySnapshot? = tsk.result
+            val count = result?.size()
+            return count!!
+        }else{
+            return 0
+        }
+    }
+
     override fun getResultEntity(tsk: Task<DocumentSnapshot>): ReplyEntity? {
         // TODO エンティティの生成
         var entity: ReplyEntity? = null

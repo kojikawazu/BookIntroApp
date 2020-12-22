@@ -23,6 +23,8 @@ interface IReplyRepository {
 
     fun isSuccessed(tsk: Task<*>): Boolean
 
+    fun getResultEntiryCount(tsk: Task<QuerySnapshot>): Int
+
     fun getResultEntity(tsk: Task<DocumentSnapshot>): ReplyEntity?
 
     fun getResultEntityList(tsk: Task<QuerySnapshot>): MutableList<ReplyEntity>

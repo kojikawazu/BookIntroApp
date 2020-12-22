@@ -14,7 +14,7 @@ class BookDetailForm() {
 
     constructor(bookTitleText: TextView, bookNameText: TextView,
                 commentText: TextView, satisText: TextView,
-                niceText: TextView, markText: TextView, created: TextView,
+                niceText: TextView, markText: TextView, replyText: TextView, created: TextView,
                 niceCntButton: Button, bookmartButton: Button, replyButton: Button) : this(){
         // TODO コンストラクタ
         BookTitleText = bookTitleText
@@ -23,6 +23,7 @@ class BookDetailForm() {
         SatisText = satisText
         NiceText = niceText
         MarkText = markText
+        ReplyText = replyText
         Created = created
         NiceCntButtonS = niceCntButton
         BookMarkButtonS = bookmartButton
@@ -51,6 +52,10 @@ class BookDetailForm() {
             return field
         }
     private var MarkText : TextView? = null
+        get(){
+            return field
+        }
+    private var ReplyText : TextView? = null
         get(){
             return field
         }
@@ -123,7 +128,8 @@ class BookDetailForm() {
         this.CommentText?.text = entity.Comment
         this.SatisText?.text = entity.SatisCntDisplay
         this.NiceText?.text = entity.NiceCntDisplay
-        this.MarkText?.text = entity.NiceCntDisplay
+        this.MarkText?.text = entity.MarkCntDisplay
+        this.ReplyText?.text = entity.ReplyCntDisplay
         this.Created?.text = entity.Created.toString()
     }
 

@@ -27,6 +27,7 @@ class BookRepository : IBookRepository {
         val BOOK_TABLE_SATIS: String        = "satis"
         val BOOK_TABLE_NICECNT: String      = "niceCnt"
         val BOOK_TABLE_MARKCNT: String      = "markCnt"
+        val BOOK_TABLE_REPLYCNT: String     = "replyCnt"
         val BOOK_TABLE_COMMENT: String      = "comment"
         val BOOK_TABLE_CREATED: String      = "created"
     }
@@ -59,6 +60,7 @@ class BookRepository : IBookRepository {
                 BOOK_TABLE_SATIS to entity.SatisCnt,
                 BOOK_TABLE_NICECNT to entity.NiceCnt,
                 BOOK_TABLE_MARKCNT to entity.MarkCnt,
+                BOOK_TABLE_REPLYCNT to entity.ReplyCnt,
                 BOOK_TABLE_COMMENT to entity.Comment,
                 BOOK_TABLE_USERID to entity.UserId,
                 BOOK_TABLE_CREATED to Timestamp(entity.Created.time)
@@ -78,6 +80,12 @@ class BookRepository : IBookRepository {
         // TODO ブックマークカウンタの更新(更新対象:ID)
         val document = FirebaseHelpler.getDocument(BOOK_TABLE, id)
         return document.update(BOOK_TABLE_MARKCNT, cnt)
+    }
+
+    override fun update_replyCnt_byId(id: String, cnt: Int): Task<Void> {
+        // TODO リプライカウンタの更新(更新対象:ID)
+        val document = FirebaseHelpler.getDocument(BOOK_TABLE, id)
+        return document.update(BOOK_TABLE_REPLYCNT, cnt)
     }
 
     override fun execing(tsk: Task<*>) {
@@ -137,6 +145,7 @@ class BookRepository : IBookRepository {
                     BOOK_TABLE_SATIS to entity.SatisCntDisplay,
                     BOOK_TABLE_NICECNT to entity.NiceCntDisplay,
                     BOOK_TABLE_MARKCNT to entity.MarkCntDisplay,
+                    BOOK_TABLE_REPLYCNT to entity.ReplyCntDisplay,
                     BOOK_TABLE_COMMENT to entity.Comment,
                     BOOK_TABLE_CREATED to entity.Created.toString()
             )
@@ -162,6 +171,7 @@ class BookRepository : IBookRepository {
                 doc.data?.get(BOOK_TABLE_SATIS).toString().toInt(),
                 doc.data?.get(BOOK_TABLE_NICECNT).toString().toInt(),
                 doc.data?.get(BOOK_TABLE_MARKCNT).toString().toInt(),
+                doc.data?.get(BOOK_TABLE_REPLYCNT).toString().toInt(),
                 doc.data?.get(BOOK_TABLE_COMMENT).toString(),
                 date
         )
@@ -184,6 +194,7 @@ class BookRepository : IBookRepository {
                 doc.data?.get(BOOK_TABLE_SATIS).toString().toInt(),
                 doc.data?.get(BOOK_TABLE_NICECNT).toString().toInt(),
                 doc.data?.get(BOOK_TABLE_MARKCNT).toString().toInt(),
+                doc.data?.get(BOOK_TABLE_REPLYCNT).toString().toInt(),
                 doc.data?.get(BOOK_TABLE_COMMENT).toString(),
                 date
         )

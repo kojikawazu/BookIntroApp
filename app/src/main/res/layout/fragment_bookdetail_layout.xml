@@ -9,24 +9,24 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#9AE0FFBB"
             android:orientation="vertical"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="84dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/bookview_title_textView"
                     android:layout_width="match_parent"
@@ -45,6 +45,7 @@
                     android:id="@+id/bookview_contents_textView"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:padding="5dp"
                     android:text="@string/book_view_username"
                     android:textSize="18sp" />
 
@@ -96,7 +97,6 @@
                         android:layout_weight="1"
                         android:text="TextView" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -109,6 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:paddingRight="20dp"
                     android:text="2020/11/1"
                     android:textAlignment="viewEnd" />
             </LinearLayout>
@@ -120,32 +121,45 @@
 
                 <TextView
                     android:id="@+id/bookview_niceCnt_textView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
+                    android:paddingRight="5dp"
+                    android:text="0"
+                    android:textAlignment="viewEnd" />
 
                 <TextView
                     android:id="@+id/bookview_niceCnt_view"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="いいね" />
 
                 <TextView
                     android:id="@+id/bookview_markCnt_textView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
+                    android:paddingRight="5dp"
+                    android:text="0"
+                    android:textAlignment="viewEnd" />
 
                 <TextView
                     android:id="@+id/bookview_markCnt_view"
-                    android:layout_width="wrap_content"
+                    android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="ブックマーク" />
 
+                <TextView
+                    android:id="@+id/bookview_replyCnt_textView"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="0"
+                    android:textAlignment="viewEnd" />
+
+                <TextView
+                    android:id="@+id/bookview_replyCnt_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="返信" />
             </LinearLayout>
 
             <LinearLayout
@@ -175,6 +189,11 @@
                     android:text="@string/book_view_button_reply" />
             </LinearLayout>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -198,8 +217,6 @@
                     <!-- 返信リストが追加される -->
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -96,6 +96,20 @@
             android:layout_height="wrap_content"
             android:text="ブックマーク" />
 
+        <TextView
+            android:id="@+id/booklist_replyCnt"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:text="0"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/booklist_replyCntString"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="返信" />
+
     </LinearLayout>
 
     <LinearLayout

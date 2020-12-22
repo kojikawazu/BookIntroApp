@@ -50,6 +50,7 @@ class BookDetailModel : ModelBase() {
                 view.findViewById(R.id.bookview_satis_edit),
                 view.findViewById(R.id.bookview_niceCnt_textView),
                 view.findViewById(R.id.bookview_markCnt_textView),
+                view.findViewById(R.id.bookview_replyCnt_textView),
                 view.findViewById(R.id.bookview_created_textView),
                 view.findViewById(R.id.bookview_nice_button),
                 view.findViewById(R.id.bookview_bookmark_button),

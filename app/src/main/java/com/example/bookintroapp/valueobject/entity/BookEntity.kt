@@ -12,7 +12,7 @@ class BookEntity() {
     }
 
     constructor(bookId: String, userId: String, bookName: String, bookTitle: String,
-                satisCnt: Int, niceCnt: Int, markCnt: Int, comment: String, created: Date) : this(){
+                satisCnt: Int, niceCnt: Int, markCnt: Int, replyCnt: Int, comment: String, created: Date) : this(){
         // TODO コンストラクタ
         BookId = bookId
         UserId = userId
@@ -21,6 +21,7 @@ class BookEntity() {
         SatisCnt = satisCnt
         NiceCnt = niceCnt
         MarkCnt = markCnt
+        ReplyCnt = replyCnt
         Comment = comment
         Created = created
     }
@@ -34,6 +35,7 @@ class BookEntity() {
         SatisCnt = 0
         NiceCnt = 0
         MarkCnt = 0
+        ReplyCnt = 0
         Comment = bookAddForm.CommentString
         Created = date
     }
@@ -88,6 +90,15 @@ class BookEntity() {
             return NiceCnt?.toString()
         }
         private set
+    var ReplyCnt : Int = 0
+        get(){
+            return field
+        }
+        private set
+    var ReplyCntDisplay : String = ""
+        get(){
+            return ReplyCnt.toString()
+        }
     var Comment : String = ""
         get(){
             return field

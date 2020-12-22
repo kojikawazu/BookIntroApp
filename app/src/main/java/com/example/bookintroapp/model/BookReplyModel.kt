@@ -13,6 +13,7 @@ import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.valueobject.form.BookReplyForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.QuerySnapshot
 import java.util.*
 
 // リプライモデル
@@ -92,6 +93,17 @@ class BookReplyModel : ModelBase() {
             // エラーダイアログ表示
             ActivityHelper.show_error_dialog(frag, R.string.book_reply_error_dialog)
             return
+        }
+
+        // リプライ回数を変更
+        val tsk: Task<QuerySnapshot> = _replyRepository.select_bybookId(bookEntity!!.BookId)
+        _replyRepository.execing(tsk)
+        if( _replyRepository.isSuccessed(tsk) ){
+            // 回数を取得
+            val cnt: Int = _replyRepository.getResultEntiryCount(tsk)
+            // リプライカウンタの更新
+            val tskupd: Task<Void> = _bookRepository.update_replyCnt_byId(bookEntity!!.BookId, cnt)
+            _bookRepository.execing(tskupd)
         }
 
         // 返信登録完了
