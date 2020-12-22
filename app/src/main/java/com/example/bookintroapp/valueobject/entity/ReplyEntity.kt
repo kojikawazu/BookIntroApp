@@ -1,5 +1,6 @@
 package com.example.bookintroapp.valueobject.entity
 
+import com.example.bookintroapp.valueobject.form.BookReplyForm
 import java.util.*
 
 // 返信エンティティ
@@ -18,6 +19,16 @@ class ReplyEntity() {
         Comment = comment
         NiceCnt = niceCnt
         Satis = satis
+        Created = created
+    }
+
+    constructor(replyEntity: UserEntity, bookEntity: BookEntity, bookReplyForm: BookReplyForm, created: Date) :this(){
+        // TODO 入力フォームコンストラクタ
+        UserId = replyEntity.UserId
+        BookId = bookEntity.BookId
+        Comment = bookReplyForm.CommentString
+        NiceCnt = 0
+        Satis = bookReplyForm.SatisString.toInt()
         Created = created
     }
 

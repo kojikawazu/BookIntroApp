@@ -36,7 +36,8 @@ class ChangePasswdModel : ModelBase() {
                 view.findViewById(R.id.passwd_mail_edit),
                 view.findViewById(R.id.passwd_forgot_edit),
                 view.findViewById(R.id.passwd_new_edit),
-                view.findViewById(R.id.passwd_check_edit)
+                view.findViewById(R.id.passwd_check_edit),
+                view.findViewById(R.id.passwd_button)
         )
     }
 
@@ -44,11 +45,9 @@ class ChangePasswdModel : ModelBase() {
         // TODO イベントリスナー追加
 
         // パスワード変更ボタン
-        view.findViewById<Button>(R.id.passwd_button).apply {
-            setOnClickListener{
-                // TODO パスワード変更タップ
-                onClickListener_changepasswd(view, frag)
-            }
+        chpasswdForm?.setOnClickListener {
+            // TODO パスワード変更タップ
+            onClickListener_changepasswd(view, frag)
         }
     }
 

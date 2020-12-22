@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.ActivityHelper
+import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.adapter.BookListAdapter
 import com.example.bookintroapp.valueobject.entity.BookEntity
@@ -51,7 +52,7 @@ class BookMarkModel  : ModelBase() {
         // TODO イベントリスナー追加
 
         // ユーザエンティティ取得
-        userEntity = ActivityHelper.selectUserEntity(frag,_userRepository)
+        userEntity = FirebaseHelpler.selectUserEntity(frag,_userRepository)
 
         // タイトル
         titleForm?.setTitle_bookmark(userEntity!!.UserName)

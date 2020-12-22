@@ -1,5 +1,6 @@
 package com.example.bookintroapp.valueobject.form
 
+import android.widget.Button
 import android.widget.EditText
 import com.example.bookintroapp.helper.DomainHelper
 
@@ -12,7 +13,7 @@ class SignupForm() {
 
     constructor(userNameEditText: EditText, emailEditText: EditText,
                 passwdNewEditText: EditText, passwdOneEditText: EditText,
-                passwdForgotEditText: EditText) :
+                passwdForgotEditText: EditText, signupButton: Button) :
                 this(){
         // TODO コンストラクタ
         UserNameEdit = userNameEditText
@@ -20,6 +21,7 @@ class SignupForm() {
         PasswdNewEdit = passwdNewEditText
         PasswdOneEdit = passwdOneEditText
         PasswdForgotEdit = passwdForgotEditText
+        SignunButton = signupButton
     }
 
     // getter
@@ -40,6 +42,10 @@ class SignupForm() {
             return field
         }
     private var PasswdForgotEdit :  EditText? = null
+        get(){
+            return field
+        }
+    private var SignunButton :  Button? = null
         get(){
             return field
         }
@@ -117,6 +123,15 @@ class SignupForm() {
             return (DomainHelper.IsRange(len, max))
         }
         return false
+    }
+
+    fun setOnClickListener(func: () -> Unit){
+        // TODO タップリスナー
+        SignunButton?.apply{
+            setOnClickListener{
+                func()
+            }
+        }
     }
 
 }

@@ -6,6 +6,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.ActivityHelper
+import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.BookRepository
 import com.example.bookintroapp.repository.IBookRepository
 import com.example.bookintroapp.repository.IUserRepository
@@ -40,25 +41,24 @@ class BookAddModel : ModelBase() {
                 view.findViewById(R.id.bookadd_book_edit),
                 view.findViewById(R.id.bookadd_booktitle_edit),
                 view.findViewById(R.id.bookadd_bookcontents_edit),
-                view.findViewById(R.id.bookadd_satis_spin))
+                view.findViewById(R.id.bookadd_satis_spin),
+                view.findViewById(R.id.bookadd_button)
+        )
     }
 
     override fun setListener(view: View, frag: Fragment) {
         // TODO イベントリスナー追加
 
         // ユーザエンティティ取得
-        userEntity = ActivityHelper.selectUserEntity(frag,_userRepository)
+        userEntity = FirebaseHelpler.selectUserEntity(frag,_userRepository)
 
-        view.findViewById<Button>(R.id.bookadd_button).apply {
+        bookAddForm?.setOnClickListener {
             // TODO 書籍追加タップ
-            setOnClickListener {
-                onClickListener_bookadd(view, frag)
-            }
+            onClickListener_bookadd(frag)
         }
-
     }
 
-    fun onClickListener_bookadd(view: View, frag: Fragment){
+    fun onClickListener_bookadd(frag: Fragment){
         // TODO 書籍追加イベント
 
         // バリデーションチェック

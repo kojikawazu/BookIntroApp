@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.helper.ActivityHelper
+import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.BookRepository
 import com.example.bookintroapp.repository.IBookRepository
 import com.example.bookintroapp.repository.IUserRepository
@@ -52,7 +53,7 @@ class BookMyPageModel : ModelBase() {
         // TODO イベントリスナー追加
 
         // ユーザエンティティ取得
-        userEntity = ActivityHelper.selectUserEntity(frag,_userRepository)
+        userEntity = FirebaseHelpler.selectUserEntity(frag,_userRepository)
 
         // タイトル
         titleForm?.setTitle_mypage(userEntity!!.UserName)

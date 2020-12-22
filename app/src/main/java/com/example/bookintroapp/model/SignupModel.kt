@@ -40,7 +40,8 @@ class SignupModel : ModelBase() {
                 view.findViewById(R.id.signup_mail_edit),
                 view.findViewById(R.id.signup_passwd_edit),
                 view.findViewById(R.id.signup_passwd2_edit),
-                view.findViewById(R.id.signup_forgot_edit)
+                view.findViewById(R.id.signup_forgot_edit),
+                view.findViewById(R.id.signup_button)
         )
     }
 
@@ -48,11 +49,9 @@ class SignupModel : ModelBase() {
         // TODO イベントリスナー追加
 
         // サインアップボタン
-        view.findViewById<Button>(R.id.signup_button).apply {
-            setOnClickListener{
-                // TODO パスワード変更タップ
-                onClickListener_signup(view, frag)
-            }
+        signupForm?.setOnClickListener {
+            // TODO パスワード変更タップ
+            onClickListener_signup(view, frag)
         }
     }
 

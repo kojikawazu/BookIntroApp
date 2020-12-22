@@ -35,8 +35,7 @@ class ActivityHelper {
         }
 
         fun getIntDefine(frag: Fragment, id : Int) : Int{
-            val ac: MainActivity = frag.activity as MainActivity
-            return ac.resources.getString(id).toInt()
+            return frag.requireActivity().resources.getString(id).toInt()
         }
 
         fun show_error_dialog(frag: Fragment, contents: String){
@@ -99,34 +98,6 @@ class ActivityHelper {
         fun backFragment(flag: Fragment){
             // TODO フラグメント戻る
             flag.findNavController().popBackStack()
-        }
-
-        fun selectUserEntity(frag: Fragment, _userRepository: IUserRepository): UserEntity?{
-            try {
-                // TODO アクティビティに保存してるメールアドレスからユーザデータ取得
-                val ac: MainActivity = frag.activity as MainActivity
-                val emailString = ac.getSigninMail()
-
-                // ユーザーエンティティ
-                var tsk: Task<QuerySnapshot> = _userRepository.select_byEmail(emailString)
-                _userRepository.execing(tsk)
-                return _userRepository.getResultEntityQ(tsk)
-            }catch(ex: ClassCastException){
-                return null
-            }
-        }
-
-        fun selectBookEntity(id: String, _bookRepository: IBookRepository) : BookEntity?{
-            try {
-                // TODO アクティビティに保存してるメールアドレスからユーザデータ取得
-
-                // ユーザーエンティティ
-                var tsk: Task<DocumentSnapshot> = _bookRepository.select_byId(id)
-                _bookRepository.execing(tsk)
-                return _bookRepository.getResultEntity(tsk)
-            }catch(ex: ClassCastException){
-                return null
-            }
         }
 
         fun checkValidate(frag: Fragment, checkFunc: (frag: Fragment) -> String) : Boolean{

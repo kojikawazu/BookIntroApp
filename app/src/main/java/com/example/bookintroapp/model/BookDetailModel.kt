@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.helper.ActivityHelper
+import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.button.BookmarkButton
 import com.example.bookintroapp.valueobject.button.NiceCntButton
@@ -26,14 +27,8 @@ class BookDetailModel : ModelBase() {
     private var userEntity: UserEntity? = null
 
     // フォーム
-    private var bookMarkButtonS: Button? = null
-    private var niceCntButtonS: Button? = null
-    private var bookReplyButtonS: Button? = null
-
     private var bookDetailForm: BookDetailForm? = null
     private var replyListForm: ReplyListForm? = null
-    private var bookmarkButton: BookmarkButton? = null
-    private var niceCntButton: NiceCntButton? = null
 
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
@@ -49,26 +44,22 @@ class BookDetailModel : ModelBase() {
 
         // 書籍詳細レイアウト
         bookDetailForm = BookDetailForm(
-            view.findViewById(R.id.bookview_contents_textView),
-            view.findViewById(R.id.bookview_book_edit),
-            view.findViewById(R.id.bookview_bookcontents_edit),
-            view.findViewById(R.id.bookview_satis_edit),
-            view.findViewById(R.id.bookview_niceCnt_textView),
-            view.findViewById(R.id.bookview_markCnt_textView),
-            view.findViewById(R.id.bookview_created_textView)
+                view.findViewById(R.id.bookview_contents_textView),
+                view.findViewById(R.id.bookview_book_edit),
+                view.findViewById(R.id.bookview_bookcontents_edit),
+                view.findViewById(R.id.bookview_satis_edit),
+                view.findViewById(R.id.bookview_niceCnt_textView),
+                view.findViewById(R.id.bookview_markCnt_textView),
+                view.findViewById(R.id.bookview_created_textView),
+                view.findViewById(R.id.bookview_nice_button),
+                view.findViewById(R.id.bookview_bookmark_button),
+                view.findViewById(R.id.bookview_reply_button)
         )
 
         // 返信リストレイアウト
         replyListForm = ReplyListForm(
             view.findViewById(R.id.reply_list_layout)
         )
-
-        // ボタンレイアウト
-        bookMarkButtonS = view.findViewById(R.id.bookview_bookmark_button)
-        bookmarkButton = BookmarkButton()
-        niceCntButtonS = view.findViewById(R.id.bookview_nice_button)
-        niceCntButton = NiceCntButton()
-        bookReplyButtonS = view.findViewById(R.id.bookview_reply_button)
     }
 
     override fun setListener(view: View, frag: Fragment) {
@@ -77,10 +68,10 @@ class BookDetailModel : ModelBase() {
         val targetBookId = ac.getTargetBookId()
 
         // ユーザエンティティ取得
-        userEntity = ActivityHelper.selectUserEntity(frag, _userRepository)
+        userEntity = FirebaseHelpler.selectUserEntity(frag, _userRepository)
 
         // 書籍エンティティ取得
-        bookEntity = ActivityHelper.selectBookEntity(targetBookId, _bookRepository)
+        bookEntity = FirebaseHelpler.selectBookEntity(targetBookId, _bookRepository)
 
         // 書籍データ反映
         bookDetailForm?.setData(bookEntity!!)
@@ -92,24 +83,16 @@ class BookDetailModel : ModelBase() {
         updateViewUI()
 
         // クリックリスナー
-        niceCntButtonS?.apply {
-            setOnClickListener {
-                // TODO いいね押下時
-                OnNiceCntEventListener()
-            }
-        }
-        bookMarkButtonS?.apply {
-            setOnClickListener {
-                // TODO ブックマーク押下時
-                OnBookMarkEventListener()
-            }
-        }
-        bookReplyButtonS?.apply {
-            setOnClickListener{
-                // TODO リプライ押下時
-                OnReplyEventListener(frag)
-            }
-        }
+        bookDetailForm?.setOnButtonClickListener({
+            // TODO いいね押下時
+            OnNiceCntEventListener()
+        }, {
+            // TODO ブックマーク押下時
+            OnBookMarkEventListener()
+        }, {
+            // TODO リプライ押下時
+            OnReplyEventListener(frag)
+        })
     }
 
     private fun createReplyList(view: View,frag: Fragment){
@@ -126,22 +109,23 @@ class BookDetailModel : ModelBase() {
 
     private fun updateViewUI(){
         // TODO UIの更新
-
+        if(userEntity != null && bookEntity != null)    return
         // 自身のユーザがいいね登録したかチェック
-        niceCntButtonS?.isEnabled = niceCntButton!!.isNiceCnt_byUser(userEntity!!, bookEntity!!)
+        bookDetailForm?.updateNiceCntButtonUI(userEntity!!, bookEntity!!)
 
         // 自身のユーザがブックマーク登録したかチェック
-        bookMarkButtonS?.isEnabled = bookmarkButton!!.isBookMark_byUser(userEntity!!, bookEntity!!)
+        bookDetailForm?.updateBookmarkButtonUI(userEntity!!, bookEntity!!)
     }
 
     private fun OnNiceCntEventListener(){
         // TODO いいね押下イベント
-        val ret = niceCntButton!!.OnNiceCntEventlistener(userEntity!!, bookEntity!!)
+        if(userEntity == null || bookEntity == null)    return
+        val ret = bookDetailForm?.NiceCntButton!!.OnNiceCntEventlistener(userEntity!!, bookEntity!!)
         if(ret) {
             // いいね追加に成功
 
             // いいねの合計を取得
-            bookEntity?.setNiceCnt(niceCntButton!!.getNiceCntCount(bookEntity!!).toInt())
+            bookEntity?.setNiceCnt(bookDetailForm?.NiceCntButton!!.getNiceCntCount(bookEntity!!).toInt())
             // ビューに反映
             bookDetailForm?.setNiceText(bookEntity!!.NiceCntDisplay)
             // 書籍テーブルのブックマークカウンタの更新
@@ -149,18 +133,19 @@ class BookDetailModel : ModelBase() {
             _bookRepository.execing(tsk)
 
             // 自身のユーザがブックマーク登録したかチェック
-            niceCntButtonS?.isEnabled = niceCntButton!!.isNiceCnt_byUser(userEntity!!, bookEntity!!)
+            bookDetailForm?.updateNiceCntButtonUI(userEntity!!, bookEntity!!)
         }
     }
 
     private fun OnBookMarkEventListener(){
         // TODO ブックマーク押下イベント
-        val ret = bookmarkButton!!.OnBookMarkEventListener(userEntity!!, bookEntity!!)
+        if(userEntity == null || bookEntity == null)    return
+        val ret = bookDetailForm?.BookmarkButton!!.OnBookMarkEventListener(userEntity!!, bookEntity!!)
         if(ret) {
             // ブックマーク追加に成功
 
             // ブックマークの合計を取得
-            bookEntity?.setMarkCnt(bookmarkButton!!.getBookMarkCount(bookEntity!!).toInt())
+            bookEntity?.setMarkCnt(bookDetailForm?.BookmarkButton!!.getBookMarkCount(bookEntity!!).toInt())
             // ビューに反映
             bookDetailForm?.setMarkText(bookEntity!!.MarkCntDisplay)
             // 書籍テーブルのブックマークカウンタの更新
@@ -168,7 +153,7 @@ class BookDetailModel : ModelBase() {
             _bookRepository.execing(tsk)
 
             // 自身のユーザがブックマーク登録したかチェック
-            bookMarkButtonS?.isEnabled = bookmarkButton!!.isBookMark_byUser(userEntity!!, bookEntity!!)
+            bookDetailForm?.updateBookmarkButtonUI(userEntity!!, bookEntity!!)
         }
     }
 

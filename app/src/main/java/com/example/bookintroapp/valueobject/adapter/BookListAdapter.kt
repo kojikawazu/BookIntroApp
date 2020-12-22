@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
+import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.button.BookmarkButton
@@ -32,14 +33,17 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
 
     // レイアウト
     private var inflater: LayoutInflater
-    private var niceCntButton: NiceCntButton? = null
-    private var bookmarkButton: BookmarkButton? = null
+    private var niceCntButton: NiceCntButton = NiceCntButton()
+    private var bookmarkButton: BookmarkButton = BookmarkButton()
 
     // レイアウト番号
     private var resourceId : Int = 0
 
     // ユーザエンティティ
     private var user: UserEntity? = null
+
+    // フラグメント
+    private var frag: Fragment? = null
 
     // リポジトリ
     private var _bookRepository: IBookRepository = BookRepository()
@@ -52,12 +56,13 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         // TODO コンストラクタ
         inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         resourceId = id
-        bookmarkButton = BookmarkButton()
-        niceCntButton = NiceCntButton()
     }
 
     // TODO ユーザ設定
     fun setUser(inUser: UserEntity){ user = inUser }
+
+    // TODO フラグメント設定
+    fun setFragment(inFrag: Fragment){  frag = inFrag   }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // TODO ビュー設定
@@ -106,7 +111,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         }
         holder.replyButton.setOnClickListener{ _ ->
             // TODO リプライボタン押下時
-            //OnReplyEventListener()
+            OnReplyEventListener(listItem)
         }
         return view!!
     }
@@ -127,31 +132,32 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
 
     private fun updateBookMarkUI(holder: ViewHolder, listItem: BookEntity?){
         // TODO アクション後の更新処理
+        if(user == null || listItem == null)    return
 
         // 自身のユーザがブックマーク登録したかチェック
-        holder.niceButton.isEnabled = niceCntButton!!.isNiceCnt_byUser(user!!, listItem!!)
+        holder.niceButton.isEnabled = niceCntButton.isNiceCnt_byUser(user!!, listItem)
 
         // 自身のユーザがブックマーク登録したかチェック
-        holder.markButton.isEnabled = bookmarkButton!!.isBookMark_byUser(user!!, listItem!!)
+        holder.markButton.isEnabled = bookmarkButton.isBookMark_byUser(user!!, listItem)
     }
 
     private fun OnNiceCntEventlistener(holder: ViewHolder, listItem: BookEntity?){
         // TODO いいね押下時イベント
-        val ret = niceCntButton!!.OnNiceCntEventlistener(user!!, listItem!!)
+        if(user == null || listItem == null)    return
+        val ret = niceCntButton.OnNiceCntEventlistener(user!!, listItem)
         if(ret){
             // いいねリスト追加に成功
 
             // いいね数を更新
-            listItem!!.setNiceCnt(niceCntButton!!.getNiceCntCount(listItem!!).toInt())
+            listItem.setNiceCnt(niceCntButton.getNiceCntCount(listItem).toInt())
             // ビューに反映
-            holder.niceView.text = listItem!!.NiceCntDisplay
-
+            holder.niceView.text = listItem.NiceCntDisplay
             // 書籍テーブルのいいねカウンタの更新
-            val tsk: Task<Void> = _bookRepository.update_niceCnt_byId(listItem!!.BookId, listItem!!.NiceCnt)
+            val tsk: Task<Void> = _bookRepository.update_niceCnt_byId(listItem.BookId, listItem.NiceCnt)
             _bookRepository.execing(tsk)
 
             // UI更新
-            holder.niceButton.isEnabled = niceCntButton!!.isNiceCnt_byUser(user!!, listItem!!)
+            holder.niceButton.isEnabled = niceCntButton.isNiceCnt_byUser(user!!, listItem)
         }
     }
 
@@ -159,29 +165,35 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         // TODO ブックマーク押下イベント
 
         // ブックマークリストに追加
-        val ret = bookmarkButton!!.OnBookMarkEventListener(user!!, listItem!!)
+        val ret = bookmarkButton.OnBookMarkEventListener(user!!, listItem!!)
         if(ret) {
             // ブックマーク追加に成功
 
             // ブックマークの合計を取得
-            listItem?.setMarkCnt(bookmarkButton!!.getBookMarkCount(listItem!!).toInt())
+            listItem.setMarkCnt(bookmarkButton.getBookMarkCount(listItem).toInt())
             // ビューに反映
-            holder.markView.text = listItem!!.MarkCntDisplay
-
+            holder.markView.text = listItem.MarkCntDisplay
             // 書籍テーブルのブックマークカウンタの更新
-            val tsk: Task<Void> = _bookRepository.update_markCnt_byId(listItem!!.BookId, listItem!!.MarkCnt)
+            val tsk: Task<Void> = _bookRepository.update_markCnt_byId(listItem.BookId, listItem.MarkCnt)
             _bookRepository.execing(tsk)
 
             // UI更新
-            holder.markButton.isEnabled = bookmarkButton!!.isBookMark_byUser(user!!, listItem!!)
+            holder.markButton.isEnabled = bookmarkButton.isBookMark_byUser(user!!, listItem)
         }
     }
 
-    private fun OnReplyEventListener(frag: Fragment){
+    private fun OnReplyEventListener(listItem: BookEntity?){
         // TODO リプライボタン押下時処理
 
         // 書籍リプライ画面へ遷移
-        ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookreply)
+        if( frag != null && listItem != null){
+            // 書籍IDをアクティビティに保存
+            val ac: MainActivity = frag?.activity as MainActivity
+            ac.saveTargetBookId(listItem!!.BookId)
+
+            // 書籍詳細へ遷移
+            ActivityHelper.nextFragment(frag!!, R.id.action_bookmain_to_bookreply)
+        }
     }
 
 }

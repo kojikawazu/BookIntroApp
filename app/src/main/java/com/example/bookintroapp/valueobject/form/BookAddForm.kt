@@ -2,8 +2,10 @@ package com.example.bookintroapp.valueobject.form
 
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.DomainHelper
 
 // 書籍追加フォーム
@@ -14,12 +16,13 @@ class BookAddForm() {
     }
 
     constructor(bookNameEdit: EditText, titleEdit: EditText,
-                commentEdit: EditText, satisEdit: Spinner) : this(){
+                commentEdit: EditText, satisEdit: Spinner, bookAddButton: Button) : this(){
         // TODO コンストラクタ
         BookNameEdit = bookNameEdit
         TitleEdit = titleEdit
         CommentEdit = commentEdit
         SatisEdit = satisEdit
+        BookAddButton = bookAddButton
 
         SatisEdit?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -47,6 +50,10 @@ class BookAddForm() {
             return field
         }
     private var SatisEdit : Spinner? = null
+        get(){
+            return field
+        }
+    private var BookAddButton : Button? = null
         get(){
             return field
         }
@@ -100,6 +107,16 @@ class BookAddForm() {
             return ( DomainHelper.IsRange(len, max) )
         }
         return false
+    }
+
+    fun setOnClickListener(func: () -> Unit){
+        // TODO ボタンリスナー
+        BookAddButton?.apply {
+            // TODO 書籍追加タップ
+            setOnClickListener {
+                func()
+            }
+        }
     }
 
 }

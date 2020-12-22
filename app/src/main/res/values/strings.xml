@@ -9,6 +9,8 @@
     <string name="bookadd_title_len">20</string>
     <string name="bookadd_comment_len">150</string>
 
+    <string name="bookreply_comment_len">150</string>
+
     <!-- レイアウト -->
 
     <!-- サインイン画面 -->
@@ -91,7 +93,7 @@
     <string name="book_add_success_title">書籍追加実行</string>
     <string name="book_add_success_contents">書籍追加しました。</string>
 
-    <!-- 書籍投稿変更 -->
+    <!-- 書籍投稿返信 -->
     <string name="book_reply_title">投稿に返信</string>
     <string name="book_reply_username">〇〇さんの投稿</string>
     <string name="book_reply_bookname">書籍名</string>
@@ -101,6 +103,9 @@
     <string name="book_reply_satis">満足度</string>
     <string name="book_reply_error">ノーエラー</string>
     <string name="book_reply_button">返信</string>
+
+    <string name="book_reply_success_contents">投稿に返信しました。</string>
+    <string name="book_reply_error_dialog">返信に失敗しました。</string>
 
     <!-- ブックマークリスト -->
     <string name="book_mark_title">ブックマークリスト</string>

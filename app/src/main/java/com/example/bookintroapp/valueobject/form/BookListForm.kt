@@ -34,6 +34,9 @@ class BookListForm() {
             }
             // サインインユーザデータ設定
             setUser(user)
+
+            // フラグメント設定
+            setFragment(frag)
         }
         BookListView?.adapter = adapter
     }

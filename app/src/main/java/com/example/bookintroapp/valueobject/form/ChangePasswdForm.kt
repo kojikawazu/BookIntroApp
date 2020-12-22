@@ -1,5 +1,6 @@
 package com.example.bookintroapp.valueobject.form
 
+import android.widget.Button
 import android.widget.EditText
 import com.example.bookintroapp.helper.DomainHelper
 
@@ -11,12 +12,13 @@ class ChangePasswdForm() {
     }
 
     constructor(emailEdit : EditText, forgotEdit : EditText,
-                newPasswdEdit : EditText, onePasswdEdit : EditText) : this(){
+                newPasswdEdit : EditText, onePasswdEdit : EditText, passwdButton: Button) : this(){
         // TODO コンストラクタ
         EmailEdit     = emailEdit
         ForgotEdit    = forgotEdit
         NewPasswdEdit = newPasswdEdit
         OnePasswdEdit = onePasswdEdit
+        PasswdButton  = passwdButton
     }
 
     // getter
@@ -33,6 +35,10 @@ class ChangePasswdForm() {
             return field
         }
     private var OnePasswdEdit : EditText? = null
+        get(){
+            return field
+        }
+    private var PasswdButton : Button? = null
         get(){
             return field
         }
@@ -96,6 +102,15 @@ class ChangePasswdForm() {
             return (DomainHelper.IsSame(NewPasswdEdit!!.text.toString(), OnePasswdEdit!!.text.toString()))
         }
         return false
+    }
+
+    fun setOnClickListener(func: () -> Unit){
+        // TODO 実行ボタンリスナーの設定
+        PasswdButton?.apply{
+            setOnClickListener{
+                func()
+            }
+        }
     }
 
 }
