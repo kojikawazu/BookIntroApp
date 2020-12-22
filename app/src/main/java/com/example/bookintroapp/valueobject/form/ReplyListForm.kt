@@ -1,10 +1,8 @@
 package com.example.bookintroapp.valueobject.form
 
 import android.util.Log
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.ListView
-import android.widget.TextView
+import android.view.View
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
@@ -61,6 +59,7 @@ class ReplyListForm() {
             // 部品検索
             val userView: TextView = layout.findViewById(R.id.reply_user)
             val satisView: TextView = layout.findViewById(R.id.reply_satis)
+            val satieImage: ImageView = layout.findViewById(R.id.reply_viewimage)
             val commentView: TextView = layout.findViewById(R.id.reply_comment)
             val createdView: TextView = layout.findViewById(R.id.reply_created)
             val niceCntView: TextView = layout.findViewById(R.id.reply_niceCnt)
@@ -71,6 +70,19 @@ class ReplyListForm() {
             commentView.text = entity.Comment
             createdView.text = entity.Created.toString()
             niceCntView.text = entity.NiceCntDisplay
+
+            satisView.visibility = View.GONE
+            when(entity.Satis){
+                1 -> {  satieImage.setImageResource(R.drawable.star_1) }
+                2 -> {  satieImage.setImageResource(R.drawable.star_2) }
+                3 -> {  satieImage.setImageResource(R.drawable.star_3) }
+                4 -> {  satieImage.setImageResource(R.drawable.star_4) }
+                5 -> {  satieImage.setImageResource(R.drawable.star_5) }
+                else ->{
+                    satieImage.setImageResource(R.drawable.star_5)
+                }
+            }
+            
             // ユーザ名の反映
             setUserName(userView, entity)
 

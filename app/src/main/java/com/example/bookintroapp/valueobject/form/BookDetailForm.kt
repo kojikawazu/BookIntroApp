@@ -1,9 +1,9 @@
 package com.example.bookintroapp.valueobject.form
 
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
+import android.opengl.Visibility
+import android.view.View
+import android.widget.*
+import com.example.bookintroapp.R
 import com.example.bookintroapp.valueobject.button.BookmarkButton
 import com.example.bookintroapp.valueobject.button.NiceCntButton
 import com.example.bookintroapp.valueobject.entity.BookEntity
@@ -13,7 +13,7 @@ import com.example.bookintroapp.valueobject.entity.UserEntity
 class BookDetailForm() {
 
     constructor(bookTitleText: TextView, bookNameText: TextView,
-                commentText: TextView, satisText: TextView,
+                commentText: TextView, satisText: TextView, satisImage: ImageView,
                 niceText: TextView, markText: TextView, replyText: TextView, created: TextView,
                 niceCntButton: Button, bookmartButton: Button, replyButton: Button) : this(){
         // TODO コンストラクタ
@@ -21,6 +21,7 @@ class BookDetailForm() {
         BookNameText = bookNameText
         CommentText = commentText
         SatisText = satisText
+        SatisImage = satisImage
         NiceText = niceText
         MarkText = markText
         ReplyText = replyText
@@ -44,6 +45,10 @@ class BookDetailForm() {
             return field
         }
     private var SatisText : TextView? = null
+        get(){
+            return field
+        }
+    private var SatisImage : ImageView? = null
         get(){
             return field
         }
@@ -131,6 +136,18 @@ class BookDetailForm() {
         this.MarkText?.text = entity.MarkCntDisplay
         this.ReplyText?.text = entity.ReplyCntDisplay
         this.Created?.text = entity.Created.toString()
+
+        this.SatisText?.visibility = View.GONE
+        when(entity.SatisCnt){
+            1 -> {  this.SatisImage?.setImageResource(R.drawable.star_1) }
+            2 -> {  this.SatisImage?.setImageResource(R.drawable.star_2) }
+            3 -> {  this.SatisImage?.setImageResource(R.drawable.star_3) }
+            4 -> {  this.SatisImage?.setImageResource(R.drawable.star_4) }
+            5 -> {  this.SatisImage?.setImageResource(R.drawable.star_5) }
+            else ->{
+                this.SatisImage?.setImageResource(R.drawable.star_5)
+            }
+        }
     }
 
     fun setOnButtonClickListener(niceCntFunc: () -> Unit, bookmarkFunc: () -> Unit, replyFunc: () -> Unit){

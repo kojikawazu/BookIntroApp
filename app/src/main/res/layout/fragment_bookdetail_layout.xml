@@ -84,9 +84,8 @@
 
                     <TextView
                         android:id="@+id/bookview_satis"
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:layout_weight="1"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
                         android:text="@string/book_view_satis"
                         android:textSize="18sp" />
 
@@ -94,8 +93,14 @@
                         android:id="@+id/bookview_satis_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="32dp"
-                        android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="1"
+                        tools:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/bookview_imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/star_5" />
                 </LinearLayout>
             </LinearLayout>
 

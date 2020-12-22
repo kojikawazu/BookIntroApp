@@ -32,7 +32,7 @@ class BookEntity() {
         UserId = userEntity.UserId
         BookName =  bookAddForm.BookNameString
         BookTitle = bookAddForm.TitleString
-        SatisCnt = 0
+        SatisCnt = 1
         NiceCnt = 0
         MarkCnt = 0
         ReplyCnt = 0

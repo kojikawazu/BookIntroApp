@@ -23,7 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import java.util.*
 
 // リスト項目を再利用するためのホルダー
-data class ViewHolder(val booknameView: TextView, val titleView: TextView, val satis: TextView,
+data class ViewHolder(val booknameView: TextView, val titleView: TextView, val satis: TextView, val satisImage: ImageView,
                       val commentView: TextView, val createdView: TextView, val niceView: TextView,
                       val niceButton: Button, val markView: TextView, val markButton: Button,
                         val replyView: TextView, val replyButton: Button)
@@ -80,6 +80,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
                     view.findViewById(R.id.booklist_userName),
                     view.findViewById(R.id.booklist_title),
                     view.findViewById(R.id.booklist_satis),
+                    view.findViewById(R.id.booklist_imageview),
                     view.findViewById(R.id.booklist_comment),
                     view.findViewById(R.id.booklist_created),
                     view.findViewById(R.id.booklist_niceCnt),
@@ -121,11 +122,25 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         // TODO リストデータバインド
         holder.booknameView.text = listItem?.BookName
         holder.titleView.text = listItem?.BookTitle
+        holder.satis.text = listItem?.SatisCntDisplay
         holder.niceView.text = listItem?.NiceCntDisplay
         holder.markView.text = listItem?.MarkCntDisplay
         holder.replyView.text = listItem?.ReplyCntDisplay
         holder.commentView.text = listItem?.Comment
         holder.createdView.text = listItem?.Created.toString()
+
+        holder.satis.visibility = View.GONE
+        when(listItem?.SatisCnt){
+            1 -> {  holder.satisImage.setImageResource(R.drawable.star_1) }
+            2 -> {  holder.satisImage.setImageResource(R.drawable.star_2) }
+            3 -> {  holder.satisImage.setImageResource(R.drawable.star_3) }
+            4 -> {  holder.satisImage.setImageResource(R.drawable.star_4) }
+            5 -> {  holder.satisImage.setImageResource(R.drawable.star_5) }
+            else ->{
+                holder.satisImage.setImageResource(R.drawable.star_5)
+            }
+        }
+
 
         // 更新が必要な部品の設定
         // 処理が重いので修正必要
