@@ -22,6 +22,11 @@ class TitleForm() {
             else{                       return ""                       }
         }
 
+    fun setTitle_bookmain(userName: String){
+        // TODO メインページ時のタイトル設定
+        TitleText?.text = userName + "さんのメインページ"
+    }
+
     fun setTitle_bookmark(userName: String){
         // TODO ブックマーク時のタイトル設定
         TitleText?.text = userName + "さんのブックマークリスト"

@@ -129,18 +129,8 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         holder.commentView.text = listItem?.Comment
         holder.createdView.text = listItem?.Created.toString()
 
-        holder.satis.visibility = View.GONE
-        when(listItem?.SatisCnt){
-            1 -> {  holder.satisImage.setImageResource(R.drawable.star_1) }
-            2 -> {  holder.satisImage.setImageResource(R.drawable.star_2) }
-            3 -> {  holder.satisImage.setImageResource(R.drawable.star_3) }
-            4 -> {  holder.satisImage.setImageResource(R.drawable.star_4) }
-            5 -> {  holder.satisImage.setImageResource(R.drawable.star_5) }
-            else ->{
-                holder.satisImage.setImageResource(R.drawable.star_5)
-            }
-        }
-
+        // 満足度イメージの設定
+        ActivityHelper.setImage_satisfaction(holder.satis, holder.satisImage, listItem!!.SatisCnt)
 
         // 更新が必要な部品の設定
         // 処理が重いので修正必要

@@ -79,6 +79,7 @@ class BookMarkModel  : ModelBase() {
                 bookList.add(bookEntity)
             }
         }
+        markList.clear()
 
         // バインド処理
         bookListForm?.createAdapter(frag, bookList, userEntity!!)

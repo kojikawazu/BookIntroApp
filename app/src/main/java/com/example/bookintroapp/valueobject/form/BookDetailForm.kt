@@ -4,6 +4,7 @@ import android.opengl.Visibility
 import android.view.View
 import android.widget.*
 import com.example.bookintroapp.R
+import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.valueobject.button.BookmarkButton
 import com.example.bookintroapp.valueobject.button.NiceCntButton
 import com.example.bookintroapp.valueobject.entity.BookEntity
@@ -137,17 +138,8 @@ class BookDetailForm() {
         this.ReplyText?.text = entity.ReplyCntDisplay
         this.Created?.text = entity.Created.toString()
 
-        this.SatisText?.visibility = View.GONE
-        when(entity.SatisCnt){
-            1 -> {  this.SatisImage?.setImageResource(R.drawable.star_1) }
-            2 -> {  this.SatisImage?.setImageResource(R.drawable.star_2) }
-            3 -> {  this.SatisImage?.setImageResource(R.drawable.star_3) }
-            4 -> {  this.SatisImage?.setImageResource(R.drawable.star_4) }
-            5 -> {  this.SatisImage?.setImageResource(R.drawable.star_5) }
-            else ->{
-                this.SatisImage?.setImageResource(R.drawable.star_5)
-            }
-        }
+        // 満足度イメージの設定
+        setSatis(entity.SatisCnt)
     }
 
     fun setOnButtonClickListener(niceCntFunc: () -> Unit, bookmarkFunc: () -> Unit, replyFunc: () -> Unit){
@@ -182,6 +174,9 @@ class BookDetailForm() {
         BookMarkButtonS?.isEnabled = BookmarkButton.isBookMark_byUser(userEntity, bookEntity)
     }
 
-
+    private fun setSatis(satisCnt: Int){
+        // TODO 満足度イメージの設定
+        ActivityHelper.setImage_satisfaction( this.SatisText!!, this.SatisImage!!, satisCnt)
+    }
 
 }

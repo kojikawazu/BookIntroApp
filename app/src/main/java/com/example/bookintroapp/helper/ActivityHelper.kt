@@ -4,6 +4,8 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.provider.Settings.System.putString
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -110,6 +112,21 @@ class ActivityHelper {
                 return false
             }
             return true
+        }
+
+        fun setImage_satisfaction(satisText: TextView, satisImage: ImageView, satis: Int){
+            // TODO 満足度イメージの設定
+            satisText.visibility = View.GONE
+            when(satis){
+                1 -> {  satisImage.setImageResource(R.drawable.star_1) }
+                2 -> {  satisImage.setImageResource(R.drawable.star_2) }
+                3 -> {  satisImage.setImageResource(R.drawable.star_3) }
+                4 -> {  satisImage.setImageResource(R.drawable.star_4) }
+                5 -> {  satisImage.setImageResource(R.drawable.star_5) }
+                else ->{
+                    satisImage.setImageResource(R.drawable.star_5)
+                }
+            }
         }
 
     }
