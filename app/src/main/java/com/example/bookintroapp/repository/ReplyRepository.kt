@@ -71,6 +71,12 @@ class ReplyRepository : IReplyRepository {
         return tsk
     }
 
+    override fun update_niceCnt_byId(id: String, cnt: Int): Task<Void> {
+        // TODO いいねカウンタの更新(更新対象:ID)
+        val document = FirebaseHelpler.getDocument(REPLY_TABLE, id)
+        return document.update(REPLY_TABLE_NICECNT, cnt)
+    }
+
     override fun execing(tsk: Task<*>) {
         // TODO セレクト終わるまでループ
         while(!tsk.isComplete){ }

@@ -8,10 +8,8 @@ import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.helper.FirebaseHelpler
-import com.example.bookintroapp.repository.INiceReplyRepository
-import com.example.bookintroapp.repository.IUserRepository
-import com.example.bookintroapp.repository.NiceReplyRepository
-import com.example.bookintroapp.repository.UserRepository
+import com.example.bookintroapp.repository.*
+import com.example.bookintroapp.valueobject.button.NiceCntReplyButton
 import com.example.bookintroapp.valueobject.entity.NiceReplyEntity
 import com.example.bookintroapp.valueobject.entity.ReplyEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
@@ -28,8 +26,12 @@ class ReplyListForm() {
     // エンティティ
     private var userEntity: UserEntity? = null
 
+    // レイアウト
+    private val niceReplyButton: NiceCntReplyButton = NiceCntReplyButton()
+
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
+    private val _replyRepository: IReplyRepository = ReplyRepository()
     private val _niceReplyRepository: INiceReplyRepository = NiceReplyRepository()
 
     constructor(layout: LinearLayout) : this() {
@@ -75,9 +77,13 @@ class ReplyListForm() {
             // ユーザ名の反映
             setUserName(userView, entity)
 
+            // いいねボタンの更新
+            updateNiceButtonUI(niceCntButton, entity)
+
             // イベントリスナー設定
             niceCntButton.setOnClickListener{ _ ->
-                OnClickListener(niceCntView, entity)
+                // TODO いいねボタン押下時
+                OnClickListener(niceCntView, niceCntButton, entity)
             }
 
             // 親レイアウトに追加
@@ -97,22 +103,32 @@ class ReplyListForm() {
         }
     }
 
-    private fun OnClickListener(niceCntView: TextView, replyEntity: ReplyEntity){
+    private fun updateNiceButtonUI(niceCntButton: Button, entity: ReplyEntity){
+        // TODO ボタンの非活性制御
+        if(userEntity == null)  return
+        niceCntButton.isEnabled = niceReplyButton.isNiceCnt_byUser(userEntity!!, entity)
+    }
+
+    private fun OnClickListener(niceCntView: TextView, niceCntButton: Button, replyEntity: ReplyEntity){
         // TODO いいねボタン押下処理
+        if(userEntity == null)  return
 
-        val entityNew = NiceReplyEntity(replyEntity, userEntity!!, Date())
-        val tskadd: Task<DocumentReference> =  _niceReplyRepository.insert(entityNew)
-        _niceReplyRepository.execing(tskadd)
+        // いいねデータ追加
+        val ret = niceReplyButton.OnNiceCntEventlistener(userEntity!!, replyEntity)
+        if(ret){
+            // 追加成功
 
-        if( _niceReplyRepository.isSuccessed(tskadd)){
-            // 追加成功してたら、合計取得
-            val tsk: Task<QuerySnapshot> = _niceReplyRepository.select_byReplyId(replyEntity.ReplyId)
-            _niceReplyRepository.execing(tsk)
-            val cnt = _niceReplyRepository.getResultEntiryCount(tsk)
-
-            // 値を反映
-            replyEntity.setNiceCnt(cnt)
+            // いいね数を更新
+            replyEntity.setNiceCnt(niceReplyButton.getNiceCntCount(replyEntity).toInt())
+            // ビューに反映
             niceCntView.text = replyEntity.NiceCntDisplay
+
+            // 書籍テーブルのいいねカウンタの更新
+            val tsk: Task<Void> = _replyRepository.update_niceCnt_byId(replyEntity.ReplyId, replyEntity.NiceCnt)
+            _replyRepository.execing(tsk)
+
+            // UI更新
+            updateNiceButtonUI(niceCntButton, replyEntity)
         }
     }
 

@@ -9,6 +9,7 @@ import com.example.bookintroapp.valueobject.button.BookmarkButton
 import com.example.bookintroapp.valueobject.button.NiceCntButton
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
+import com.google.firebase.firestore.auth.User
 
 // 書籍詳細フォーム
 class BookDetailForm() {
@@ -127,10 +128,10 @@ class BookDetailForm() {
         MarkText?.text = markCnt
     }
 
-    fun setData(entity: BookEntity){
+    fun setData(userEntity: UserEntity, entity: BookEntity){
         // TODO データ反映
-        this.BookTitleText?.text = entity.BookTitle
-        this.BookNameText?.text = entity.BookTitle
+        this.BookTitleText?.text = userEntity.UserName + "さんの投稿"
+        this.BookNameText?.text = entity.BookName
         this.CommentText?.text = entity.Comment
         this.SatisText?.text = entity.SatisCntDisplay
         this.NiceText?.text = entity.NiceCntDisplay

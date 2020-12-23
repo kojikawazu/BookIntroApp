@@ -18,7 +18,7 @@ class NiceCntButton() {
     private val _niceRepository: INiceRepository = NiceRepository()
 
     fun getNiceCntCount(bookEntity: BookEntity): String{
-        // TODO 各ブックマークの合計を取得
+        // TODO いいねの合計を取得
         val tsk: Task<QuerySnapshot> = _niceRepository.select_byBookId(bookEntity.BookId)
         _niceRepository.execing(tsk)
         if(_niceRepository.isSuccessed(tsk)){
@@ -31,7 +31,7 @@ class NiceCntButton() {
     }
 
     fun isNiceCnt_byUser(userEntity: UserEntity, bookEntity: BookEntity): Boolean{
-        // TODO 自身のユーザがブックマーク登録したかチェック
+        // TODO 自身のユーザがいいね登録したかチェック
         val tsk: Task<QuerySnapshot> = _niceRepository.select_byuserId_bookId(userEntity.UserId, bookEntity.BookId)
         _niceRepository.execing(tsk)
         if(_niceRepository.isSuccessed(tsk)){
@@ -46,7 +46,7 @@ class NiceCntButton() {
         // TODO いいね押下時のイベント処理
 
         // いいねリスト登録
-        val entityNew = NiceEntity("0", userEntity.UserId, bookEntity.BookId, Date())
+        val entityNew = NiceEntity(userEntity, bookEntity, Date())
         val tskAdd: Task<DocumentReference> = _niceRepository.insert(entityNew)
         _niceRepository.execing(tskAdd)
         return _niceRepository.isSuccessed(tskAdd)

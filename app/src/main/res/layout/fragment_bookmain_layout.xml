@@ -5,19 +5,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.BookMainFragment">
+    tools:context=".view.fragment.book.BookMainFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9AE0FFBB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#9AE0FFBB"
             android:orientation="vertical"
-            android:padding="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,15 +59,23 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="513dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ListView
+                <LinearLayout
                     android:id="@+id/bookmain_listview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <!-- ブックリストが追加される -->
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -80,5 +93,6 @@
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

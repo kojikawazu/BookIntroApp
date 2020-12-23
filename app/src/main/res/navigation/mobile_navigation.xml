@@ -8,7 +8,7 @@
     <!-- 書籍紹介メインフラグメント -->
     <fragment
         android:id="@+id/bookMainFragment"
-        android:name="com.example.bookintroapp.view.fragment.BookMainFragment"
+        android:name="com.example.bookintroapp.view.fragment.book.BookMainFragment"
         android:label="fragment_bookmain"
         tools:layout="@layout/fragment_bookmain_layout" >
         <!-- 書籍紹介メイン → 書籍追加 -->
@@ -28,7 +28,7 @@
     <!-- マイページフラグメント -->
     <fragment
         android:id="@+id/bookMypageFragment"
-        android:name="com.example.bookintroapp.view.fragment.BookMypageFragment"
+        android:name="com.example.bookintroapp.view.fragment.book.BookMypageFragment"
         android:label="fragment_bookmy"
         tools:layout="@layout/fragment_bookmypage_layout" >
         <!-- 書籍紹介メイン → 書籍追加 -->
@@ -48,7 +48,7 @@
     <!-- ブックマークフラグメント -->
     <fragment
         android:id="@+id/bookMarkFragment"
-        android:name="com.example.bookintroapp.view.fragment.BookMarkFragment"
+        android:name="com.example.bookintroapp.view.fragment.book.BookMarkFragment"
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark_layout">
         <!-- 書籍紹介メイン → 書籍追加 -->
@@ -68,7 +68,7 @@
     <!-- 書籍詳細フラグメント -->
     <fragment
         android:id="@+id/bookDetailFragment"
-        android:name="com.example.bookintroapp.view.fragment.BookDetailFragment"
+        android:name="com.example.bookintroapp.view.fragment.book.BookDetailFragment"
         android:label="fragment_bookdetail"
         tools:layout="@layout/fragment_bookdetail_layout">
 
@@ -91,7 +91,7 @@
     <!-- 書籍追加フラグメント -->
     <fragment
         android:id="@+id/bookAddFragment"
-        android:name="com.example.bookintroapp.view.fragment.BookAddFragment"
+        android:name="com.example.bookintroapp.view.fragment.book.BookAddFragment"
         android:label="fragment_bookadd"
         tools:layout="@layout/fragment_bookadd_layout">
         <!-- 書籍追加フラグメント → 書籍紹介メイン -->
@@ -105,7 +105,7 @@
     <!-- 書籍リプライフラグメント -->
     <fragment
         android:id="@+id/bookReplyFragment"
-        android:name="com.example.bookintroapp.view.fragment.BookReplyFragment"
+        android:name="com.example.bookintroapp.view.fragment.book.BookReplyFragment"
         android:label="fragment_bookreply"
         tools:layout="@layout/fragment_bookreply_layout">
         <!-- 書籍追加フラグメント → 書籍紹介メイン -->

@@ -12,20 +12,33 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/booklist_userName"
+            android:id="@+id/booklist_bookName"
             android:layout_width="140dp"
             android:layout_height="match_parent"
             android:padding="5dp"
-            android:text="ユーザ名" />
+            android:text="書籍" />
 
-        <TextView
-            android:id="@+id/booklist_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:text="書籍タイトル" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/booklist_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="書籍タイトル" />
+            <TextView
+                android:id="@+id/booklist_userName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="ユーザ名" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -65,9 +78,10 @@
             android:id="@+id/booklist_created"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:textAlignment="viewEnd"
             android:layout_weight="1"
-            android:text="2020/12/09"
-            android:textAlignment="viewEnd" />
+            android:text="2020/01/01" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,6 +136,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
 
@@ -130,9 +145,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="いいね"
             android:focusable="false"
-            android:focusableInTouchMode="false"/>
+            android:focusableInTouchMode="false"
+            android:text="いいね" />
 
 
         <Button
@@ -140,19 +155,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ブックマーク"
             android:focusable="false"
-            android:focusableInTouchMode="false"/>
+            android:focusableInTouchMode="false"
+            android:text="ブックマーク" />
 
         <Button
             android:id="@+id/button_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="返信"
             android:focusable="false"
-            android:focusableInTouchMode="false"/>
-
+            android:focusableInTouchMode="false"
+            android:text="返信" />
     </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
 
 </LinearLayout>

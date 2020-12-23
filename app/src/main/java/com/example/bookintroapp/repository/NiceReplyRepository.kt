@@ -40,6 +40,15 @@ class NiceReplyRepository : INiceReplyRepository {
                 .get()
     }
 
+    override fun select_byuserId_replyId(userId: String, replyId: String): Task<QuerySnapshot> {
+        // TODO ユーザID,リプライIDによる選択
+        val collection = FirebaseHelpler.getCollection(NICE_REPLY_TABLE)
+        return collection
+                .whereEqualTo(NICE_REPLY_TABLE_USERID, userId)
+                .whereEqualTo(NICE_REPLY_TABLE_REPLYID, replyId)
+                .get()
+    }
+
     override fun insert(entity: NiceReplyEntity): Task<DocumentReference> {
         // TODO データ追加処理
         val data = hashMapOf(

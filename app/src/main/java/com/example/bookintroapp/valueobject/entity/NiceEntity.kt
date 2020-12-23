@@ -16,6 +16,14 @@ class NiceEntity() {
         Created = created
     }
 
+    constructor(user: UserEntity, book: BookEntity, created: Date) : this(){
+        // TODO コンストラクタ
+        NiceId = "0"
+        UserId = user.UserId
+        BookId = book.BookId
+        Created = created
+    }
+
     var NiceId : String = ""
         get(){
             return field

@@ -19,6 +19,8 @@ interface IReplyRepository {
 
     fun insert(entity: ReplyEntity) : Task<DocumentReference>
 
+    fun update_niceCnt_byId(id: String, cnt: Int) : Task<Void>
+
     fun execing(tsk: Task<*>)
 
     fun isSuccessed(tsk: Task<*>): Boolean

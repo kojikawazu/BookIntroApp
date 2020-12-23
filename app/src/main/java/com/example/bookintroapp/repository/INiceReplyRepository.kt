@@ -14,6 +14,8 @@ interface INiceReplyRepository {
 
     fun select_byReplyId(replyId: String): Task<QuerySnapshot>
 
+    fun select_byuserId_replyId(userId: String, replyId: String): Task<QuerySnapshot>
+
     fun insert(entity: NiceReplyEntity) : Task<DocumentReference>
 
     fun execing(tsk: Task<*>)
