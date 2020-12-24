@@ -1,5 +1,6 @@
 package com.example.bookintroapp.valueobject.form
 
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -99,8 +100,7 @@ class BookListForm2() {
             userView.isClickable = true
             userView.setOnClickListener{
                 // 書籍詳細へ遷移
-                Log.d("BookListForm2", "click now....")
-                //ActivityHelper.nextFragment(frag, R.id.action_bookfollower_to_bookmain_pop)
+                ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookfollower)
             }
 
             // イベントリスナー設定
