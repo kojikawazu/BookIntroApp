@@ -12,6 +12,7 @@ import com.example.bookintroapp.repository.UserRepository
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.valueobject.form.BookListForm2
+import com.example.bookintroapp.valueobject.form.BookMyPageForm
 import com.example.bookintroapp.valueobject.form.TitleForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
@@ -25,6 +26,7 @@ class BookMyPageModel : ModelBase() {
     // フォーム
     private var titleForm: TitleForm? = null
     private var bookListForm: BookListForm2? = null
+    private var bookMyPageForm: BookMyPageForm? = null
 
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
@@ -39,6 +41,11 @@ class BookMyPageModel : ModelBase() {
         titleForm = TitleForm(
             view.findViewById(R.id.bookmypage_contents_textView)
         )
+        bookMyPageForm = BookMyPageForm(
+            view.findViewById(R.id.bookmypage_followView),
+            view.findViewById(R.id.bookmypage_followerView),
+            view.findViewById(R.id.bookmypage_followButton)
+        )
         bookListForm = BookListForm2(
             view.findViewById(R.id.bookmypage_listview)
         )
@@ -52,6 +59,10 @@ class BookMyPageModel : ModelBase() {
 
         // タイトル
         titleForm?.setTitle_mypage(userEntity!!.UserName)
+
+        // フォロー数の更新
+        bookMyPageForm?.updateFollowView(userEntity!!)
+        bookMyPageForm?.updateFollowerView(userEntity!!)
 
         // データリストの設定
         setListView(view, frag)

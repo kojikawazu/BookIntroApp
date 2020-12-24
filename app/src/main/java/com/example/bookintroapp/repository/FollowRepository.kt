@@ -44,6 +44,14 @@ class FollowRepository : IFollowRepository {
                 .get()
     }
 
+    override fun select_byfollowerId(followerId: String): Task<QuerySnapshot> {
+        // TODO フォロワーIDによる選択
+        val collection = FirebaseHelpler.getCollection(FOLLOW_TABLE)
+        return collection
+            .whereEqualTo(FOLLOW_TABLE_FOLLOWERID, followerId)
+            .get()
+    }
+
     override fun insert(entity: FollowEntity): Task<DocumentReference> {
         // TODO データ追加処理
         val data = hashMapOf(

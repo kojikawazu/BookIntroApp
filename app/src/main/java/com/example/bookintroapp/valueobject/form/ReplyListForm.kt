@@ -32,7 +32,6 @@ class ReplyListForm() {
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
     private val _replyRepository: IReplyRepository = ReplyRepository()
-    private val _niceReplyRepository: INiceReplyRepository = NiceReplyRepository()
 
     constructor(layout: LinearLayout) : this() {
         // TODO コンストラクタ
