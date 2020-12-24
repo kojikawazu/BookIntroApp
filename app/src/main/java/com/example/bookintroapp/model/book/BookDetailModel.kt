@@ -74,25 +74,17 @@ class BookDetailModel : ModelBase() {
         // 書籍エンティティ取得
         bookEntity = FirebaseHelpler.selectBookEntity(targetBookId, _bookRepository)
 
-        // 書籍投稿のユーザを取得
-        val tsk: Task<DocumentSnapshot> = _userRepository.select_byId(bookEntity!!.UserId)
-        _userRepository.execing(tsk)
-        val bookUserEntity: UserEntity? = _userRepository.getResultEntityD(tsk)
-
-        // 書籍データ反映
-        bookDetailForm?.setData(bookUserEntity!!, bookEntity!!)
+        // 書籍データの反映
+        createBookList()
 
         // リプライリストの反映
-        createReplyList(view, frag)
+        createReplyList(frag)
 
         // UI更新
         updateViewUI()
 
         // クリックリスナー
-        bookDetailForm?.setOnButtonClickListener({
-            // TODO いいね押下時
-            OnNiceCntEventListener()
-        }, {
+        bookDetailForm?.setOnButtonClickListener(userEntity!!, bookEntity!!, {
             // TODO ブックマーク押下時
             OnBookMarkEventListener()
         }, {
@@ -101,7 +93,19 @@ class BookDetailModel : ModelBase() {
         })
     }
 
-    private fun createReplyList(view: View,frag: Fragment){
+    private fun createBookList(){
+        // TODO 書籍データの生成
+
+        // 書籍投稿のユーザを取得
+        val tsk: Task<DocumentSnapshot> = _userRepository.select_byId(bookEntity!!.UserId)
+        _userRepository.execing(tsk)
+        val bookUserEntity: UserEntity? = _userRepository.getResultEntityD(tsk)
+
+        // 書籍データ反映
+        bookDetailForm?.setData(bookUserEntity!!, bookEntity!!)
+    }
+
+    private fun createReplyList(frag: Fragment){
         // TODO リプライリストの生成 & 反映
 
         // リスト(書籍のリプライリストを選択)
@@ -120,27 +124,12 @@ class BookDetailModel : ModelBase() {
         bookDetailForm?.updateNiceCntButtonUI(userEntity!!, bookEntity!!)
 
         // 自身のユーザがブックマーク登録したかチェック
-        bookDetailForm?.updateBookmarkButtonUI(userEntity!!, bookEntity!!)
+        updateBookmarkButtonUI()
     }
 
-    private fun OnNiceCntEventListener(){
-        // TODO いいね押下イベント
-        if(userEntity == null || bookEntity == null)    return
-        val ret = bookDetailForm?.NiceCntButton!!.OnNiceCntEventlistener(userEntity!!, bookEntity!!)
-        if(ret) {
-            // いいね追加に成功
-
-            // いいねの合計を取得
-            bookEntity?.setNiceCnt(bookDetailForm?.NiceCntButton!!.getNiceCntCount(bookEntity!!).toInt())
-            // ビューに反映
-            bookDetailForm?.setNiceText(bookEntity!!.NiceCntDisplay)
-            // 書籍テーブルのブックマークカウンタの更新
-            val tsk: Task<Void> = _bookRepository.update_niceCnt_byId(bookEntity!!.BookId, bookEntity!!.NiceCnt)
-            _bookRepository.execing(tsk)
-
-            // 自身のユーザがブックマーク登録したかチェック
-            bookDetailForm?.updateNiceCntButtonUI(userEntity!!, bookEntity!!)
-        }
+    private fun updateBookmarkButtonUI(){
+        // TODO 自身のユーザがブックマーク登録したかチェック
+        bookDetailForm?.updateBookmarkButtonUI(userEntity!!, bookEntity!!)
     }
 
     private fun OnBookMarkEventListener(){
@@ -154,12 +143,13 @@ class BookDetailModel : ModelBase() {
             bookEntity?.setMarkCnt(bookDetailForm?.BookmarkButton!!.getBookMarkCount(bookEntity!!).toInt())
             // ビューに反映
             bookDetailForm?.setMarkText(bookEntity!!.MarkCntDisplay)
+
             // 書籍テーブルのブックマークカウンタの更新
             val tsk: Task<Void> = _bookRepository.update_markCnt_byId(bookEntity!!.BookId, bookEntity!!.MarkCnt)
             _bookRepository.execing(tsk)
 
             // 自身のユーザがブックマーク登録したかチェック
-            bookDetailForm?.updateBookmarkButtonUI(userEntity!!, bookEntity!!)
+            updateBookmarkButtonUI()
         }
     }
 

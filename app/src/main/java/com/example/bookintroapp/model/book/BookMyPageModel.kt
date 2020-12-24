@@ -25,8 +25,8 @@ class BookMyPageModel : ModelBase() {
 
     // フォーム
     private var titleForm: TitleForm? = null
-    private var bookListForm: BookListForm2? = null
     private var bookMyPageForm: BookMyPageForm? = null
+    private var bookListForm: BookListForm2? = null
 
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
@@ -61,8 +61,8 @@ class BookMyPageModel : ModelBase() {
         titleForm?.setTitle_mypage(userEntity!!.UserName)
 
         // フォロー数の更新
-        bookMyPageForm?.updateFollowView(userEntity!!)
-        bookMyPageForm?.updateFollowerView(userEntity!!)
+        bookMyPageForm?.Follow?.updateFollowView(userEntity!!)
+        bookMyPageForm?.Follow?.updateFollowerView(userEntity!!)
 
         // データリストの設定
         setListView(view, frag)

@@ -1,7 +1,5 @@
 package com.example.bookintroapp.valueobject.form
 
-import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
@@ -10,15 +8,10 @@ import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.button.NiceCntReplyButton
-import com.example.bookintroapp.valueobject.entity.NiceReplyEntity
 import com.example.bookintroapp.valueobject.entity.ReplyEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.auth.User
-import java.util.*
 
 // リプライリストフォーム
 class ReplyListForm() {
@@ -82,7 +75,7 @@ class ReplyListForm() {
             // イベントリスナー設定
             niceCntButton.setOnClickListener{ _ ->
                 // TODO いいねボタン押下時
-                OnClickListener(niceCntView, niceCntButton, entity)
+                niceReplyButton.OnNiceCntClickListener(niceCntView, niceCntButton, userEntity!!, entity)
             }
 
             // 親レイアウトに追加
@@ -106,29 +99,6 @@ class ReplyListForm() {
         // TODO ボタンの非活性制御
         if(userEntity == null)  return
         niceCntButton.isEnabled = niceReplyButton.isNiceCnt_byUser(userEntity!!, entity)
-    }
-
-    private fun OnClickListener(niceCntView: TextView, niceCntButton: Button, replyEntity: ReplyEntity){
-        // TODO いいねボタン押下処理
-        if(userEntity == null)  return
-
-        // いいねデータ追加
-        val ret = niceReplyButton.OnNiceCntEventlistener(userEntity!!, replyEntity)
-        if(ret){
-            // 追加成功
-
-            // いいね数を更新
-            replyEntity.setNiceCnt(niceReplyButton.getNiceCntCount(replyEntity).toInt())
-            // ビューに反映
-            niceCntView.text = replyEntity.NiceCntDisplay
-
-            // 書籍テーブルのいいねカウンタの更新
-            val tsk: Task<Void> = _replyRepository.update_niceCnt_byId(replyEntity.ReplyId, replyEntity.NiceCnt)
-            _replyRepository.execing(tsk)
-
-            // UI更新
-            updateNiceButtonUI(niceCntButton, replyEntity)
-        }
     }
 
 }

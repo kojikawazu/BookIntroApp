@@ -80,7 +80,6 @@ class BookMainModel : ModelBase() {
 
         // レイアウト追加処理
         bookListForm?.createChildLayout(frag, bookList)
-
     }
 
 }

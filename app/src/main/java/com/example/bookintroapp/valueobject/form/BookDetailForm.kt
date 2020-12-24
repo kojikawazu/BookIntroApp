@@ -112,11 +112,12 @@ class BookDetailForm() {
         get(){
             return field
         }
+        private set
     var BookmarkButton: BookmarkButton = BookmarkButton()
         get(){
             return field
         }
-
+        private set
 
     fun setNiceText(niceCnt: String){
         // TODO いいねリストの更新
@@ -143,12 +144,12 @@ class BookDetailForm() {
         setSatis(entity.SatisCnt)
     }
 
-    fun setOnButtonClickListener(niceCntFunc: () -> Unit, bookmarkFunc: () -> Unit, replyFunc: () -> Unit){
+    fun setOnButtonClickListener(userEntity: UserEntity, bookEntity: BookEntity, bookmarkFunc: () -> Unit, replyFunc: () -> Unit){
         // TODO ボタンリスナーの設定
         NiceCntButtonS?.apply {
             setOnClickListener {
                 // TODO いいね押下時
-                niceCntFunc()
+                NiceCntButton.OnNiceCntEventlistener(NiceText!!, NiceCntButtonS!!, userEntity, bookEntity)
             }
         }
         BookMarkButtonS?.apply {
@@ -167,7 +168,7 @@ class BookDetailForm() {
 
     fun updateNiceCntButtonUI(userEntity: UserEntity, bookEntity: BookEntity){
         // TODO いいねボタンの更新
-        NiceCntButtonS?.isEnabled = NiceCntButton.isNiceCnt_byUser(userEntity, bookEntity)
+        NiceCntButton.updateNiceCntButton(NiceCntButtonS!!, userEntity, bookEntity)
     }
 
     fun updateBookmarkButtonUI(userEntity: UserEntity, bookEntity: BookEntity){

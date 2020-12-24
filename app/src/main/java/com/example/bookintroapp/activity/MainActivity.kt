@@ -31,14 +31,19 @@ class MainActivity : AppCompatActivity(),
     private lateinit var navController: NavController
 
     // サインイン中のメールアドレス
-    private lateinit var signinEmail: String
+    private var signinEmail: String
 
-    private lateinit var targetBookId: String
+    // 選択中書籍
+    private var targetBookId: String
+
+    // 選択中フォロワーユーザID
+    private var targetFollowerId: String
 
     init{
         // TODO 初期化
         signinEmail = ""
         targetBookId = ""
+        targetFollowerId = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,8 +143,13 @@ class MainActivity : AppCompatActivity(),
     }
 
     fun getTargetBookId(): String{
-        // TODO サインイン中のメールアドレス取得
+        // TODO 選択中の書籍IDの取得
         return targetBookId
+    }
+
+    fun getFollowerId(): String{
+        // TODO 選択中のフォロワーIDの取得
+        return targetFollowerId
     }
 
     fun saveSigninMail(){
@@ -156,13 +166,15 @@ class MainActivity : AppCompatActivity(),
         targetBookId = id
     }
 
+    fun saveTargetFollowerId(id: String){
+        // TODO 対象のフォロワーIDの取得
+        targetFollowerId = id
+    }
+
     fun signout(){
         // TODO サインアウト処理
         signinEmail = ""
         FirebaseHelpler.authSignout()
         finish()
     }
-
-
-
 }

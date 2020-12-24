@@ -31,7 +31,6 @@ class BookListForm2() {
     private val niceCntButton: NiceCntButton = NiceCntButton()
     private val bookmarkButton: BookmarkButton = BookmarkButton()
 
-
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
     private val _bookRepository: IBookRepository = BookRepository()
@@ -73,7 +72,7 @@ class BookListForm2() {
             val replyView: TextView = layout.findViewById(R.id.booklist_replyCnt)
 
             // ボタン
-            val niceCntButton: Button = layout.findViewById(R.id.button_niceCnt)
+            val niceButton: Button = layout.findViewById(R.id.button_niceCnt)
             val markButton: Button = layout.findViewById(R.id.button_markCnt)
             val replyButton: Button = layout.findViewById(R.id.button_reply)
 
@@ -94,7 +93,7 @@ class BookListForm2() {
             setUserName(userView, entity)
 
             // UI更新
-            updateNicecntUI(niceCntButton, entity)
+            niceCntButton?.updateNiceCntButton(niceButton, userEntity!!, entity)
             updateMarkUI(markButton, entity)
 
             userView.isClickable = true
@@ -104,9 +103,9 @@ class BookListForm2() {
             }
 
             // イベントリスナー設定
-            niceCntButton.setOnClickListener { _ ->
+            niceButton.setOnClickListener { _ ->
                 // TODO いいねボタン押下時
-                OnNiceCntClickListener(niceCntView, niceCntButton, entity)
+                niceCntButton?.OnNiceCntEventlistener(niceCntView, niceButton, userEntity!!, entity)
             }
             markButton.setOnClickListener { _ ->
                 // TODO ブックマークボタン押下時
@@ -133,11 +132,6 @@ class BookListForm2() {
         }
     }
 
-    private fun updateNicecntUI(button: Button, bookEntity: BookEntity) {
-        // TODO いいねボタンのUI更新
-        button.isEnabled = niceCntButton.isNiceCnt_byUser(userEntity!!, bookEntity)
-    }
-
     private fun updateMarkUI(button: Button, bookEntity: BookEntity) {
         // TODO ブックマークボタンのUI更新
         button.isEnabled = bookmarkButton.isBookMark_byUser(userEntity!!, bookEntity)
@@ -153,29 +147,6 @@ class BookListForm2() {
             if(user != null){
                 userView.text = user.UserName
             }
-        }
-    }
-
-    private fun OnNiceCntClickListener(niceCntView: TextView, button: Button, bookEntity: BookEntity){
-        // TODO いいねボタン押下処理
-        if(userEntity == null)    return
-
-        // いいねデータ追加
-        val ret = niceCntButton.OnNiceCntEventlistener(userEntity!!, bookEntity)
-        if(ret){
-            // 追加成功
-
-            // いいね数を更新
-            bookEntity.setNiceCnt(niceCntButton.getNiceCntCount(bookEntity).toInt())
-            // ビューに反映
-            niceCntView.text = bookEntity.NiceCntDisplay
-
-            // 書籍テーブルのいいねカウンタの更新
-            val tsk: Task<Void> = _bookRepository.update_niceCnt_byId(bookEntity.BookId, bookEntity.NiceCnt)
-            _bookRepository.execing(tsk)
-
-            // UI更新
-            updateNicecntUI(button, bookEntity)
         }
     }
 

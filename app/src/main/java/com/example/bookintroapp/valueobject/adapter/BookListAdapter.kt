@@ -151,7 +151,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
     private fun OnNiceCntEventlistener(holder: ViewHolder, listItem: BookEntity?){
         // TODO いいね押下時イベント
         if(user == null || listItem == null)    return
-        val ret = niceCntButton.OnNiceCntEventlistener(user!!, listItem)
+        val ret = niceCntButton.InsertNiceCnt(user!!, listItem)
         if(ret){
             // いいねリスト追加に成功
 

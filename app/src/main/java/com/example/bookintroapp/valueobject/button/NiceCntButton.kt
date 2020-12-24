@@ -1,5 +1,7 @@
 package com.example.bookintroapp.valueobject.button
 
+import android.widget.Button
+import android.widget.TextView
 import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.adapter.ViewHolder
 import com.example.bookintroapp.valueobject.entity.BookEntity
@@ -16,6 +18,29 @@ class NiceCntButton() {
 
     // リポジトリ
     private val _niceRepository: INiceRepository = NiceRepository()
+    private val _bookRepository: IBookRepository = BookRepository()
+
+    fun OnNiceCntEventlistener(niceCntView: TextView, niceCntButton: Button, userEntity : UserEntity, bookEntity: BookEntity){
+        // TODO いいねボタン押下処理
+
+        // いいねデータ追加
+        val ret = InsertNiceCnt(userEntity, bookEntity)
+        if(ret){
+            // 追加成功
+
+            // いいね数を更新
+            bookEntity.setNiceCnt(getNiceCntCount(bookEntity).toInt())
+            // ビューに反映
+            niceCntView.text = bookEntity.NiceCntDisplay
+
+            // 書籍テーブルのいいねカウンタの更新
+            val tsk: Task<Void> = _bookRepository.update_niceCnt_byId(bookEntity.BookId, bookEntity.NiceCnt)
+            _bookRepository.execing(tsk)
+
+            // UI更新
+            updateNiceCntButton(niceCntButton, userEntity, bookEntity)
+        }
+    }
 
     fun getNiceCntCount(bookEntity: BookEntity): String{
         // TODO いいねの合計を取得
@@ -42,7 +67,7 @@ class NiceCntButton() {
         }
     }
 
-    fun OnNiceCntEventlistener(userEntity: UserEntity, bookEntity: BookEntity): Boolean{
+    fun InsertNiceCnt(userEntity: UserEntity, bookEntity: BookEntity): Boolean{
         // TODO いいね押下時のイベント処理
 
         // いいねリスト登録
@@ -50,6 +75,11 @@ class NiceCntButton() {
         val tskAdd: Task<DocumentReference> = _niceRepository.insert(entityNew)
         _niceRepository.execing(tskAdd)
         return _niceRepository.isSuccessed(tskAdd)
+    }
+
+    fun updateNiceCntButton(niceCntButton: Button, userEntity : UserEntity, bookEntity: BookEntity){
+        // TODO ボタンUI更新
+        niceCntButton.isEnabled = isNiceCnt_byUser(userEntity, bookEntity)
     }
 
 }
