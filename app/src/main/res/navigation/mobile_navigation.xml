@@ -23,6 +23,10 @@
         <action
             android:id="@+id/action_bookmain_to_bookreply"
             app:destination="@id/bookReplyFragment" />
+        <!-- 書籍紹介メイン → フォロワー -->
+        <action
+            android:id="@+id/action_bookmain_to_bookfollower"
+            app:destination="@id/bookFollowFragment" />
     </fragment>
 
     <!-- マイページフラグメント -->
@@ -43,6 +47,10 @@
         <action
             android:id="@+id/action_bookmain_to_bookreply"
             app:destination="@id/bookReplyFragment" />
+        <!-- 書籍紹介メイン → フォロワー -->
+        <action
+            android:id="@+id/action_bookmain_to_bookfollower"
+            app:destination="@id/bookFollowFragment" />
     </fragment>
 
     <!-- ブックマークフラグメント -->
@@ -63,6 +71,10 @@
         <action
             android:id="@+id/action_bookmain_to_bookreply"
             app:destination="@id/bookReplyFragment" />
+        <!-- 書籍紹介メイン → フォロワー -->
+        <action
+            android:id="@+id/action_bookmain_to_bookfollower"
+            app:destination="@id/bookFollowFragment" />
     </fragment>
 
     <!-- 書籍詳細フラグメント -->
@@ -111,6 +123,20 @@
         <!-- 書籍追加フラグメント → 書籍紹介メイン -->
         <action
             android:id="@+id/action_bookreply_to_bookmain_pop"
+            app:destination="@id/bookMainFragment"
+            app:popUpTo="@id/bookMainFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <!-- フォロワーフラグメント -->
+    <fragment
+        android:id="@+id/bookFollowFragment"
+        android:name="com.example.bookintroapp.view.fragment.book.BookFollowerFragment"
+        android:label="fragment_bookfollower"
+        tools:layout="@layout/fragment_bookfollower_layout">
+        <!-- 書籍追加フラグメント → 書籍紹介メイン -->
+        <action
+            android:id="@+id/action_bookfollower_to_bookmain_pop"
             app:destination="@id/bookMainFragment"
             app:popUpTo="@id/bookMainFragment"
             app:popUpToInclusive="false" />

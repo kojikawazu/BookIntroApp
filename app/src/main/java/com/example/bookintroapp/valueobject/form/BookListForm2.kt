@@ -96,6 +96,13 @@ class BookListForm2() {
             updateNicecntUI(niceCntButton, entity)
             updateMarkUI(markButton, entity)
 
+            userView.isClickable = true
+            userView.setOnClickListener{
+                // 書籍詳細へ遷移
+                Log.d("BookListForm2", "click now....")
+                //ActivityHelper.nextFragment(frag, R.id.action_bookfollower_to_bookmain_pop)
+            }
+
             // イベントリスナー設定
             niceCntButton.setOnClickListener { _ ->
                 // TODO いいねボタン押下時
