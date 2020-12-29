@@ -14,6 +14,7 @@ import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.button.BookmarkButton
 import com.example.bookintroapp.valueobject.button.NiceCntButton
 import com.example.bookintroapp.valueobject.button.NiceCntReplyButton
+import com.example.bookintroapp.valueobject.button.ReplyButton
 import com.example.bookintroapp.valueobject.entity.*
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
@@ -30,10 +31,10 @@ class BookListForm2() {
     // レイアウト
     private val niceCntButton: NiceCntButton = NiceCntButton()
     private val bookmarkButton: BookmarkButton = BookmarkButton()
+    private val replyButton: ReplyButton = ReplyButton()
 
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
-    private val _bookRepository: IBookRepository = BookRepository()
 
     constructor(layout: LinearLayout) : this() {
         // TODO コンストラクタ
@@ -74,7 +75,7 @@ class BookListForm2() {
             // ボタン
             val niceButton: Button = layout.findViewById(R.id.button_niceCnt)
             val markButton: Button = layout.findViewById(R.id.button_markCnt)
-            val replyButton: Button = layout.findViewById(R.id.button_reply)
+            val replyButtonS: Button = layout.findViewById(R.id.button_reply)
 
             // 値を反映
             titleView.text = entity.BookTitle
@@ -93,8 +94,8 @@ class BookListForm2() {
             setUserName(userView, entity)
 
             // UI更新
-            niceCntButton?.updateNiceCntButton(niceButton, userEntity!!, entity)
-            updateMarkUI(markButton, entity)
+            niceCntButton.updateNiceCntButton(niceButton, userEntity!!, entity)
+            bookmarkButton.updateMarkButton(markButton, userEntity!!, entity)
 
             userView.isClickable = true
             userView.setOnClickListener{
@@ -105,15 +106,15 @@ class BookListForm2() {
             // イベントリスナー設定
             niceButton.setOnClickListener { _ ->
                 // TODO いいねボタン押下時
-                niceCntButton?.OnNiceCntEventlistener(niceCntView, niceButton, userEntity!!, entity)
+                niceCntButton.OnNiceCntEventlistener(niceCntView, niceButton, userEntity!!, entity)
             }
             markButton.setOnClickListener { _ ->
                 // TODO ブックマークボタン押下時
-                OnBookmarkClickListener(markView, markButton, entity)
+                bookmarkButton.OnBookMarkEventListener(markView, markButton, userEntity!!, entity)
             }
-            replyButton.setOnClickListener {
+            replyButtonS.setOnClickListener {
                 // TODO リプライボタン押下時
-                OnReplyClickListener(frag, entity)
+                replyButton.OnReplyClickListener(frag, entity)
             }
 
             layout.setOnClickListener(){
@@ -132,11 +133,6 @@ class BookListForm2() {
         }
     }
 
-    private fun updateMarkUI(button: Button, bookEntity: BookEntity) {
-        // TODO ブックマークボタンのUI更新
-        button.isEnabled = bookmarkButton.isBookMark_byUser(userEntity!!, bookEntity)
-    }
-
     private fun setUserName(userView: TextView, entity: BookEntity){
         // TODO ユーザIDによりユーザ名の反映
         val tsk: Task<DocumentSnapshot> =  _userRepository.select_byId(entity.UserId)
@@ -147,28 +143,6 @@ class BookListForm2() {
             if(user != null){
                 userView.text = user.UserName
             }
-        }
-    }
-
-    private fun OnBookmarkClickListener(markView: TextView, button: Button, bookEntity: BookEntity){
-        // TODO ブックマーク押下処理
-
-        // ブックマークリストに追加
-        val ret = bookmarkButton.OnBookMarkEventListener(userEntity!!, bookEntity)
-        if(ret){
-            // ブックマーク追加成功
-
-            // ブックマークの合計を取得
-            bookEntity.setMarkCnt(bookmarkButton.getBookMarkCount(bookEntity).toInt())
-            // ビューに反映
-            markView.text = bookEntity.MarkCntDisplay
-
-            // 書籍テーブルのブックマークカウンタの更新
-            val tsk: Task<Void> = _bookRepository.update_markCnt_byId(bookEntity.BookId, bookEntity.MarkCnt)
-            _bookRepository.execing(tsk)
-
-            // UI更新
-            updateMarkUI(button, bookEntity)
         }
     }
 

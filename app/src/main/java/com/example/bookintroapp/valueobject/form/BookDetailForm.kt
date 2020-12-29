@@ -3,10 +3,12 @@ package com.example.bookintroapp.valueobject.form
 import android.opengl.Visibility
 import android.view.View
 import android.widget.*
+import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.valueobject.button.BookmarkButton
 import com.example.bookintroapp.valueobject.button.NiceCntButton
+import com.example.bookintroapp.valueobject.button.ReplyButton
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.google.firebase.firestore.auth.User
@@ -108,12 +110,17 @@ class BookDetailForm() {
             if(NiceText != null){   return NiceText!!.text.toString()  }
             else{                       return ""                       }
         }
-    var NiceCntButton: NiceCntButton = NiceCntButton()
+    private var niceCntButton: NiceCntButton = NiceCntButton()
         get(){
             return field
         }
         private set
-    var BookmarkButton: BookmarkButton = BookmarkButton()
+    private var bookmarkButton: BookmarkButton = BookmarkButton()
+        get(){
+            return field
+        }
+        private set
+    private var replyButton: ReplyButton = ReplyButton()
         get(){
             return field
         }
@@ -144,36 +151,36 @@ class BookDetailForm() {
         setSatis(entity.SatisCnt)
     }
 
-    fun setOnButtonClickListener(userEntity: UserEntity, bookEntity: BookEntity, bookmarkFunc: () -> Unit, replyFunc: () -> Unit){
+    fun setOnButtonClickListener(userEntity: UserEntity, bookEntity: BookEntity, frag: Fragment){
         // TODO ボタンリスナーの設定
         NiceCntButtonS?.apply {
             setOnClickListener {
                 // TODO いいね押下時
-                NiceCntButton.OnNiceCntEventlistener(NiceText!!, NiceCntButtonS!!, userEntity, bookEntity)
+                niceCntButton.OnNiceCntEventlistener(NiceText!!, NiceCntButtonS!!, userEntity, bookEntity)
             }
         }
         BookMarkButtonS?.apply {
             setOnClickListener {
                 // TODO ブックマーク押下時
-                bookmarkFunc()
+                bookmarkButton.OnBookMarkEventListener(MarkText!!, BookMarkButtonS!!, userEntity, bookEntity)
             }
         }
         ReplyButtonS?.apply {
             setOnClickListener{
                 // TODO リプライ押下時
-                replyFunc()
+                replyButton.OnReplyClickListener(frag)
             }
         }
     }
 
     fun updateNiceCntButtonUI(userEntity: UserEntity, bookEntity: BookEntity){
         // TODO いいねボタンの更新
-        NiceCntButton.updateNiceCntButton(NiceCntButtonS!!, userEntity, bookEntity)
+        niceCntButton.updateNiceCntButton(NiceCntButtonS!!, userEntity, bookEntity)
     }
 
     fun updateBookmarkButtonUI(userEntity: UserEntity, bookEntity: BookEntity){
         // TODO ブックマークボタンの更新
-        BookMarkButtonS?.isEnabled = BookmarkButton.isBookMark_byUser(userEntity, bookEntity)
+        bookmarkButton.updateMarkButton(BookMarkButtonS!!, userEntity, bookEntity)
     }
 
     private fun setSatis(satisCnt: Int){

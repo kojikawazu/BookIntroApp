@@ -172,7 +172,7 @@ class BookListAdapter : ArrayAdapter<BookEntity> {
         // TODO ブックマーク押下イベント
 
         // ブックマークリストに追加
-        val ret = bookmarkButton.OnBookMarkEventListener(user!!, listItem!!)
+        val ret = bookmarkButton.InsertBookMark(user!!, listItem!!)
         if(ret) {
             // ブックマーク追加に成功
 

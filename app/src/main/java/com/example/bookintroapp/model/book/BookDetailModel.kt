@@ -84,13 +84,7 @@ class BookDetailModel : ModelBase() {
         updateViewUI()
 
         // クリックリスナー
-        bookDetailForm?.setOnButtonClickListener(userEntity!!, bookEntity!!, {
-            // TODO ブックマーク押下時
-            OnBookMarkEventListener()
-        }, {
-            // TODO リプライ押下時
-            OnReplyEventListener(frag)
-        })
+        bookDetailForm?.setOnButtonClickListener(userEntity!!, bookEntity!!, frag)
     }
 
     private fun createBookList(){
@@ -124,33 +118,7 @@ class BookDetailModel : ModelBase() {
         bookDetailForm?.updateNiceCntButtonUI(userEntity!!, bookEntity!!)
 
         // 自身のユーザがブックマーク登録したかチェック
-        updateBookmarkButtonUI()
-    }
-
-    private fun updateBookmarkButtonUI(){
-        // TODO 自身のユーザがブックマーク登録したかチェック
         bookDetailForm?.updateBookmarkButtonUI(userEntity!!, bookEntity!!)
-    }
-
-    private fun OnBookMarkEventListener(){
-        // TODO ブックマーク押下イベント
-        if(userEntity == null || bookEntity == null)    return
-        val ret = bookDetailForm?.BookmarkButton!!.OnBookMarkEventListener(userEntity!!, bookEntity!!)
-        if(ret) {
-            // ブックマーク追加に成功
-
-            // ブックマークの合計を取得
-            bookEntity?.setMarkCnt(bookDetailForm?.BookmarkButton!!.getBookMarkCount(bookEntity!!).toInt())
-            // ビューに反映
-            bookDetailForm?.setMarkText(bookEntity!!.MarkCntDisplay)
-
-            // 書籍テーブルのブックマークカウンタの更新
-            val tsk: Task<Void> = _bookRepository.update_markCnt_byId(bookEntity!!.BookId, bookEntity!!.MarkCnt)
-            _bookRepository.execing(tsk)
-
-            // 自身のユーザがブックマーク登録したかチェック
-            updateBookmarkButtonUI()
-        }
     }
 
     private fun OnReplyEventListener(frag: Fragment){

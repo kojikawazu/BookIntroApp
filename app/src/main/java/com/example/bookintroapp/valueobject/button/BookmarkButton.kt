@@ -1,5 +1,7 @@
 package com.example.bookintroapp.valueobject.button
 
+import android.widget.Button
+import android.widget.TextView
 import com.example.bookintroapp.repository.BookRepository
 import com.example.bookintroapp.repository.IBookRepository
 import com.example.bookintroapp.repository.IMarkRepository
@@ -17,6 +19,29 @@ class BookmarkButton() {
 
     // リポジトリ
     private val _markRepository: IMarkRepository = MarkRepository()
+    private val _bookRepository: IBookRepository = BookRepository()
+
+    fun OnBookMarkEventListener(markView: TextView, markbutton: Button, userEntity: UserEntity,bookEntity: BookEntity){
+        // TODO ブックマーク押下処理
+
+        // ブックマークリストに追加
+        val ret = InsertBookMark(userEntity, bookEntity)
+        if(ret){
+            // ブックマーク追加成功
+
+            // ブックマークの合計を取得
+            bookEntity.setMarkCnt(getBookMarkCount(bookEntity).toInt())
+            // ビューに反映
+            markView.text = bookEntity.MarkCntDisplay
+
+            // 書籍テーブルのブックマークカウンタの更新
+            val tsk: Task<Void> = _bookRepository.update_markCnt_byId(bookEntity.BookId, bookEntity.MarkCnt)
+            _bookRepository.execing(tsk)
+
+            // UI更新
+            updateMarkButton(markbutton, userEntity, bookEntity)
+        }
+    }
 
     fun getBookMarkCount(bookEntity: BookEntity): String{
         // TODO 各ブックマークの合計を取得
@@ -43,7 +68,7 @@ class BookmarkButton() {
         }
     }
 
-    fun OnBookMarkEventListener(userEntity: UserEntity, bookEntity: BookEntity): Boolean{
+    fun InsertBookMark(userEntity: UserEntity, bookEntity: BookEntity): Boolean{
         // TODO ブックマークボタンのイベント処理
 
         // ブックマーク登録
@@ -51,5 +76,10 @@ class BookmarkButton() {
         val tskAdd: Task<DocumentReference> = _markRepository.insert(entityNew)
         _markRepository.execing(tskAdd)
         return _markRepository.isSuccessed(tskAdd)
+    }
+
+    fun updateMarkButton(markButton: Button, userEntity : UserEntity, bookEntity: BookEntity){
+        // TODO ボタンUI更新
+        markButton.isEnabled = isBookMark_byUser(userEntity, bookEntity)
     }
 }
