@@ -69,7 +69,7 @@ class BookmarkButton() {
     }
 
     fun InsertBookMark(userEntity: UserEntity, bookEntity: BookEntity): Boolean{
-        // TODO ブックマークボタンのイベント処理
+        // TODO ブックマークデータ追加処理
 
         // ブックマーク登録
         val entityNew = MarkEntity("0", userEntity.UserId, bookEntity.BookId, Date())

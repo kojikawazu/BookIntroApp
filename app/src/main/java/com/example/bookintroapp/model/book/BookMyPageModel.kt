@@ -57,12 +57,14 @@ class BookMyPageModel : ModelBase() {
         // ユーザエンティティ取得
         userEntity = FirebaseHelpler.selectUserEntity(frag,_userRepository)
 
-        // タイトル
-        titleForm?.setTitle_mypage(userEntity!!.UserName)
+        if(userEntity != null) {
+            // タイトル
+            titleForm?.setTitle_mypage(userEntity!!.UserName)
 
-        // フォロー数の更新
-        bookMyPageForm?.Follow?.updateFollowView(userEntity!!)
-        bookMyPageForm?.Follow?.updateFollowerView(userEntity!!)
+            // フォロー数の更新
+            bookMyPageForm?.Follow?.updateFollowView(userEntity!!)
+            bookMyPageForm?.Follow?.updateFollowerView(userEntity!!)
+        }
 
         // データリストの設定
         setListView(frag)
@@ -70,6 +72,7 @@ class BookMyPageModel : ModelBase() {
 
     private fun setListView(frag: Fragment){
         // TODO データリストの設定
+        if(userEntity == null)  return
 
         // リスト(ユーザ自身の書籍リストを選択)
         val tsk: Task<QuerySnapshot> = _bookRepository.select_byuserId(userEntity!!.UserId)

@@ -74,7 +74,7 @@ class BookDetailModel : ModelBase() {
         bookEntity = FirebaseHelpler.selectBookEntity(targetBookId, _bookRepository)
 
         // 書籍データの反映
-        createBookList()
+        createBookView()
 
         // リプライリストの反映
         createReplyList(frag)
@@ -83,11 +83,14 @@ class BookDetailModel : ModelBase() {
         updateViewUI()
 
         // クリックリスナー
-        bookDetailForm?.setOnButtonClickListener(userEntity!!, bookEntity!!, frag)
+        if(userEntity != null && bookEntity != null){
+            bookDetailForm?.setOnButtonClickListener(userEntity!!, bookEntity!!, frag)
+        }
     }
 
-    private fun createBookList(){
+    private fun createBookView(){
         // TODO 書籍データの生成
+        if(bookEntity == null)  return
 
         // 書籍投稿のユーザを取得
         val tsk: Task<DocumentSnapshot> = _userRepository.select_byId(bookEntity!!.UserId)
@@ -95,11 +98,14 @@ class BookDetailModel : ModelBase() {
         val bookUserEntity: UserEntity? = _userRepository.getResultEntityD(tsk)
 
         // 書籍データ反映
-        bookDetailForm?.setData(bookUserEntity!!, bookEntity!!)
+        if(bookUserEntity != null){
+            bookDetailForm?.setData(bookUserEntity, bookEntity!!)
+        }
     }
 
     private fun createReplyList(frag: Fragment){
         // TODO リプライリストの生成 & 反映
+        if(bookEntity == null)  return
 
         // リスト(書籍のリプライリストを選択)
         val tsk: Task<QuerySnapshot> = _replyRepository.select_bybookId(bookEntity!!.BookId)
@@ -113,6 +119,7 @@ class BookDetailModel : ModelBase() {
     private fun updateViewUI(){
         // TODO UIの更新
         if(userEntity == null || bookEntity == null)    return
+
         // 自身のユーザがいいね登録したかチェック
         bookDetailForm?.updateNiceCntButtonUI(userEntity!!, bookEntity!!)
 

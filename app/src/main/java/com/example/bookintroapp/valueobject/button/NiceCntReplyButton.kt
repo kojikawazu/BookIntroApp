@@ -18,10 +18,9 @@ class NiceCntReplyButton {
 
     fun OnNiceCntClickListener(niceCntView: TextView, niceCntButton: Button, userEntity: UserEntity, replyEntity: ReplyEntity){
         // TODO いいねボタン押下処理
-        if(userEntity == null)  return
 
         // いいねデータ追加
-        val ret = InsertNiceCnt(userEntity!!, replyEntity)
+        val ret = InsertNiceCnt(userEntity, replyEntity)
         if(ret){
             // 追加成功
 
@@ -35,7 +34,7 @@ class NiceCntReplyButton {
             _replyRepository.execing(tsk)
 
             // UI更新
-            niceCntButton.isEnabled = isNiceCnt_byUser(userEntity!!, replyEntity)
+            niceCntButton.isEnabled = isNiceCnt_byUser(userEntity, replyEntity)
         }
     }
 

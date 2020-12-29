@@ -48,6 +48,7 @@ class BookListForm2() {
 
         // ユーザエンティティ取得
         userEntity = FirebaseHelpler.selectUserEntity(frag, _userRepository)
+        if(userEntity == null)  return
 
         for (entity in list) {
             // 子レイアウト生成
@@ -95,7 +96,7 @@ class BookListForm2() {
             userView.isClickable = true
             userView.setOnClickListener{
                 // 書籍詳細へ遷移
-                userDetailButton.OnClickListener(frag, entity)
+                userDetailButton.OnClickListener(frag, userEntity!!,entity)
             }
 
             // イベントリスナー設定

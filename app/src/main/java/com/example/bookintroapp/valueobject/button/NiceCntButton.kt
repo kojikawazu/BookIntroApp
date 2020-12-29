@@ -68,7 +68,7 @@ class NiceCntButton() {
     }
 
     fun InsertNiceCnt(userEntity: UserEntity, bookEntity: BookEntity): Boolean{
-        // TODO いいね押下時のイベント処理
+        // TODO いいねデータ追加処理
 
         // いいねリスト登録
         val entityNew = NiceEntity(userEntity, bookEntity, Date())

@@ -11,6 +11,10 @@
         android:name="com.example.bookintroapp.view.fragment.book.BookMainFragment"
         android:label="fragment_bookmain"
         tools:layout="@layout/fragment_bookmain_layout" >
+        <!-- 書籍紹介メイン → 書籍マイページ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookmypage"
+            app:destination="@id/bookMypageFragment" />
         <!-- 書籍紹介メイン → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"
@@ -35,6 +39,10 @@
         android:name="com.example.bookintroapp.view.fragment.book.BookMypageFragment"
         android:label="fragment_bookmy"
         tools:layout="@layout/fragment_bookmypage_layout" >
+        <!-- 書籍紹介メイン → 書籍マイページ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookmypage"
+            app:destination="@id/bookMypageFragment" />
         <!-- 書籍紹介メイン → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"
@@ -59,6 +67,10 @@
         android:name="com.example.bookintroapp.view.fragment.book.BookMarkFragment"
         android:label="fragment_bookmark"
         tools:layout="@layout/fragment_bookmark_layout">
+        <!-- 書籍紹介メイン → 書籍マイページ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookmypage"
+            app:destination="@id/bookMypageFragment" />
         <!-- 書籍紹介メイン → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"
@@ -83,7 +95,6 @@
         android:name="com.example.bookintroapp.view.fragment.book.BookDetailFragment"
         android:label="fragment_bookdetail"
         tools:layout="@layout/fragment_bookdetail_layout">
-
         <!-- 書籍紹介詳細 → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"
@@ -106,6 +117,10 @@
         android:name="com.example.bookintroapp.view.fragment.book.BookFollowerFragment"
         android:label="fragment_bookfollower"
         tools:layout="@layout/fragment_bookfollower_layout">
+        <!-- 書籍紹介メイン → 書籍マイページ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookmypage"
+            app:destination="@id/bookMypageFragment" />
         <!-- フォロワー → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"

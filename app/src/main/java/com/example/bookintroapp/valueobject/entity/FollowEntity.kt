@@ -13,6 +13,14 @@ class FollowEntity() {
         Created = created
     }
 
+    constructor(userEntity: UserEntity, followEntity: UserEntity, created: Date) : this(){
+        // TODO コンストラクタ
+        FollowId = "0"
+        UserId = userEntity.UserId
+        FollowerId = followEntity.UserId
+        Created = created
+    }
+
     // getter
     var FollowId : String = ""
         get(){

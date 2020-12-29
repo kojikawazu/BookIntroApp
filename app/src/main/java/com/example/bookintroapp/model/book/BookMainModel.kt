@@ -51,7 +51,9 @@ class BookMainModel : ModelBase() {
         userEntity = FirebaseHelpler.selectUserEntity(frag,_userRepository)
 
         // タイトル
-        titleForm?.setTitle_bookmain(userEntity!!.UserName)
+        if(userEntity != null) {
+            titleForm?.setTitle_bookmain(userEntity!!.UserName)
+        }
 
         // データリストの設定
         setListView(frag)
@@ -59,6 +61,7 @@ class BookMainModel : ModelBase() {
 
     private fun setListView(frag: Fragment) {
         // TODO データリストの設定
+        if(userEntity == null)  return
 
         // リスト(ユーザ自身のフォローリストを選択)
         val folTsk: Task<QuerySnapshot> = _followRepository.select_byuserId(userEntity!!.UserId)

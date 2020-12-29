@@ -6,17 +6,17 @@ import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.model.base.ModelBase
-import com.example.bookintroapp.repository.BookRepository
-import com.example.bookintroapp.repository.IBookRepository
-import com.example.bookintroapp.repository.IUserRepository
-import com.example.bookintroapp.repository.UserRepository
+import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.entity.BookEntity
+import com.example.bookintroapp.valueobject.entity.FollowEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.example.bookintroapp.valueobject.form.book.BookMyPageForm
 import com.example.bookintroapp.valueobject.form.common.TitleForm
 import com.example.bookintroapp.valueobject.form.list.BookListForm2
 import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
+import java.util.*
 
 // フォロワーモデル
 class BookFollowerModel : ModelBase() {
@@ -33,6 +33,7 @@ class BookFollowerModel : ModelBase() {
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
     private val _bookRepository: IBookRepository = BookRepository()
+    private val _followRepository: IFollowRepository = FollowRepository()
 
     init{
         // TODO 初期化
@@ -65,17 +66,25 @@ class BookFollowerModel : ModelBase() {
         followerEntity = FirebaseHelpler.selectSelectUserEntity(frag, _userRepository)
 
         // タイトル設定
-        titleForm?.setTitle_follower(followerEntity!!.UserName)
+        if(followerEntity != null) {
+            titleForm?.setTitle_follower(followerEntity!!.UserName)
+        }
 
         // フォロー数の更新
-        bookMyPageForm?.Follow?.updateFollowView(followerEntity!!)
-        bookMyPageForm?.Follow?.updateFollowerView(followerEntity!!)
+        updateFollowViewUI()
 
+        // イベントリスナー
+        bookMyPageForm?.FollowButton?.setOnClickListener{
+            onClickFollowListener()
+        }
+
+        // ビューリストを設定
         setListView(frag)
     }
 
     private fun setListView(frag: Fragment){
         // TODO データリストの設定
+        if(followerEntity == null)  return
 
         // リスト(ユーザ自身の書籍リストを選択)
         val tsk: Task<QuerySnapshot> = _bookRepository.select_byuserId(followerEntity!!.UserId)
@@ -84,6 +93,30 @@ class BookFollowerModel : ModelBase() {
 
         // レイアウト追加処理
         bookListForm?.createChildLayout(frag, list)
+    }
+
+    private fun updateFollowViewUI(){
+        // TODO フォロービューの更新
+        if(followerEntity == null || userEntity == null)  return
+
+        // フォロー数の更新
+        bookMyPageForm?.Follow?.updateFollowView(followerEntity!!)
+        bookMyPageForm?.Follow?.updateFollowerView(followerEntity!!)
+
+        bookMyPageForm?.updateButtonUI(userEntity!!, followerEntity!!)
+    }
+
+    private fun onClickFollowListener(){
+        // TODO クリックイベントリスナー
+        if(userEntity == null || followerEntity == null)  return
+
+        // フォローエンティティを追加
+        val entity = FollowEntity(userEntity!!, followerEntity!!, Date())
+        val tsk: Task<DocumentReference> = _followRepository.insert(entity)
+        _followRepository.execing(tsk)
+
+        // フォロー数の更新
+        updateFollowViewUI()
     }
 
 }

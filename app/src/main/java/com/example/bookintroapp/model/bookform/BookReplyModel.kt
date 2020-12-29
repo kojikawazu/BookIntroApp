@@ -75,6 +75,7 @@ class BookReplyModel : ModelBase() {
 
     fun onClickListener_reply(frag: Fragment){
         // TODO 返信ボタン押下時処理
+        if(bookEntity == null || replyUserEntity == null)   return
 
         // バリデーションチェック
         // ----------------------------------------------------------------------------------------

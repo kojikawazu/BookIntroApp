@@ -17,6 +17,8 @@ interface IFollowRepository {
 
     fun select_byfollowerId(followerId: String): Task<QuerySnapshot>
 
+    fun select_byuserId_followerId(userId: String, followerId: String): Task<QuerySnapshot>
+
     fun insert(entity: FollowEntity) : Task<DocumentReference>
 
     fun execing(tsk: Task<*>)

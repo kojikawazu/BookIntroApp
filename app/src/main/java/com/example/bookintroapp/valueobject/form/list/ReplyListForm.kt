@@ -43,6 +43,7 @@ class ReplyListForm() {
 
         // ユーザエンティティ取得
         userEntity = FirebaseHelpler.selectUserEntity(frag, _userRepository)
+        if(userEntity == null)  return
 
         for(entity in list){
             // 子レイアウト生成

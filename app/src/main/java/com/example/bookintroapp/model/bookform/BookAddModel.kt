@@ -59,6 +59,7 @@ class BookAddModel : ModelBase() {
 
     fun onClickListener_bookadd(frag: Fragment){
         // TODO 書籍追加イベント
+        if(userEntity == null)  return
 
         // バリデーションチェック
         // ----------------------------------------------------------------------------------------

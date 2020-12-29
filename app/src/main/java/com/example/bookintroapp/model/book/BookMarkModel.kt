@@ -51,7 +51,9 @@ class BookMarkModel  : ModelBase() {
         userEntity = FirebaseHelpler.selectUserEntity(frag,_userRepository)
 
         // タイトル
-        titleForm?.setTitle_bookmark(userEntity!!.UserName)
+        if(userEntity != null) {
+            titleForm?.setTitle_bookmark(userEntity!!.UserName)
+        }
 
         // データリストの設定
         setListView(frag)
@@ -59,6 +61,7 @@ class BookMarkModel  : ModelBase() {
 
     private fun setListView(frag: Fragment){
         // TODO データリストの設定
+        if(userEntity == null)  return
 
         // ブックマークリストの取得
         val markTsk: Task<QuerySnapshot> = _markRepository.select_byuserId(userEntity!!.UserId)

@@ -181,7 +181,7 @@ class BookDetailForm() {
 
     private fun setSatis(satisCnt: Int){
         // TODO 満足度イメージの設定
-        ActivityHelper.setImage_satisfaction( this.SatisText!!, this.SatisImage!!, satisCnt)
+        ActivityHelper.setImage_satisfaction( SatisText!!, SatisImage!!, satisCnt)
     }
 
 }

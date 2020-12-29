@@ -58,7 +58,8 @@
                         android:id="@+id/bookmypage_followButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="フォロー" />
+                        android:text="フォロー"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <LinearLayout
