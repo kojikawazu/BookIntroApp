@@ -1,6 +1,5 @@
-package com.example.bookintroapp.valueobject.form
+package com.example.bookintroapp.valueobject.form.list
 
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -11,16 +10,10 @@ import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.*
-import com.example.bookintroapp.valueobject.button.BookmarkButton
-import com.example.bookintroapp.valueobject.button.NiceCntButton
-import com.example.bookintroapp.valueobject.button.NiceCntReplyButton
-import com.example.bookintroapp.valueobject.button.ReplyButton
+import com.example.bookintroapp.valueobject.button.*
 import com.example.bookintroapp.valueobject.entity.*
 import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
-import java.util.*
 
 // 書籍リストフォーム
 class BookListForm2() {
@@ -32,6 +25,8 @@ class BookListForm2() {
     private val niceCntButton: NiceCntButton = NiceCntButton()
     private val bookmarkButton: BookmarkButton = BookmarkButton()
     private val replyButton: ReplyButton = ReplyButton()
+    private val bookDetailButton: BookDetailButton = BookDetailButton()
+    private val userDetailButton: UserDetailButton = UserDetailButton()
 
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
@@ -73,8 +68,8 @@ class BookListForm2() {
             val replyView: TextView = layout.findViewById(R.id.booklist_replyCnt)
 
             // ボタン
-            val niceButton: Button = layout.findViewById(R.id.button_niceCnt)
-            val markButton: Button = layout.findViewById(R.id.button_markCnt)
+            val niceButtonS: Button = layout.findViewById(R.id.button_niceCnt)
+            val markButtonS: Button = layout.findViewById(R.id.button_markCnt)
             val replyButtonS: Button = layout.findViewById(R.id.button_reply)
 
             // 値を反映
@@ -94,23 +89,23 @@ class BookListForm2() {
             setUserName(userView, entity)
 
             // UI更新
-            niceCntButton.updateNiceCntButton(niceButton, userEntity!!, entity)
-            bookmarkButton.updateMarkButton(markButton, userEntity!!, entity)
+            niceCntButton.updateNiceCntButton(niceButtonS, userEntity!!, entity)
+            bookmarkButton.updateMarkButton(markButtonS, userEntity!!, entity)
 
             userView.isClickable = true
             userView.setOnClickListener{
                 // 書籍詳細へ遷移
-                ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookfollower)
+                userDetailButton.OnClickListener(frag, entity)
             }
 
             // イベントリスナー設定
-            niceButton.setOnClickListener { _ ->
+            niceButtonS.setOnClickListener { _ ->
                 // TODO いいねボタン押下時
-                niceCntButton.OnNiceCntEventlistener(niceCntView, niceButton, userEntity!!, entity)
+                niceCntButton.OnNiceCntEventlistener(niceCntView, niceButtonS, userEntity!!, entity)
             }
-            markButton.setOnClickListener { _ ->
+            markButtonS.setOnClickListener { _ ->
                 // TODO ブックマークボタン押下時
-                bookmarkButton.OnBookMarkEventListener(markView, markButton, userEntity!!, entity)
+                bookmarkButton.OnBookMarkEventListener(markView, markButtonS, userEntity!!, entity)
             }
             replyButtonS.setOnClickListener {
                 // TODO リプライボタン押下時
@@ -119,13 +114,7 @@ class BookListForm2() {
 
             layout.setOnClickListener(){
                 // TODO レイアウト全体をタッチ処理
-
-                // ターゲット書籍IDをアクティビティに保存
-                val ac: MainActivity = frag.activity as MainActivity
-                ac.saveTargetBookId(entity.BookId)
-
-                // 書籍詳細画面へ遷移
-                ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookdetail)
+                bookDetailButton.OnClickListener(frag, entity)
             }
 
             // 親レイアウトに追加
@@ -144,17 +133,5 @@ class BookListForm2() {
                 userView.text = user.UserName
             }
         }
-    }
-
-    private fun OnReplyClickListener(frag: Fragment, bookEntity: BookEntity){
-        // TODO リプライボタン押下時処理
-        // 書籍リプライ画面へ遷移
-
-        // 書籍IDをアクティビティに保存
-        val ac: MainActivity = frag.activity as MainActivity
-        ac.saveTargetBookId(bookEntity.BookId)
-
-        // 書籍詳細へ遷移
-        ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookreply)
     }
 }

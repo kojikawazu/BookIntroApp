@@ -1,17 +1,13 @@
-package com.example.bookintroapp.valueobject.form
+package com.example.bookintroapp.valueobject.form.book
 
-import android.opengl.Visibility
-import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
-import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.valueobject.button.BookmarkButton
 import com.example.bookintroapp.valueobject.button.NiceCntButton
 import com.example.bookintroapp.valueobject.button.ReplyButton
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
-import com.google.firebase.firestore.auth.User
 
 // 書籍詳細フォーム
 class BookDetailForm() {

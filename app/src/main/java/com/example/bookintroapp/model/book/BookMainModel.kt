@@ -10,9 +10,8 @@ import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.FollowEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
-import com.example.bookintroapp.valueobject.form.BookListForm
-import com.example.bookintroapp.valueobject.form.BookListForm2
-import com.example.bookintroapp.valueobject.form.TitleForm
+import com.example.bookintroapp.valueobject.form.list.BookListForm2
+import com.example.bookintroapp.valueobject.form.common.TitleForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
 
@@ -55,10 +54,10 @@ class BookMainModel : ModelBase() {
         titleForm?.setTitle_bookmain(userEntity!!.UserName)
 
         // データリストの設定
-        setListView(view, frag)
+        setListView(frag)
     }
 
-    private fun setListView(view: View, frag: Fragment) {
+    private fun setListView(frag: Fragment) {
         // TODO データリストの設定
 
         // リスト(ユーザ自身のフォローリストを選択)

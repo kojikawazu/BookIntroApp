@@ -1,4 +1,4 @@
-package com.example.bookintroapp.valueobject.form
+package com.example.bookintroapp.valueobject.form.book
 
 import android.widget.Button
 import android.widget.TextView

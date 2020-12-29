@@ -6,6 +6,7 @@ import com.example.bookintroapp.activity.MainActivity
 import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.valueobject.entity.BookEntity
 
+// リプライボタン
 class ReplyButton {
 
     fun OnReplyClickListener(frag: Fragment){

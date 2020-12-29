@@ -11,10 +11,9 @@ import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.ReplyEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
-import com.example.bookintroapp.valueobject.form.BookDetailForm
-import com.example.bookintroapp.valueobject.form.ReplyListForm
+import com.example.bookintroapp.valueobject.form.book.BookDetailForm
+import com.example.bookintroapp.valueobject.form.list.ReplyListForm
 import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 
@@ -119,12 +118,5 @@ class BookDetailModel : ModelBase() {
 
         // 自身のユーザがブックマーク登録したかチェック
         bookDetailForm?.updateBookmarkButtonUI(userEntity!!, bookEntity!!)
-    }
-
-    private fun OnReplyEventListener(frag: Fragment){
-        // TODO リプライボタン押下時処理
-
-        // 書籍リプライ画面へ遷移
-        ActivityHelper.nextFragment(frag, R.id.action_bookmain_to_bookreply)
     }
 }

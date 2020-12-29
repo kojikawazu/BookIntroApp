@@ -6,8 +6,8 @@ import com.example.bookintroapp.repository.IBookRepository
 import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
-import com.example.bookintroapp.valueobject.form.SigninForm
-import com.example.bookintroapp.valueobject.form.SignupForm
+import com.example.bookintroapp.valueobject.form.form.SigninForm
+import com.example.bookintroapp.valueobject.form.form.SignupForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -99,6 +99,21 @@ class FirebaseHelpler {
                 var tsk: Task<DocumentSnapshot> = _bookRepository.select_byId(id)
                 _bookRepository.execing(tsk)
                 return _bookRepository.getResultEntity(tsk)
+            }catch(ex: ClassCastException){
+                return null
+            }
+        }
+
+        fun selectSelectUserEntity(frag: Fragment, _userRepository: IUserRepository): UserEntity?{
+            try {
+                // TODO アクティビティに保存してるメールアドレスからユーザデータ取得
+                val ac: MainActivity = frag.activity as MainActivity
+                val emailString = ac.getFollowerId()
+
+                // ユーザーエンティティ
+                var tsk: Task<DocumentSnapshot> = _userRepository.select_byId(emailString)
+                _userRepository.execing(tsk)
+                return _userRepository.getResultEntityD(tsk)
             }catch(ex: ClassCastException){
                 return null
             }

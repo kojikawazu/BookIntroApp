@@ -1,4 +1,4 @@
-package com.example.bookintroapp.valueobject.form
+package com.example.bookintroapp.valueobject.form.form
 
 import android.widget.EditText
 import com.example.bookintroapp.helper.DomainHelper

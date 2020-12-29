@@ -1,11 +1,10 @@
-package com.example.bookintroapp.valueobject.form
+package com.example.bookintroapp.valueobject.form.form
 
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.DomainHelper
 
 // 書籍追加フォーム

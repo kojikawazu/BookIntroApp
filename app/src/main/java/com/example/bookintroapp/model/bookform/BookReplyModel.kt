@@ -11,7 +11,7 @@ import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.ReplyEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
-import com.example.bookintroapp.valueobject.form.BookReplyForm
+import com.example.bookintroapp.valueobject.form.form.BookReplyForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot

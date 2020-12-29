@@ -1,4 +1,4 @@
-package com.example.bookintroapp.valueobject.form
+package com.example.bookintroapp.valueobject.form.common
 
 import android.widget.TextView
 import com.example.bookintroapp.valueobject.entity.UserEntity
@@ -7,6 +7,7 @@ import com.example.bookintroapp.valueobject.entity.UserEntity
 class TitleForm() {
 
     constructor(titleText: TextView) : this() {
+        // TODO コンストラクタ
         TitleText = titleText
 
     }
@@ -35,6 +36,11 @@ class TitleForm() {
     fun setTitle_mypage(userName: String){
         // TODO マイページ時のタイトル設定
         TitleText?.text = userName + "さんの書籍紹介"
+    }
+
+    fun setTitle_follower(followerName: String){
+        // TODO 別ユーザのタイトル設定
+        TitleText?.text = followerName + "さんの書籍紹介"
     }
 
 

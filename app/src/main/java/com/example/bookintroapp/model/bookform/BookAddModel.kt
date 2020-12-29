@@ -12,7 +12,7 @@ import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.repository.UserRepository
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
-import com.example.bookintroapp.valueobject.form.BookAddForm
+import com.example.bookintroapp.valueobject.form.form.BookAddForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentReference
 import java.util.*

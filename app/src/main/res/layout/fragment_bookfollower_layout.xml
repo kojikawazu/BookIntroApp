@@ -28,7 +28,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/bookmypage_title_textView"
+                    android:id="@+id/bookfollower_title_textView"
                     android:layout_width="match_parent"
                     android:layout_height="67dp"
                     android:text="@string/book_mypage_title"
@@ -47,14 +47,14 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/bookmypage_contents_textView"
+                        android:id="@+id/bookfollower_contents_textView"
                         android:layout_width="280dp"
                         android:layout_height="match_parent"
                         android:text="@string/book_mypage_username"
                         android:textSize="24sp" />
 
                     <Button
-                        android:id="@+id/bookmypage_followButton"
+                        android:id="@+id/bookfollower_followButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="フォロー" />
@@ -67,7 +67,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/bookmypage_followView"
+                        android:id="@+id/bookfollower_followView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
@@ -83,7 +83,7 @@
                         android:text="フォロー" />
 
                     <TextView
-                        android:id="@+id/bookmypage_followerView"
+                        android:id="@+id/bookfollower_followerView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
@@ -100,7 +100,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/bookmypage_paging_top"
+                    android:id="@+id/bookfollower_paging_top"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:text="ページング上部"
@@ -116,10 +116,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/bookfollower_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <!-- ブックリストが追加される -->
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/bookmypage_paging_bottom"
+                    android:id="@+id/bookfollower_paging_bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

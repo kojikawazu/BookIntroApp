@@ -11,9 +11,9 @@ import com.example.bookintroapp.repository.IUserRepository
 import com.example.bookintroapp.repository.UserRepository
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
-import com.example.bookintroapp.valueobject.form.BookListForm2
-import com.example.bookintroapp.valueobject.form.BookMyPageForm
-import com.example.bookintroapp.valueobject.form.TitleForm
+import com.example.bookintroapp.valueobject.form.list.BookListForm2
+import com.example.bookintroapp.valueobject.form.book.BookMyPageForm
+import com.example.bookintroapp.valueobject.form.common.TitleForm
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
 
@@ -65,10 +65,10 @@ class BookMyPageModel : ModelBase() {
         bookMyPageForm?.Follow?.updateFollowerView(userEntity!!)
 
         // データリストの設定
-        setListView(view, frag)
+        setListView(frag)
     }
 
-    private fun setListView(view: View, frag: Fragment){
+    private fun setListView(frag: Fragment){
         // TODO データリストの設定
 
         // リスト(ユーザ自身の書籍リストを選択)

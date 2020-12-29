@@ -1,6 +1,6 @@
 package com.example.bookintroapp.valueobject.entity
 
-import com.example.bookintroapp.valueobject.form.BookAddForm
+import com.example.bookintroapp.valueobject.form.form.BookAddForm
 import org.junit.Assert.*
 import org.junit.Test
 import java.util.*

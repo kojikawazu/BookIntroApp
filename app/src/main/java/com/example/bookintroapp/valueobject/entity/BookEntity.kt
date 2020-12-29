@@ -1,7 +1,6 @@
 package com.example.bookintroapp.valueobject.entity
 
-import com.example.bookintroapp.valueobject.form.BookAddForm
-import java.sql.Timestamp
+import com.example.bookintroapp.valueobject.form.form.BookAddForm
 import java.util.*
 
 // 書籍エンティティ
@@ -26,7 +25,7 @@ class BookEntity() {
         Created = created
     }
 
-    constructor(userEntity: UserEntity, bookAddForm: BookAddForm,date: Date) : this() {
+    constructor(userEntity: UserEntity, bookAddForm: BookAddForm, date: Date) : this() {
         // TODO コンストラクタ
         BookId = "0"
         UserId = userEntity.UserId

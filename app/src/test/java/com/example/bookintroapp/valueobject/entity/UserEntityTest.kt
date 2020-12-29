@@ -1,8 +1,6 @@
 package com.example.bookintroapp.valueobject.entity
 
-import com.example.bookintroapp.valueobject.form.SigninForm
-import com.example.bookintroapp.valueobject.form.SignupForm
-import org.junit.Assert.*
+import com.example.bookintroapp.valueobject.form.form.SignupForm
 import org.junit.Test
 import org.assertj.core.api.Assertions.*
 import java.util.*

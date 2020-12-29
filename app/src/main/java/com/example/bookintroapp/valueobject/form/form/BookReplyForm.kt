@@ -1,8 +1,7 @@
-package com.example.bookintroapp.valueobject.form
+package com.example.bookintroapp.valueobject.form.form
 
 import android.view.View
 import android.widget.*
-import com.example.bookintroapp.R
 import com.example.bookintroapp.helper.DomainHelper
 import com.example.bookintroapp.valueobject.entity.BookEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity

@@ -1,6 +1,6 @@
 package com.example.bookintroapp.valueobject.entity
 
-import com.example.bookintroapp.valueobject.form.BookReplyForm
+import com.example.bookintroapp.valueobject.form.form.BookReplyForm
 import java.util.*
 
 // 返信エンティティ

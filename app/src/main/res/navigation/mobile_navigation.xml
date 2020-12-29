@@ -100,6 +100,37 @@
             app:popUpToInclusive="false" />
     </fragment>
 
+    <!-- フォロワーフラグメント -->
+    <fragment
+        android:id="@+id/bookFollowFragment"
+        android:name="com.example.bookintroapp.view.fragment.book.BookFollowerFragment"
+        android:label="fragment_bookfollower"
+        tools:layout="@layout/fragment_bookfollower_layout">
+        <!-- フォロワー → 書籍追加 -->
+        <action
+            android:id="@+id/action_bookmain_to_bookadd"
+            app:destination="@id/bookAddFragment" />
+        <!-- フォロワー → 書籍詳細 -->
+        <action
+            android:id="@+id/action_bookmain_to_bookdetail"
+            app:destination="@id/bookDetailFragment" />
+        <!-- フォロワー → 書籍リプライ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookreply"
+            app:destination="@id/bookReplyFragment" />
+        <!-- フォロワー → フォロワー -->
+        <action
+            android:id="@+id/action_bookmain_to_bookfollower"
+            app:destination="@id/bookFollowFragment" />
+
+        <!-- 書籍追加フラグメント → 書籍紹介メイン -->
+        <action
+            android:id="@+id/action_bookfollower_to_bookmain_pop"
+            app:destination="@id/bookMainFragment"
+            app:popUpTo="@id/bookMainFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
     <!-- 書籍追加フラグメント -->
     <fragment
         android:id="@+id/bookAddFragment"
@@ -123,20 +154,6 @@
         <!-- 書籍追加フラグメント → 書籍紹介メイン -->
         <action
             android:id="@+id/action_bookreply_to_bookmain_pop"
-            app:destination="@id/bookMainFragment"
-            app:popUpTo="@id/bookMainFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
-
-    <!-- フォロワーフラグメント -->
-    <fragment
-        android:id="@+id/bookFollowFragment"
-        android:name="com.example.bookintroapp.view.fragment.book.BookFollowerFragment"
-        android:label="fragment_bookfollower"
-        tools:layout="@layout/fragment_bookfollower_layout">
-        <!-- 書籍追加フラグメント → 書籍紹介メイン -->
-        <action
-            android:id="@+id/action_bookfollower_to_bookmain_pop"
             app:destination="@id/bookMainFragment"
             app:popUpTo="@id/bookMainFragment"
             app:popUpToInclusive="false" />

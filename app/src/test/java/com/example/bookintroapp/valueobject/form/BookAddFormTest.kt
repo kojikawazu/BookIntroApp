@@ -1,11 +1,7 @@
 package com.example.bookintroapp.valueobject.form
 
-import android.widget.EditText
-import android.widget.Spinner
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
+import com.example.bookintroapp.valueobject.form.form.BookAddForm
 import org.junit.Test
-import org.junit.Assert.*
 import org.assertj.core.api.Assertions.*
 
 class BookAddFormTest {

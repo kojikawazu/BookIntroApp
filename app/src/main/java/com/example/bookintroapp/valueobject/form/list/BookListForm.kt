@@ -1,8 +1,7 @@
-package com.example.bookintroapp.valueobject.form
+package com.example.bookintroapp.valueobject.form.list
 
 import android.widget.AdapterView
 import android.widget.ListView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.bookintroapp.R
 import com.example.bookintroapp.activity.MainActivity
