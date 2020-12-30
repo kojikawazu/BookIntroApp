@@ -8,6 +8,7 @@ import com.example.bookintroapp.helper.ActivityHelper
 import com.example.bookintroapp.helper.FirebaseHelpler
 import com.example.bookintroapp.repository.*
 import com.example.bookintroapp.valueobject.button.NiceCntReplyButton
+import com.example.bookintroapp.valueobject.button.UserDetailButton
 import com.example.bookintroapp.valueobject.entity.ReplyEntity
 import com.example.bookintroapp.valueobject.entity.UserEntity
 import com.google.android.gms.tasks.Task
@@ -21,10 +22,10 @@ class ReplyListForm() {
 
     // レイアウト
     private val niceReplyButton: NiceCntReplyButton = NiceCntReplyButton()
+    private val userDetailButton: UserDetailButton = UserDetailButton()
 
     // リポジトリ
     private val _userRepository: IUserRepository = UserRepository()
-    private val _replyRepository: IReplyRepository = ReplyRepository()
 
     constructor(layout: LinearLayout) : this() {
         // TODO コンストラクタ
@@ -72,6 +73,13 @@ class ReplyListForm() {
 
             // いいねボタンの更新
             updateNiceButtonUI(niceCntButton, entity)
+
+            // ユーザボタンのリスナー設定
+            userView.isClickable = true
+            userView.setOnClickListener{
+                // TODO ユーザ押下時
+                userDetailButton.OnClickListener(frag, userEntity!!, entity)
+            }
 
             // イベントリスナー設定
             niceCntButton.setOnClickListener{ _ ->

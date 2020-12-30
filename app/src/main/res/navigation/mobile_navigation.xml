@@ -95,6 +95,10 @@
         android:name="com.example.bookintroapp.view.fragment.book.BookDetailFragment"
         android:label="fragment_bookdetail"
         tools:layout="@layout/fragment_bookdetail_layout">
+        <!-- 書籍紹介メイン → 書籍マイページ -->
+        <action
+            android:id="@+id/action_bookmain_to_bookmypage"
+            app:destination="@id/bookMypageFragment" />
         <!-- 書籍紹介詳細 → 書籍追加 -->
         <action
             android:id="@+id/action_bookmain_to_bookadd"
@@ -103,6 +107,10 @@
         <action
             android:id="@+id/action_bookmain_to_bookreply"
             app:destination="@id/bookReplyFragment" />
+        <!-- 書籍紹介メイン → フォロワー -->
+        <action
+            android:id="@+id/action_bookmain_to_bookfollower"
+            app:destination="@id/bookFollowFragment" />
         <!-- 書籍追加フラグメント → 書籍紹介メイン -->
         <action
             android:id="@+id/action_bookdetail_to_bookmain_pop"

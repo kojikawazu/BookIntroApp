@@ -11,10 +11,10 @@ class MarkEntityTest{
     fun NormalTest0(){
         // TODO コンストラクタテスト0
         val markEntity = MarkEntity()
-        assertThat(markEntity.MarkId).isBlank()
-        assertThat(markEntity.UserId).isBlank()
-        assertThat(markEntity.BookId).isBlank()
-        assertThat(markEntity.Created).isNotNull()
+        assertThat(markEntity.MarkId).isBlank
+        assertThat(markEntity.UserId).isBlank
+        assertThat(markEntity.BookId).isBlank
+        assertThat(markEntity.Created).isNotNull
     }
 
     @Test

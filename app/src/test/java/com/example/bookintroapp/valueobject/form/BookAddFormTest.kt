@@ -11,32 +11,12 @@ class BookAddFormTest {
 
         // TODO コンストラクタテスト0
         val bookAddForm = BookAddForm()
-        assertThat(bookAddForm.BookNameString).isBlank()
-        assertThat(bookAddForm.CommentString).isBlank()
-        assertThat(bookAddForm.TitleString).isBlank()
+        assertThat(bookAddForm.BookNameString).isBlank
+        assertThat(bookAddForm.CommentString).isBlank
+        assertThat(bookAddForm.TitleString).isBlank
         assertThat(bookAddForm.SatisString).isEqualTo("1")
     }
 
-    @Test
-    fun NormaiTest1(){
 
-    }
-
-    @Test
-    fun isEmpty() {
-
-    }
-
-    @Test
-    fun checkBookName() {
-    }
-
-    @Test
-    fun checkTitle() {
-    }
-
-    @Test
-    fun checkComment() {
-    }
 }
 
